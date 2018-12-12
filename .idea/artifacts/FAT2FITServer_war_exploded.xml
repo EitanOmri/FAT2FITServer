@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="FAT2FITServer:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/FAT2FITServer_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="FAT2FITServer/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="FAT2FITServer" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

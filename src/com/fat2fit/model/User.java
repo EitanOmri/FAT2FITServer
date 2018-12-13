@@ -14,7 +14,7 @@ public class User {
     Date dateOfBirth;
     double weight;
     double height;
-    boolean isManger;
+    boolean isManager;
 
 
     @Override
@@ -28,7 +28,7 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", weight=" + weight +
                 ", height=" + height +
-                ", isManger=" + isManger +
+                ", isManager=" + isManager +
                 '}';
     }
 
@@ -96,19 +96,19 @@ public class User {
         this.height = height;
     }
 
-    public boolean isManger() {
-        return isManger;
+    public boolean getIsManager() {
+        return isManager;
     }
 
-    public void setManger(boolean manger) {
-        isManger = manger;
+    public void setIsManager(boolean isManager) {
+        isManager = isManager;
     }
 
     public User() {
         super();
     }
 
-    public User(String username, String firsName, String lastName, String email, String password, Date dateOfBirth, double weight, double height, boolean isManger) {
+    public User(String username, String firsName, String lastName, String email, String password, Date dateOfBirth, double weight, double height, boolean isManager) {
         this.username = username;
         this.firsName = firsName;
         this.lastName = lastName;
@@ -117,6 +117,6 @@ public class User {
         this.dateOfBirth = dateOfBirth;
         this.weight = weight;
         this.height = height;
-        this.isManger = isManger;
+        this.isManager = isManager;
     }
 }

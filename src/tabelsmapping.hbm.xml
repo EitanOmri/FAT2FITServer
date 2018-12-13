@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="com.fat2fit.model.User" table="users">
         <id name="username" type="string" column="Username" >
-            <generator class="increment"/>
+            <!--<generator class="increment"/>-->
         </id>
         <property name="firsName">
             <column name="FirstName"/>
@@ -30,6 +30,14 @@
         </property>
         <property name="isManager">
             <column name="IsManager"/>
+        </property>
+    </class>
+    <class name="com.fat2fit.model.Category" table="category">
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
+        </id>
+        <property name="name">
+            <column name="Name"/>
         </property>
     </class>
 </hibernate-mapping>

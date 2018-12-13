@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.fat2fit.model.User" table="users">
+        <id name="id" type="String" column="Username" >
+            <generator class="increment"/>
+        </id>
+        <property name="firsName">
+            <column name="FirstName"/>
+        </property>
+        <property name="lastName">
+            <column name="LastName"/>
+        </property>
+        <property name="email">
+            <column name="Email"/>
+        </property>
+        <property name="password">
+            <column name="Password"/>
+        </property>
+        <property name="dateOfBirth">
+            <column name="DateOfBirth"/>
+        </property>
+        <property name="weight">
+            <column name="Weight"/>
+        </property>
+        <property name="height">
+            <column name="Height"/>
+        </property>
+        <property name="isManger">
+            <column name="IsManger"/>
+        </property>
+    </class>
+</hibernate-mapping>

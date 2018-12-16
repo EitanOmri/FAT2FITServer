@@ -49,4 +49,16 @@ public class HibernateExercisesDAO implements IExercises {
         returnArr = (Exercises[]) exercises.toArray(returnArr);
         return returnArr;
     }
+
+    @Override
+    public void deleteExercise(int id) throws DBException {
+        Exercises exercises=getExercise(id);
+        if(exercises!=null){
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.delete(exercises);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
 }

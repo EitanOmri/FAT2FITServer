@@ -72,7 +72,7 @@ public class ModelTest {
             listExercisesDAO.delete(trainingListExercises1.getId());
             listExercisesDAO.delete(trainingListExercises2.getId());
             listExercisesDAO.delete(trainingListExercises3.getId());
-            assertEquals(0,listExercisesDAO.getbyTrainigId(1000).length);
+            assertEquals(0, listExercisesDAO.getbyTrainigId(1000).length);
         } catch (DBException e) {
             e.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class ModelTest {
     public void messageToAdminModelTest() {
         HibernateMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
         try {
-            MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!","omrieitan");
+            MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!", "omrieitan");
             int countBeforeSave = messageToAdminDAO.getAllMessageToAdmin().length;
             messageToAdminDAO.saveMessage(messageToAdmin);
             assertEquals(countBeforeSave + 1, messageToAdminDAO.getAllMessageToAdmin().length);
@@ -109,20 +109,52 @@ public class ModelTest {
             e.printStackTrace();
         }
     }
+
     @Test
-    public void exercisesModelTest() {
+    public void exercisesAndHistoryModelTest() {
         HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        HibernateExerciseHistoryDAO hibernateExerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+        ExerciseHistory exerciseHistory1 = new ExerciseHistory("tomer", 1, 4, 5, new Date(2018, 01, 31), 3);
+        ExerciseHistory exerciseHistory2 = new ExerciseHistory("tomer", 1, 4, 5, new Date(2018, 01, 31), 3);
+        ExerciseHistory exerciseHistory3 = new ExerciseHistory("omri", 1, 5, 5, new Date(2018, 01, 31), 3);
+        ExerciseHistory exerciseHistory4 = new ExerciseHistory("tomer1", 1, 4, 5, new Date(2018, 01, 31), 3);
+        ExerciseHistory exerciseHistory5 = new ExerciseHistory("omri1", 1, 40, 5, new Date(2018, 01, 31), 3);
+
         try {
-            Exercises exercises = new Exercises(1, "testExercise", 100,10000);
+            Exercises exercises = new Exercises(1, "testExercise", 100, 10000);
             int countBeforeSave = exercisesDAO.getAllExercises().length;
             assertFalse(exercisesDAO.isExerciseExsists(1));
             exercisesDAO.saveExercise(exercises);
-            assertEquals(countBeforeSave + 1, exercisesDAO.getAllExercises().length);
             assertTrue(exercisesDAO.isExerciseExsists(1));
-            assertEquals(exercises,exercisesDAO.getExercise(1));
+            assertEquals(countBeforeSave + 1, exercisesDAO.getAllExercises().length);
+            assertEquals(exercises, exercisesDAO.getExercise(1));
+            //history
+
+            hibernateExerciseHistoryDAO.saveExercise(exerciseHistory1);
+            hibernateExerciseHistoryDAO.saveExercise(exerciseHistory2);
+            hibernateExerciseHistoryDAO.saveExercise(exerciseHistory3);
+            hibernateExerciseHistoryDAO.saveExercise(exerciseHistory4);
+            hibernateExerciseHistoryDAO.saveExercise(exerciseHistory5);
+
+            TopNMapping[] arr = hibernateExerciseHistoryDAO.getTop3();
+
+            assertEquals("omri1", arr[0].getUsername());
+            assertEquals("tomer", arr[1].getUsername());
+            assertEquals("omri", arr[2].getUsername());
+            assertEquals(2, hibernateExerciseHistoryDAO.getAllHistoryPerUser("tomer").length);
+            assertEquals(1, hibernateExerciseHistoryDAO.getAllHistoryPerUser("omri").length);
+            for (int i = 1; i < 6; i++)
+                hibernateExerciseHistoryDAO.deleteExercise(i);
+
+            exercisesDAO.deleteExercise(1);
+            assertEquals(countBeforeSave, exercisesDAO.getAllExercises().length);
         } catch (DBException e) {
             e.printStackTrace();
         }
     }
+
+
     //TODO: add test methods for ExercisesHistory and category
 }
+
+

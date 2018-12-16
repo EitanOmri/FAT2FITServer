@@ -30,6 +30,27 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     }
 
     @Override
+    public void deleteExercise(int id) throws DBException {
+        ExerciseHistory exercises=getExercise(id);
+        if(exercises!=null){
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.delete(exercises);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    @Override
+    public ExerciseHistory getExercise(int id) throws DBException {
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        ExerciseHistory exerciseHistory = (ExerciseHistory) session.get(ExerciseHistory.class, id);
+        session.close();
+        return exerciseHistory;
+    }
+
+    @Override
     public void saveExercise(ExerciseHistory exerciseHistory) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();

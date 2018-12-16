@@ -28,33 +28,6 @@ public class Test {
 //        }
 //        for (int i = 0; i < allPr.length; i++)
 //            System.out.println(allPr[i]);
-//                HibernateUserDAO p = new HibernateUserDAO();
-//        try {
-//            System.out.println(p.getUser("omrieitan"));
-//        } catch (DBException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            User user = p.getUser("omrieitan");
-//            p.updateUser(user.getUsername(),100,190);
-//        } catch (DBException e) {
-//            e.printStackTrace();
-//        }
-//        User user=new User("tomerShats","tomer","shats","tomershats14@gmail.com","12345",new Date(1994,01,31),50,170,true);
-//
-//        try {
-//            p.saveUser(user);
-//        } catch (DBException e) {
-//            e.printStackTrace();
-//        }
-//        User[] allPr = new User[0];
-//        try {
-//            allPr = p.getUseres();
-//        } catch (DBException e) {
-//            e.printStackTrace();
-//        }
-//        for (int i = 0; i < allPr.length; i++)
-//            System.out.println(allPr[i]);
 //
 //        HibernateCategoryDAO c = new HibernateCategoryDAO();
 //

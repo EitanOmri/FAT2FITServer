@@ -1,8 +1,6 @@
 package com.fat2fit.model;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.AnnotationConfiguration;
 
 import java.util.List;
 
@@ -23,12 +21,23 @@ public class HibernateUserDAO implements IUser {
     }
 
     @Override
+    public void removeUser(String username) throws DBException {
+        if(isUserExsits(username)) {
+            User user =getUser(username);
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.delete(user);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    @Override
     public User[] getUseres() throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List users = session.createQuery("FROM com.fat2fit.model.User").list();// hql
         session.close();
-        System.out.println("There are " + users.size() + " user(s)");
         User[] returnArr = new User[users.size()];
         returnArr = (User[]) users.toArray(returnArr);
         return returnArr;

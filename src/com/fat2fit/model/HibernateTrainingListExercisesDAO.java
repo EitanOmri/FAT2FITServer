@@ -22,10 +22,12 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
 
     @Override
     public void delete(int id) throws DBException {
-       if(getTrainigList(id)!=null) {
+        TrainingListExercises trainingListExercises=getTrainigList(id);
+       if(trainingListExercises!=null) {
            Session session = factoryInstance.getFactory().openSession();
            session.beginTransaction();
-           session.delete(getTrainigList(id));
+
+           session.delete(trainingListExercises);
            session.getTransaction().commit();
            session.close();
        }
@@ -41,10 +43,10 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
     }
 
     @Override
-    public TrainingListExercises[] getbyTrainigId(int id) throws DBException {
+    public TrainingListExercises[] getbyTrainigId(int trainingId) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        List training = session.createQuery("FROM com.fat2fit.model.TrainingListExercises WHERE IdTraining=:parm").setParameter("parm", id).list();// hql
+        List training = session.createQuery("FROM com.fat2fit.model.TrainingListExercises WHERE IdTraining=:parm").setParameter("parm", trainingId).list();// hql
         session.close();
         System.out.println("There are " + training.size() + " training(s)");
         TrainingListExercises[] returnArr = new TrainingListExercises[training.size()];

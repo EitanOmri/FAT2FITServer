@@ -1,11 +1,8 @@
 package com.fat2fit.model;
 
 import org.hibernate.Session;
-import org.hibernate.transform.Transformers;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     Factory factoryInstance;
@@ -15,11 +12,11 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     }
 
     @Override
-    public Map<String, Integer> getTop3() throws DBException {
+    public TopNMapping[] getTop3() throws DBException {
 
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        List  history = session.createQuery("  " +
+        List history = session.createQuery("  " +
                 "select new com.fat2fit.model.TopNMapping(exerciseHistory.username," + "sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
                 "FROM ExerciseHistory exerciseHistory, Exercises exercises " +
                 "where exerciseHistory.idExercise=exercises.id  " +
@@ -29,18 +26,10 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         session.close();
         TopNMapping[] returnArr = new TopNMapping[history.size()];
         returnArr = (TopNMapping[]) history.toArray(returnArr);
-        for(int i=0;i<returnArr.length;i++)
-            System.out.println(returnArr[i].getUsername()+" "+returnArr[i].getTotalCal());
+        for (int i = 0; i < returnArr.length; i++)
+            System.out.println(returnArr[i].getUsername() + " " + returnArr[i].getTotalCal());
+        return returnArr;
 
-
-
-//        Pair<String, Integer>[] returnArr = new Pair[history.size()];
-//        returnArr = (Pair<String, Integer>[]) history.toArray(returnArr);
-//
-//        for(int i=0;i<returnArr.length;i++)
-//            System.out.println(returnArr[i].getKey()+"  "+returnArr[i].getValue());
-//    return returnArr;
-   return null;
     }
 
     @Override
@@ -58,7 +47,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        List history = session.createQuery("FROM ExerciseHistory WHERE Username=:parm").setParameter("parm",username).list();// hql
+        List history = session.createQuery("FROM ExerciseHistory WHERE Username=:parm").setParameter("parm", username).list();// hql
 
         session.close();
         System.out.println("There are " + history.size() + " exercise(s)");

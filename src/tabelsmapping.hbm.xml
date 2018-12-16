@@ -40,4 +40,86 @@
             <column name="Name"/>
         </property>
     </class>
+    <class name="com.fat2fit.model.ExerciseHistory" table="exercisehistory">
+        <id name="username" type="string" column="Username" >
+            <!--<generator class="increment"/>-->
+        </id>
+        <property name="idExercise">
+            <column name="IdExercise"/>
+        </property>
+        <property name="sets">
+            <column name="Sets"/>
+        </property>
+        <property name="reps">
+            <column name="Reps"/>
+        </property>
+        <property name="date">
+            <column name="Date"/>
+        </property>
+    </class>
+    <class name="com.fat2fit.model.Exercises" table="exercises">
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
+        </id>
+        <property name="name">
+            <column name="Name"/>
+        </property>
+        <property name="caloriesPerReps">
+            <column name="CaloriesPerReps"/>
+        </property>
+        <property name="categoryID">
+            <column name="CategoryID"/>
+        </property>
+    </class>
+    <class name="com.fat2fit.model.MessageFromAdmin" table="messagefromadmin">
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
+        </id>
+        <property name="content">
+            <column name="Content"/>
+        </property>
+        <property name="date">
+            <column name="Date"/>
+        </property>
+
+    </class>
+    <class name="com.fat2fit.model.MessageToAdmin" table="messagetoadmin">
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
+        </id>
+        <property name="content">
+            <column name="Content"/>
+        </property>
+        <property name="date">
+            <column name="Date"/>
+        </property>
+        <property name="username">
+            <column name="Username"/>
+        </property>
+    </class>
+    <class name="com.fat2fit.model.TrainingListExercises" table="traininglistexercises">
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
+        </id>
+        <property name="idTraining">
+            <column name="IdTraining"/>
+        </property>
+        <property name="idExercise">
+            <column name="IdExercise"/>
+        </property>
+        <property name="sets">
+            <column name="Sets"/>
+        </property>
+        <property name="reps">
+            <column name="Reps"/>
+        </property>
+    </class>
+    <class name="com.fat2fit.model.TrainingListName" table="traininglistname">
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
+        </id>
+        <property name="name">
+            <column name="Name"/>
+        </property>
+    </class>
 </hibernate-mapping>

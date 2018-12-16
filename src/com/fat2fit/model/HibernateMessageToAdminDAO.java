@@ -44,7 +44,6 @@ public class HibernateMessageToAdminDAO implements IMessageToAdmin{
         session.beginTransaction();
         List messages = session.createQuery("FROM com.fat2fit.model.MessageToAdmin").list();// hql
         session.close();
-        System.out.println("There are " + messages.size() + " message(s)");
         MessageToAdmin[] returnArr = new MessageToAdmin[messages.size()];
         returnArr = (MessageToAdmin[]) messages.toArray(returnArr);
         return returnArr;

@@ -129,15 +129,12 @@ public class ModelTest {
             assertEquals(countBeforeSave + 1, exercisesDAO.getAllExercises().length);
             assertEquals(exercises, exercisesDAO.getExercise(1));
             //history
-
             hibernateExerciseHistoryDAO.saveExercise(exerciseHistory1);
             hibernateExerciseHistoryDAO.saveExercise(exerciseHistory2);
             hibernateExerciseHistoryDAO.saveExercise(exerciseHistory3);
             hibernateExerciseHistoryDAO.saveExercise(exerciseHistory4);
             hibernateExerciseHistoryDAO.saveExercise(exerciseHistory5);
-
             TopNMapping[] arr = hibernateExerciseHistoryDAO.getTop3();
-
             assertEquals("omri1", arr[0].getUsername());
             assertEquals("tomer", arr[1].getUsername());
             assertEquals("omri", arr[2].getUsername());
@@ -153,8 +150,22 @@ public class ModelTest {
         }
     }
 
+    @Test
+    public void categoryModelTest() {
+        HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
+        Category category=new Category(1,"testCtegoty");
+        try {
+            int countBeforeSave = categoryDAO.getCategories().length;
+            categoryDAO.addCategory(category);
+            assertEquals(countBeforeSave + 1, categoryDAO.getCategories().length);
+            assertEquals("testCtegoty",categoryDAO.getCategory(1).getName());
+            categoryDAO.deleteCategory(1);
+            assertEquals(countBeforeSave , categoryDAO.getCategories().length);
 
-    //TODO: add test methods for ExercisesHistory and category
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 

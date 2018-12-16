@@ -2,9 +2,12 @@ package com.fat2fit.model;
 
 public interface IMessageFromAdmin {
 
-    public void saveMessage(MessageFromAdmin messageFromAdmin) throws DBException;
-    public MessageFromAdmin getMessageFromAdmin(int id) throws  DBException;
-    public void deleteMessage(int id) throws DBException;
-    public MessageFromAdmin [] getAllMessageFromAdmin() throws DBException;
+    void saveMessage(MessageFromAdmin messageFromAdmin) throws DBException;
+
+    MessageFromAdmin getMessageFromAdmin(int id) throws DBException;
+
+    void deleteMessage(int id) throws DBException;
+
+    MessageFromAdmin[] getAllMessageFromAdmin() throws DBException;
 
 }

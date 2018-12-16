@@ -40,7 +40,8 @@ public class MessageFromAdmin {
         this.content = content;
     }
 
-    public MessageFromAdmin() {super();
+    public MessageFromAdmin() {
+        super();
     }
 
     public MessageFromAdmin(int id, Date date, String content) {

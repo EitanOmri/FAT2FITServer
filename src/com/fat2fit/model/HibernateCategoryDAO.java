@@ -14,6 +14,29 @@ public class HibernateCategoryDAO implements ICategory {
 
 
     @Override
+    public void addCategory(Category category) throws DBException {
+        if (getCategory(category.getId()) == null) {
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.save(category);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    @Override
+    public void deleteCategory(int id) throws DBException {
+        Category category = getCategory(id);
+        if (category != null) {
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.delete(category);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+
+    @Override
     public Category getCategory(int id) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
@@ -28,11 +51,10 @@ public class HibernateCategoryDAO implements ICategory {
 
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        List categories = session.createQuery("FROM Category").list();// hql
+        List categories = session.createQuery("FROM com.fat2fit.model.Category").list();// hql
         session.close();
-        System.out.println("There are " + categories.size() + " user(s)");
         Category[] returnArr = new Category[categories.size()];
-        returnArr = (Category[])  categories.toArray(returnArr);
+        returnArr = (Category[]) categories.toArray(returnArr);
         return returnArr;
     }
 }

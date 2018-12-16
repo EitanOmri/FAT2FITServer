@@ -8,5 +8,6 @@ public interface IExerciseHistory {
     void deleteExercise(int id) throws DBException;
 
     ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException;
+
     ExerciseHistory getExercise(int id) throws DBException;
 }

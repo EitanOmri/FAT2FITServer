@@ -120,7 +120,7 @@
     </class>
     <class name="com.fat2fit.model.TrainingListName" table="traininglistname">
         <id name="id" type="int" column="Id" >
-            <generator class="increment"/>
+            <!--<generator class="increment"/>-->
         </id>
         <property name="name">
             <column name="Name"/>

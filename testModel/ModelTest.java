@@ -80,17 +80,49 @@ public class ModelTest {
     }
 
     @Test
+    public void messageFromAdminModelTest() {
+        HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+        try {
+            MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!");
+            int countBeforeSave = messageFromAdminDAO.getAllMessageFromAdmin().length;
+            messageFromAdminDAO.saveMessage(messageFromAdmin);
+            assertEquals(countBeforeSave + 1, messageFromAdminDAO.getAllMessageFromAdmin().length);
+            messageFromAdminDAO.deleteMessage(1);
+            assertEquals(countBeforeSave, messageFromAdminDAO.getAllMessageFromAdmin().length);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void messageToAdminModelTest() {
         HibernateMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
         try {
-            MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!", "omrieitan");
+            MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!","omrieitan");
             int countBeforeSave = messageToAdminDAO.getAllMessageToAdmin().length;
             messageToAdminDAO.saveMessage(messageToAdmin);
             assertEquals(countBeforeSave + 1, messageToAdminDAO.getAllMessageToAdmin().length);
             messageToAdminDAO.deleteMessage(1);
             assertEquals(countBeforeSave, messageToAdminDAO.getAllMessageToAdmin().length);
+
         } catch (DBException e) {
             e.printStackTrace();
         }
     }
+    @Test
+    public void exercisesModelTest() {
+        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        try {
+            Exercises exercises = new Exercises(1, "testExercise", 100,10000);
+            int countBeforeSave = exercisesDAO.getAllExercises().length;
+            assertFalse(exercisesDAO.isExerciseExsists(1));
+            exercisesDAO.saveExercise(exercises);
+            assertEquals(countBeforeSave + 1, exercisesDAO.getAllExercises().length);
+            assertTrue(exercisesDAO.isExerciseExsists(1));
+            assertEquals(exercises,exercisesDAO.getExercise(1));
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+    }
+    //TODO: add test methods for ExercisesHistory and category
 }

@@ -1,7 +1,9 @@
 package com.fat2fit.model;
 
 import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +19,19 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        List<Map<String, Integer>> history = session.createQuery(" select exerciseHistory.username,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)  FROM ExerciseHistory exerciseHistory, Exercises exercises where exerciseHistory.idExercise=exercises.id  group by Username order by sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps) desc").setMaxResults(3).list();// hql
+        List  history = session.createQuery("  " +
+                "select new com.fat2fit.model.TopNMapping(exerciseHistory.username," + "sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
+                "FROM ExerciseHistory exerciseHistory, Exercises exercises " +
+                "where exerciseHistory.idExercise=exercises.id  " +
+                "group by Username " +
+                "order by sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)" +
+                " desc").setMaxResults(3).list();// hql
         session.close();
-        System.out.println(history.get(0));
+        TopNMapping[] returnArr = new TopNMapping[history.size()];
+        returnArr = (TopNMapping[]) history.toArray(returnArr);
+        for(int i=0;i<returnArr.length;i++)
+            System.out.println(returnArr[i].getUsername()+" "+returnArr[i].getTotalCal());
+
 
 
 //        Pair<String, Integer>[] returnArr = new Pair[history.size()];

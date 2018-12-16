@@ -13,7 +13,6 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public TopNMapping[] getTop3() throws DBException {
-
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List history = session.createQuery("  " +
@@ -26,21 +25,17 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         session.close();
         TopNMapping[] returnArr = new TopNMapping[history.size()];
         returnArr = (TopNMapping[]) history.toArray(returnArr);
-        for (int i = 0; i < returnArr.length; i++)
-            System.out.println(returnArr[i].getUsername() + " " + returnArr[i].getTotalCal());
         return returnArr;
 
     }
 
     @Override
     public void saveExercise(ExerciseHistory exerciseHistory) throws DBException {
-
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         session.save(exerciseHistory);
         session.getTransaction().commit();
         session.close();
-
     }
 
     @Override
@@ -48,7 +43,6 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List history = session.createQuery("FROM ExerciseHistory WHERE Username=:parm").setParameter("parm", username).list();// hql
-
         session.close();
         System.out.println("There are " + history.size() + " exercise(s)");
         ExerciseHistory[] returnArr = new ExerciseHistory[history.size()];

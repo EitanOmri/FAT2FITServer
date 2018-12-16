@@ -16,7 +16,6 @@ public class HibernateCategoryDAO implements ICategory {
     @Override
     public Category getCategory(int id) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
-
         session.beginTransaction();
         Category category = (Category) session.get(Category.class, id);
         session.close();

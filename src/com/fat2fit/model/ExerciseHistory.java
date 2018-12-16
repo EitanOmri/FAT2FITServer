@@ -8,6 +8,7 @@ public class ExerciseHistory {
     int sets;
     int reps;
     Date date;
+    int id;
 
     public ExerciseHistory() {super();
     }
@@ -20,6 +21,7 @@ public class ExerciseHistory {
                 ", sets=" + sets +
                 ", reps=" + reps +
                 ", date=" + date +
+                ", id=" + id +
                 '}';
     }
 
@@ -63,11 +65,20 @@ public class ExerciseHistory {
         this.date = date;
     }
 
-    public ExerciseHistory(String username, int idExercise, int sets, int reps, Date date) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ExerciseHistory(String username, int idExercise, int sets, int reps, Date date, int id) {
         this.username = username;
         this.idExercise = idExercise;
         this.sets = sets;
         this.reps = reps;
         this.date = date;
+        this.id = id;
     }
 }

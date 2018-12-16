@@ -1,5 +1,6 @@
 package com.fat2fit.model;
 
+import org.hibernate.type.NumericBooleanType;
 import org.omg.DynamicAny.DynArray;
 
 import javax.xml.soap.SAAJResult;

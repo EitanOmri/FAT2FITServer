@@ -41,9 +41,13 @@
         </property>
     </class>
     <class name="com.fat2fit.model.ExerciseHistory" table="exercisehistory">
-        <id name="username" type="string" column="Username" >
-            <!--<generator class="increment"/>-->
+        <id name="id" type="int" column="Id" >
+            <generator class="increment"/>
         </id>
+
+        <property name="username">
+            <column name="Username"/>
+        </property>
         <property name="idExercise">
             <column name="IdExercise"/>
         </property>

@@ -44,9 +44,20 @@ public class HibernateExercisesDAO implements IExercises {
         session.beginTransaction();
         List exercises = session.createQuery("FROM com.fat2fit.model.Exercises").list();// hql
         session.close();
-        System.out.println("There are " + exercises.size() + " Exercise(s)");
         Exercises[] returnArr = new Exercises[exercises.size()];
         returnArr = (Exercises[]) exercises.toArray(returnArr);
         return returnArr;
+    }
+
+    @Override
+    public void deleteExercise(int id) throws DBException {
+        Exercises exercises=getExercise(id);
+        if(exercises!=null){
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.delete(exercises);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

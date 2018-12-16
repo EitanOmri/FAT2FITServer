@@ -1,10 +1,24 @@
 package com.fat2fit.model;
 
+import java.util.Objects;
+
 public class Exercises {
     int id;
     String name;
     int caloriesPerReps;
     int categoryID;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Exercises exercises = (Exercises) o;
+        return id == exercises.id &&
+                caloriesPerReps == exercises.caloriesPerReps &&
+                categoryID == exercises.categoryID &&
+                Objects.equals(name, exercises.name);
+    }
+
 
     @Override
     public String toString() {

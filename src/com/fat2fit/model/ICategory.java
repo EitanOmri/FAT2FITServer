@@ -1,7 +1,12 @@
 package com.fat2fit.model;
 
 public interface ICategory {
-    Category getCategory (int id) throws DBException;
-    Category [] getCategories () throws DBException;
+    void addCategory(Category category) throws DBException;
+
+    void deleteCategory(int id) throws DBException;
+
+    Category getCategory(int id) throws DBException;
+
+    Category[] getCategories() throws DBException;
 
 }

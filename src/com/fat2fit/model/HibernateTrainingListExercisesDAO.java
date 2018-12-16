@@ -48,7 +48,6 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
         session.beginTransaction();
         List training = session.createQuery("FROM com.fat2fit.model.TrainingListExercises WHERE IdTraining=:parm").setParameter("parm", trainingId).list();// hql
         session.close();
-        System.out.println("There are " + training.size() + " training(s)");
         TrainingListExercises[] returnArr = new TrainingListExercises[training.size()];
         returnArr = (TrainingListExercises[]) training.toArray(returnArr);
         return returnArr;

@@ -29,7 +29,6 @@ public class HibernateUserDAO implements IUser {
     public User[] getUseres() throws DBException {
 
         Session session = factoryInstance.getFactory().openSession();
-
         session.beginTransaction();
         List users = session.createQuery("FROM User").list();// hql
         session.close();
@@ -38,6 +37,7 @@ public class HibernateUserDAO implements IUser {
         returnArr = (User[]) users.toArray(returnArr);
         return returnArr;
     }
+
     public void saveUser(User user) throws DBException {
 
         Session session = factoryInstance.getFactory().openSession();
@@ -45,5 +45,29 @@ public class HibernateUserDAO implements IUser {
         session.save(user);
         session.getTransaction().commit();
         session.close();
+    }
+
+    @Override
+    public boolean testLogin(String username, String password) throws DBException {
+        User user = getUser(username);
+        if (user != null)
+            if (password.equals(user.getPassword()))
+                return true;
+        return false;
+    }
+
+    @Override
+    public void updateUser(String username, double weight, double height) throws DBException {
+        User user = getUser(username);
+        if (user != null) {
+            user.setHeight(height);
+            user.setWeight(weight);
+        }
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        session.update(user);
+        session.getTransaction().commit();
+        session.close();
+
     }
 }

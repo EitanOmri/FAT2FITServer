@@ -13,8 +13,10 @@ public class ModelTest {
     public void userModelTest() {
         HibernateUserDAO userDAO = new HibernateUserDAO();
         try {
-            assertEquals("omrieitan", userDAO.getUser("omrieitan").getUsername());
+            User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, true);
+            userDAO.saveUser(omri);
 
+            assertEquals("omrieitan", userDAO.getUser("omrieitan").getUsername());
             User user = userDAO.getUser("omrieitan");
             userDAO.updateUser(user.getUsername(), 100, 190);
             assertEquals(100, userDAO.getUser("omrieitan").getWeight(), 1);
@@ -34,6 +36,8 @@ public class ModelTest {
             assertFalse(userDAO.testLogin("tomerShats", "123456"));
             userDAO.removeUser(user.getUsername());
             assertEquals(preSaveCount, userDAO.getUseres().length);
+
+            userDAO.removeUser(omri.getUsername());
 
         } catch (DBException e) {
             e.printStackTrace();
@@ -153,19 +157,17 @@ public class ModelTest {
     @Test
     public void categoryModelTest() {
         HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
-        Category category=new Category(1,"testCtegoty");
+        Category category = new Category(1, "testCtegoty");
         try {
             int countBeforeSave = categoryDAO.getCategories().length;
             categoryDAO.addCategory(category);
             assertEquals(countBeforeSave + 1, categoryDAO.getCategories().length);
-            assertEquals("testCtegoty",categoryDAO.getCategory(1).getName());
+            assertEquals("testCtegoty", categoryDAO.getCategory(1).getName());
             categoryDAO.deleteCategory(1);
-            assertEquals(countBeforeSave , categoryDAO.getCategories().length);
+            assertEquals(countBeforeSave, categoryDAO.getCategories().length);
 
         } catch (DBException e) {
             e.printStackTrace();
         }
     }
 }
-
-

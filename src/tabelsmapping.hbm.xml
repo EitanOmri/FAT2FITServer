@@ -29,7 +29,7 @@
             <column name="Height"/>
         </property>
         <property name="isManager">
-            <column name="IsManager"/>
+            <column name="IsManager" />
         </property>
     </class>
     <class name="com.fat2fit.model.Category" table="category">

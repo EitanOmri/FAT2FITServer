@@ -5,6 +5,16 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateUserDAO implements IUser {
+    @Override
+    public boolean isManager(String username) throws DBException {
+        User user = getUser(username);
+        if (user == null)
+            return false;
+        if (user.isManager == 1)
+            return true;
+        return false;
+    }
+
     Factory factoryInstance;
 
     public HibernateUserDAO() {
@@ -22,8 +32,8 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public void removeUser(String username) throws DBException {
-        if(isUserExsits(username)) {
-            User user =getUser(username);
+        if (isUserExsits(username)) {
+            User user = getUser(username);
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
             session.delete(user);
@@ -45,13 +55,13 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public boolean isUserExsits(String username) throws DBException {
-        if(getUser(username)!=null)
+        if (getUser(username) != null)
             return true;
         return false;
     }
 
     public void saveUser(User user) throws DBException {
-        if(!isUserExsits(user.getUsername())) {
+        if (!isUserExsits(user.getUsername())) {
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
             session.save(user);

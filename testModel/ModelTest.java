@@ -11,9 +11,10 @@ public class ModelTest {
 
     @Test
     public void userModelTest() {
+
         HibernateUserDAO userDAO = new HibernateUserDAO();
         try {
-            User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, true);
+            User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
             userDAO.saveUser(omri);
 
             assertEquals("omrieitan", userDAO.getUser("omrieitan").getUsername());
@@ -25,19 +26,22 @@ public class ModelTest {
             userDAO.updateUser(user.getUsername(), 80, 170);
             assertEquals(80, userDAO.getUser("omrieitan").getWeight(), 1);
             assertEquals(170, userDAO.getUser("omrieitan").getHeight(), 1);
-            user = new User("tomerShats", "tomer", "shats", "tomershats14@gmail.com", "12345", new Date(1994, 01, 31), 50, 170, true);
+            user = new User("tomerShats", "tomer", "shats", "tomershats14@gmail.com", "12345", new Date(1994, 01, 31), 50, 170, 0);
+
+
+
 
             int preSaveCount = userDAO.getUseres().length;
             userDAO.saveUser(user);
             assertEquals(preSaveCount + 1, userDAO.getUseres().length);
-
             assertTrue(userDAO.testLogin("tomerShats", "12345"));
             assertFalse(userDAO.testLogin("tomerShats1", "12345"));
             assertFalse(userDAO.testLogin("tomerShats", "123456"));
+            assertTrue(userDAO.isManager("omrieitan"));
+            assertFalse(userDAO.isManager("tomerShats"));
             userDAO.removeUser(user.getUsername());
             assertEquals(preSaveCount, userDAO.getUseres().length);
-
-            userDAO.removeUser(omri.getUsername());
+          userDAO.removeUser(omri.getUsername());
 
         } catch (DBException e) {
             e.printStackTrace();

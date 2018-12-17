@@ -14,4 +14,6 @@ public interface IUser {
     void updateUser(String username, double weight, double height) throws DBException;
 
     void removeUser(String username) throws DBException;
+
+    boolean isManager(String username) throws DBException;
 }

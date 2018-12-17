@@ -50,11 +50,11 @@ public class ModelTest {
     public void trainingListNameModelTest() {
         HibernateTrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
         try {
-            TrainingListName trainingListName = new TrainingListName(10000, "test");
+            TrainingListName trainingListName = new TrainingListName(1, "test");
             listNameDAO.add(trainingListName);
-            assertEquals("test", listNameDAO.getTrainigListName(10000).getName());
+            assertEquals("test", listNameDAO.getTrainigListName(1).getName());
             listNameDAO.delete(trainingListName.getId());
-            assertNull(listNameDAO.getTrainigListName(10000));
+            assertNull(listNameDAO.getTrainigListName(1));
         } catch (DBException e) {
             e.printStackTrace();
         }

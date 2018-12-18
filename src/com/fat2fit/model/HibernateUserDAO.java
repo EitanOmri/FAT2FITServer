@@ -85,12 +85,12 @@ public class HibernateUserDAO implements IUser {
         if (user != null) {
             user.setHeight(height);
             user.setWeight(weight);
-        }
-        Session session = factoryInstance.getFactory().openSession();
-        session.beginTransaction();
-        session.update(user);
-        session.getTransaction().commit();
-        session.close();
 
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 }

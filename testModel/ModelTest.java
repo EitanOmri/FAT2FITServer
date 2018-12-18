@@ -38,16 +38,13 @@ public class ModelTest {
             assertTrue(userDAO.isManager("omrieitan"));
             assertFalse(userDAO.isManager("tomerShats"));
 
-
             userDAO.removeUser(user.getUsername());
             assertEquals(preSaveCount, userDAO.getUseres().length);
-          userDAO.removeUser(omri.getUsername());
+            userDAO.removeUser(omri.getUsername());
 
         } catch (DBException e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Test
@@ -148,6 +145,9 @@ public class ModelTest {
             assertEquals("omri", arr[2].getUsername());
             assertEquals(2, hibernateExerciseHistoryDAO.getAllHistoryPerUser("tomer").length);
             assertEquals(1, hibernateExerciseHistoryDAO.getAllHistoryPerUser("omri").length);
+            hibernateExerciseHistoryDAO.updateExercise(1,100,1000);
+            assertEquals(100,hibernateExerciseHistoryDAO.getExercise(1).getReps());
+            assertEquals(1000,hibernateExerciseHistoryDAO.getExercise(1).getSets());
             for (int i = 1; i < 6; i++)
                 hibernateExerciseHistoryDAO.deleteExercise(i);
 

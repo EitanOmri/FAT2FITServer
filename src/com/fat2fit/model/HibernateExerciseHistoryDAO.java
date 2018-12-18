@@ -69,4 +69,20 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         returnArr = (ExerciseHistory[]) history.toArray(returnArr);
         return returnArr;
     }
+
+    @Override
+    public void updateExercise(int id, int reps, int sets) throws DBException {
+        ExerciseHistory exerciseHistory=getExercise(id);
+        if(exerciseHistory!=null){
+            exerciseHistory.setReps(reps);
+            exerciseHistory.setSets(sets);
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.update(exerciseHistory);
+            session.getTransaction().commit();
+            session.close();
+
+
+        }
+    }
 }

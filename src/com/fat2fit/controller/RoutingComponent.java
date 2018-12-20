@@ -19,10 +19,10 @@ public class RoutingComponent extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String str = request.getRequestURI();
         PrintWriter out = response.getWriter();
-        String[] splited=str.split("/",6);
-        String controllerName=splited[3];
-        String actionName=splited[4];
-        String strAfterAction=splited.length==6? splited[5]: null;
+        String[] splited=str.split("/",5);
+        String controllerName=splited[2];
+        String actionName=splited[3];
+        String strAfterAction=splited.length==5? splited[4]: null;
         out.println("controllerName="+controllerName);
         out.println("actionName="+actionName);
         out.println("strAfterAction="+strAfterAction);

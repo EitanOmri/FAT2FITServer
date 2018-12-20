@@ -23,11 +23,8 @@ public class RoutingComponent extends HttpServlet {
         String controllerName=splited[2];
         String actionName=splited[3];
         String strAfterAction=splited.length==5? splited[4]: null;
-        out.println("controllerName="+controllerName);
-        out.println("actionName="+actionName);
-        out.println("strAfterAction="+strAfterAction);
         try {
-            Class controllerClass=Class.forName(controllerName);
+            Class controllerClass=Class.forName("com.fat2fit.controller."+controllerName);
             Object controller = controllerClass.newInstance();
             Method method=controllerClass.getMethod(actionName,HttpServletRequest.class,HttpServletResponse.class, String.class);
             method.invoke(controller,request,response,strAfterAction );

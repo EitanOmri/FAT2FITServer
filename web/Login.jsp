@@ -36,7 +36,7 @@
                 <input type="submit" name="submit" value="Log In"/>
             </div>
             <div>
-                <a href="SignUp.html" data-rel="dialog" data-transition="pop" style="color: black; font-size: large;"> Don't have a FAT2FIT account? create
+                <a href="/controller/NavigatorController/signUp" data-rel="dialog" data-transition="pop" style="color: black; font-size: large;"> Don't have a FAT2FIT account? create
                     yours now</a>
             </div>
             <div data-role="footer" data-position="fixed">

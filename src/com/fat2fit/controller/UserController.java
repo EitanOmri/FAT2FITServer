@@ -98,12 +98,16 @@ public class UserController {
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
         double height = Double.parseDouble(request.getParameter("height"));
         double weight = Double.parseDouble(request.getParameter("weight"));
+        if (request.getSession().getAttribute("userName") != null) {
         try {
             hibernateUserDAO.updateUser((String) request.getSession().getAttribute("userName"), weight, height);
             dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
-            dispatcher.forward(request, response);
         } catch (DBException e) {
             e.printStackTrace();
         }
+        } else {
+            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+        }
+        dispatcher.forward(request, response);
     }
 }

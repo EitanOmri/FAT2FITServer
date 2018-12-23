@@ -20,20 +20,25 @@ public class HistoryController {
         HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         String username = (String) request.getSession().getAttribute("userName");
-        try {
-            TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
-            for (int i = 0; i < trainingListExercises.length; i++) {
-                ExerciseHistory exerciseHistory = new ExerciseHistory(username,
-                        trainingListExercises[i].getIdExercise(),
-                        trainingListExercises[i].getSets(),
-                        trainingListExercises[i].getReps(), new Date(), 1);
-                historyDAO.saveExercise(exerciseHistory);
+        if (username != null) {
+            try {
+                TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
+                for (int i = 0; i < trainingListExercises.length; i++) {
+                    ExerciseHistory exerciseHistory = new ExerciseHistory(username,
+                            trainingListExercises[i].getIdExercise(),
+                            trainingListExercises[i].getSets(),
+                            trainingListExercises[i].getReps(), new Date(), 1);
+                    historyDAO.saveExercise(exerciseHistory);
+                }
+                dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListMenu.jsp");
+            } catch (DBException e) {
+                e.printStackTrace();
             }
-            dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListMenu.jsp");
-            dispatcher.forward(request, response);
-        } catch (DBException e) {
-            e.printStackTrace();
+        } else {
+            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
         }
+        dispatcher.forward(request, response);
+
     }
 
 
@@ -42,53 +47,63 @@ public class HistoryController {
         HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
         HibernateExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();
         String username = (String) request.getSession().getAttribute("userName");
-        try {
-            ExerciseHistory[] exerciseHistory = historyDAO.getAllHistoryPerUser(username);
-            StringBuffer sb = new StringBuffer();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            for (int i = 0; i < exerciseHistory.length; i++) {
-                sb.append("<tr>");
-                sb.append("<th>");
-                sb.append(df.format(exerciseHistory[i].getDate()));
-                sb.append("</th>");
-                sb.append("<th>");
-                sb.append(hibernateExercisesDAO.getExercise(exerciseHistory[i].getIdExercise()).getName());
-                sb.append("</th>");
+        if (username != null) {
+            try {
+                ExerciseHistory[] exerciseHistory = historyDAO.getAllHistoryPerUser(username);
+                StringBuffer sb = new StringBuffer();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                for (int i = 0; i < exerciseHistory.length; i++) {
+                    sb.append("<tr>");
+                    sb.append("<th>");
+                    sb.append(df.format(exerciseHistory[i].getDate()));
+                    sb.append("</th>");
+                    sb.append("<th>");
+                    sb.append(hibernateExercisesDAO.getExercise(exerciseHistory[i].getIdExercise()).getName());
+                    sb.append("</th>");
 
-                sb.append("<td>");
-                sb.append(exerciseHistory[i].getSets());
-                sb.append("</td>");
-                sb.append("<td>");
-                sb.append(exerciseHistory[i].getReps());
-                sb.append("</td>");
-                sb.append("<td>");
-                sb.append("<a href=\"/controller/HistoryController/editOrDeleteView?id=");
-                sb.append(exerciseHistory[i].getId() + "&sets=" + exerciseHistory[i].getSets() + "&reps=" + exerciseHistory[i].getReps() + "\"");
-                sb.append("data-role=\"button\" data-rel=\"dialog\" data-transition=\"pop\">Edit/Delete");
-                sb.append("</a></td>");
-                sb.append("</tr>");
+                    sb.append("<td>");
+                    sb.append(exerciseHistory[i].getSets());
+                    sb.append("</td>");
+                    sb.append("<td>");
+                    sb.append(exerciseHistory[i].getReps());
+                    sb.append("</td>");
+                    sb.append("<td>");
+                    sb.append("<a href=\"/controller/HistoryController/editOrDeleteView?id=");
+                    sb.append(exerciseHistory[i].getId() + "&sets=" + exerciseHistory[i].getSets() + "&reps=" + exerciseHistory[i].getReps() + "\"");
+                    sb.append("data-role=\"button\" data-rel=\"dialog\" data-transition=\"pop\">Edit/Delete");
+                    sb.append("</a></td>");
+                    sb.append("</tr>");
 
+                }
+                HttpSession session = request.getSession();
+                session.setAttribute("myHistoryTable", sb.toString());
+                dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
+
+
+            } catch (DBException e) {
+                e.printStackTrace();
             }
-            HttpSession session = request.getSession();
-            session.setAttribute("myHistoryTable", sb.toString());
-            dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
-            dispatcher.forward(request, response);
-
-        } catch (DBException e) {
-            e.printStackTrace();
+        } else {
+            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
         }
+        dispatcher.forward(request, response);
     }
 
     public void editOrDeleteView(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        int id = Integer.parseInt(request.getParameter("id"));
-        int sets = Integer.parseInt(request.getParameter("sets"));
-        int reps = Integer.parseInt(request.getParameter("reps"));
-        HttpSession session = request.getSession();
-        session.setAttribute("idEditOrView", id);
-        session.setAttribute("setsEditOrView", sets);
-        session.setAttribute("repsEditOrView", reps);
-        dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
+        if (request.getSession().getAttribute("userName") != null) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            int sets = Integer.parseInt(request.getParameter("sets"));
+            int reps = Integer.parseInt(request.getParameter("reps"));
+            HttpSession session = request.getSession();
+            session.setAttribute("idEditOrView", id);
+            session.setAttribute("setsEditOrView", sets);
+            session.setAttribute("repsEditOrView", reps);
+            dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
+        } else {
+            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+        }
+
         dispatcher.forward(request, response);
 
     }
@@ -96,7 +111,7 @@ public class HistoryController {
     public void deleteAction(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
-        if (session.getAttribute("idEditOrView") != null) {
+        if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName")!=null) {
             int id = (int) session.getAttribute("idEditOrView");
             HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
             try {
@@ -115,7 +130,7 @@ public class HistoryController {
         HttpSession session = request.getSession();
         int sets = Integer.parseInt(request.getParameter("sets"));
         int reps = Integer.parseInt(request.getParameter("reps"));
-        if (session.getAttribute("idEditOrView") != null) {
+        if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName")!=null) {
             int id = (int) session.getAttribute("idEditOrView");
             HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
             try {
@@ -134,9 +149,10 @@ public class HistoryController {
         HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
-        int Categoryid = (int) session.getAttribute("categoryId");
+        if(username!=null && session.getAttribute("categoryId")!=null){
+        int categoryId = (int) session.getAttribute("categoryId");
         try {
-            Exercises[] exercises = exercisesDAO.getExercisesByCategory(Categoryid);
+            Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
             for (int i = 0; i < exercises.length; i++) {
                 int exId = exercises[i].getId();
                 if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
@@ -153,6 +169,10 @@ public class HistoryController {
             dispatcher.forward(request, response);
         } catch (DBException e) {
             e.printStackTrace();
-        }
+        }}
+        else{
+            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");}
+        dispatcher.forward(request, response);
+
     }
 }

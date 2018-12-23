@@ -16,13 +16,13 @@
 
 </head>
 <body>
-<div data-role="page" id="absEx">
+<div data-role="page" id="myDayExercisePage">
     <div data-role="header" data-position="fixed">
-        <a href="myDay.html" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
+        <a href="/controller/MyDayController/myDayMenu" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
         <h1>Abs exercises</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
-        <form id="AbsExForm" method="get" action="/controller/HistoryController/addMyDay">
+        <form id="myDayExerciseForm" method="get" action="/controller/HistoryController/addMyDay">
             <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
                      <thead>
                    <tr>      

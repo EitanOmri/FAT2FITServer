@@ -9,7 +9,10 @@ import java.io.IOException;
 public class SettingsController {
     public void settings(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        dispatcher = request.getServletContext().getRequestDispatcher("/Settings.jsp");
+        if (request.getSession().getAttribute("userName") != null)
+            dispatcher = request.getServletContext().getRequestDispatcher("/Settings.jsp");
+        else
+            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
         dispatcher.forward(request, response);
 
     }

@@ -16,10 +16,10 @@
 
 </head>
 <body>
-<div data-role="page" id="absEx">
+<div data-role="page" id="editHistoryPage">
 
     <div data-role="header" data-position="fixed">
-        <a href="MyHistory.html" data-role="button" data-icon="back" class="ui-btn-left">back to my history</a>
+        <a href="/controller/NavigatorController/myHistory" data-role="button" data-icon="back" class="ui-btn-left">back to my history</a>
         <h1>Edit</h1>
     </div>
     <div data-role="content" style="height: 1000px;">

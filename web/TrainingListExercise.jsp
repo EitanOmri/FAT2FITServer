@@ -16,7 +16,7 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
-<div data-role="page" id="body">
+<div data-role="page" id="TrainingListExercise">
     <div data-role="header" data-position="fixed" data-theme="c">
         <a href="/controller/TrainingController/workoutMenu" data-role="button" data-icon="back" class="ui-btn-left">back
             to training

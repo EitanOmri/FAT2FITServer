@@ -19,7 +19,7 @@
 <body>
 <div data-role="page" id="trainingListMenu">
     <div data-role="header" data-position="fixed">
-        <a href="Home.html" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
+        <a href="/controller/NavigatorController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
 
         <h1>Training list</h1>
     </div>

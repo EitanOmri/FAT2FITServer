@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: omris
   Date: 23/12/2018
-  Time: 11:42
+  Time: 13:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,40 +16,32 @@
 
 </head>
 <body>
-<div data-role="page" id="editHistoryPage">
-
+<div data-role="page" id="myDayExercisePage">
     <div data-role="header" data-position="fixed">
-        <a href="/controller/NavigatorController/myHistory" data-role="button" data-icon="back" class="ui-btn-left">back to my history</a>
-        <h1>Edit</h1>
+        <a href="/controller/MyDayController/myDayMenu" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
+        <h1>Abs exercises</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
-        <form id="editHistory" method="get" action="/controller/HistoryController/updateAction">
+        <form id="myDayExerciseForm" method="get" action="/controller/HistoryController/addMyDay">
             <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
                      <thead>
-                   <tr>
+                   <tr>      
+                         <th data-priority="10">Exercise</th>
                          <th data-priority="3">Sets</th>       
                          <th data-priority="5">Reps</th>       
                        </tr>
                  </thead>
                      <tbody>
-                   <tr>
-                         <td><input type="number" id="sets"  name ="sets" value="<%= session.getAttribute("setsEditOrView")%>"/></td>
-                        <td><input type="number" id="reps" name ="reps" value="<%= session.getAttribute("repsEditOrView")%>"/></td>
-                       </tr>
-                  
+                    <%=request.getAttribute("categoriesForm")%>
                  </tbody>
                    </table>
 
-            <input type="submit" id="submitEdit" value="Edit"/>
-
+            <input type="submit" id="submit" value="Add"/>
         </form>
-        <form id="delete" method="get" action="/controller/HistoryController/deleteAction">
-            <input type="submit" id="submitDelete" value="Delete"/>
-        </form>
-
+    </div>
+    <div data-role="footer" data-position="fixed">
+        <h3>FAT2FIT</h3>
     </div>
 </div>
-
 </body>
 </html>
-

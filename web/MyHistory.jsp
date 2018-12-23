@@ -18,13 +18,11 @@
 <body>
 <div data-role="page" id="myHistory">
     <div data-role="header" data-position="fixed">
-        <a href="Home.html" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
+        <a href="/controller/NavigatorController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
 
         <h1>My history</h1>
     </div>
     <div data-role="content">
-
-
         <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
                style="font-size: xx-large">
             <thead>   

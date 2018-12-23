@@ -26,48 +26,48 @@
         <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">
                 
             <li><a href="Statistics.html" data-ajax="false">
-                        <img src="resources/IMG/statistics.png" alt="statistics">
+                        <img src="<%=request.getContextPath()%>/IMG/statistics.png" alt="statistics">
                     <h2 style="font-size: 40px;color: white">Statistics</h2>
                     <p style="font-size: 20px;color: white">lets show my ability</p></a>
                     
             </li>
                 
-            <li><a href="TrainingListMenu.html">
-                        <img src="resources/IMG/workout.png" alt="workout list">
+            <li><a href="/controller/TrainingController/workoutMenu">
+                        <img src="<%=request.getContextPath()%>/IMG/workout.png" alt="workout list">
                     <h2 style="font-size: 40px;color: white">Workout</h2>
                     <p style="font-size: 20px;color: white">training list for you</p></a>
                     
             </li>
                 
             <li><a href="myDay.html">
-                        <img src="resources/IMG/myDay.png" alt="my day">
+                        <img src="<%=request.getContextPath()%>/IMG/myDay.png" alt="my day">
                     <h2 style="font-size: 40px;color: white">My day</h2>
                     <p style="font-size: 20px;color: white">build your own workout plan</p></a>
                     
             </li>
                
             <li style="font-size: 50px"><a href="Top.html" data-rel="dialog">
-                        <img src="resources/IMG/top.png" alt="Top 3">
+                        <img src="<%=request.getContextPath()%>/IMG/top.png" alt="Top 3">
                     <h2 style="font-size: 40px;color: white">Top 3</h2>
                     <p style="font-size: 20px;color: white">the three best gymnasts of the week are...</p></a>
                     
             </li>
 
             <li><a href="Message.html">
-                        <img src="resources/IMG/message.png" alt="message">
+                        <img src="<%=request.getContextPath()%>/IMG/message.png" alt="message">
                     <h2 style="font-size: 40px;color: white">Message</h2>
                     <p style="font-size: 20px;color: white">these are your messages</p></a>
                     
             </li>
              
-            <li><a href="MyHistory.html">
-                        <img src="resources/IMG/MyHistory.png" alt=" MyHistory">
+            <li><a href="/controller/HistoryController/myHistory">
+                        <img src="<%=request.getContextPath()%>/IMG/MyHistory.png" alt=" MyHistory">
                     <h2 style="font-size: 40px;color: white">MyHistory</h2>
                     <p style="font-size: 20px;color: white">view your history</p></a>
                     
             </li>
             <li data-icon="gear"><a href="Settings.html">
-                        <img src="resources/IMG/settings.png" alt=" settings">
+                        <img src=<%=request.getContextPath()%>/IMG/settings.png alt=" settings">
                     <h2 style="font-size: 40px;color: white">Settings</h2>
                     <p style="font-size: 20px;color: white">change your details</p></a>
                     

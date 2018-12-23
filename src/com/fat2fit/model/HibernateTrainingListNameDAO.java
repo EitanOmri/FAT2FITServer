@@ -2,6 +2,8 @@ package com.fat2fit.model;
 
 import org.hibernate.Session;
 
+import java.util.List;
+
 public class HibernateTrainingListNameDAO implements ITrainingListName{
     Factory factoryInstance;
     public HibernateTrainingListNameDAO() {
@@ -35,5 +37,16 @@ public class HibernateTrainingListNameDAO implements ITrainingListName{
             session.getTransaction().commit();
             session.close();
         }
+    }
+    @Override
+    public TrainingListName[] getTrainingListNames() throws DBException {
+
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        List trainingListNames = session.createQuery("FROM com.fat2fit.model.TrainingListName").list();// hql
+        session.close();
+        TrainingListName[] returnArr = new TrainingListName[trainingListNames.size()];
+        returnArr = (TrainingListName[]) trainingListNames.toArray(returnArr);
+        return returnArr;
     }
 }

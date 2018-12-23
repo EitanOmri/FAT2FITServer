@@ -60,4 +60,15 @@ public class HibernateExercisesDAO implements IExercises {
             session.close();
         }
     }
+
+    @Override
+    public Exercises[] getExercisesByCategory(int id) throws DBException {
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        List exercises = session.createQuery("FROM com.fat2fit.model.Exercises where CategoryID=:parm").setParameter("parm", id).list();// hql
+        session.close();
+        Exercises[] returnArr = new Exercises[exercises.size()];
+        returnArr = (Exercises[]) exercises.toArray(returnArr);
+        return returnArr;
+    }
 }

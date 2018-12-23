@@ -39,7 +39,7 @@
                     
             </li>
                 
-            <li><a href="myDay.html">
+            <li><a href="/controller/MyDayController/myDayMenu">
                         <img src="<%=request.getContextPath()%>/IMG/myDay.png" alt="my day">
                     <h2 style="font-size: 40px;color: white">My day</h2>
                     <p style="font-size: 20px;color: white">build your own workout plan</p></a>
@@ -66,7 +66,7 @@
                     <p style="font-size: 20px;color: white">view your history</p></a>
                     
             </li>
-            <li data-icon="gear"><a href="Settings.html">
+            <li data-icon="gear"><a href="/controller/SettingsController/settings">
                         <img src=<%=request.getContextPath()%>/IMG/settings.png alt=" settings">
                     <h2 style="font-size: 40px;color: white">Settings</h2>
                     <p style="font-size: 20px;color: white">change your details</p></a>

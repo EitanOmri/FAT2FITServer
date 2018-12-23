@@ -93,4 +93,17 @@ public class UserController {
 
     }
 
+    public void update(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        RequestDispatcher dispatcher = null;
+        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        double height = Double.parseDouble(request.getParameter("height"));
+        double weight = Double.parseDouble(request.getParameter("weight"));
+        try {
+            hibernateUserDAO.updateUser((String) request.getSession().getAttribute("userName"), weight, height);
+            dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+            dispatcher.forward(request, response);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+    }
 }

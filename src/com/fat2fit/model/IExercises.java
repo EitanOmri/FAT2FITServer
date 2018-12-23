@@ -9,6 +9,8 @@ public interface IExercises {
 
     Exercises[] getAllExercises() throws DBException;
 
+    Exercises[] getExercisesByCategory(int id) throws DBException;
+
     void deleteExercise(int id) throws DBException;
 
 }

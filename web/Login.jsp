@@ -9,50 +9,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="UTF-8">
     <title>FAT2FIT</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
 </head>
 <body>
-
-<div data-role="page" id="settings">
-    <div data-role="header" data-position="fixed">
-        <a href="Home.html" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
-        <h1>Settings</h1>
-    </div>
-    <div data-role="content">
-        <form name="changeWeight" method="get" action="serverSide">
+<form name="login" method="post" action="http://localhost:8080/controller/UserController/login">
+    <div data-role="dialog" id="login">
+        <div data-role="header" data-position="fixed"  >
+            <h1 style="color: black">Welcome to FAT2FIT</h1>
+        </div>
+        <div data-role="content" style="background: #d3d3d3">
             <div data-role="fieldcontain">
-                <label for="Weight">change weight:
-                    <input type="number" name="Weight" id="Weight" value=""/>
-                    <input type="submit" name="submitweight" id="submitweight" value="Change" data-inline="true"/></label>
+                <label for="UserName" style="color: black; font-size: large ">user name:</label>
+                <input type="text" name="UserName" id="UserName" value="" style="background: white"/>
             </div>
-        </form>
-
-        <form name="changeHeight" method="get" action="serverSide">
             <div data-role="fieldcontain">
-                <label for="Height">change height:
-                    <input type="number" name="Height" id="Height" value=""/>
-                    <input type="submit" name="submitheight" id="submitheight" value="Change" data-inline="true"/></label>
+                <label for="password" style="color: black; font-size: large">password:</label>
+                <input type="password" name="password" id="password" value="" autocomplete="off"  style="background: white" />
             </div>
-
-        </form>
-        <div data-role="fieldcontain">
-            <form name="logout" method="post" action="http://localhost:8080/controller/UserController/logout">
-                <input type="submit" name="submit" id="submitlogout" value="Log Out"/>
-            </form>
+            <div data-role="fieldcontain">
+                <input type="submit" name="submit" value="Log In"/>
+            </div>
+            <div>
+                <a href="SignUp.html" data-rel="dialog" data-transition="pop" style="color: black; font-size: large;"> Don't have a FAT2FIT account? create
+                    yours now</a>
+            </div>
+            <div data-role="footer" data-position="fixed">
+                <h3>FAT2FIT</h3>
+            </div>
         </div>
     </div>
-    <div data-role="footer" data-position="fixed">
-
-        <h3>FAT2FIT</h3>
-    </div>
-</div>
-</div>
-
+</form>
 </body>
 </html>

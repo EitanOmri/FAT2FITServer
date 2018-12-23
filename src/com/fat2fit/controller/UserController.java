@@ -87,9 +87,9 @@ public class UserController {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
-session.invalidate();
-        dispatcher = request.getServletContext().getRequestDispatcher("http://localhost:63343/FAT2FITClient/Login.html");
-dispatcher.forward(request,response);
+        session.invalidate();
+        dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+        dispatcher.forward(request, response);
 
     }
 

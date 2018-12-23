@@ -23,35 +23,27 @@
         <h1>Edit</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
-        <form id="editHistory" method="get" action="serverSide">
+        <form id="editHistory" method="get" action="/controller/HistoryController/updateAction">
             <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
                      <thead>
                    <tr>
-                       
-                        
-                         <th data-priority="3">Sets</th>
-                       
-                         <th data-priority="5">Reps</th>
-                       
+                         <th data-priority="3">Sets</th>       
+                         <th data-priority="5">Reps</th>       
                        </tr>
                  </thead>
                      <tbody>
                    <tr>
-
-                         <td><input type="number" id="set1"/></td>
-                         
-                        <td><input type="number" id="reps1"/></td>
-                       
+                         <td><input type="number" id="sets"  name ="sets" value="<%= session.getAttribute("setsEditOrView")%>"/></td>
+                        <td><input type="number" id="reps" name ="reps" value="<%= session.getAttribute("repsEditOrView")%>"/></td>
                        </tr>
                   
-                   
                  </tbody>
                    </table>
 
             <input type="submit" id="submitEdit" value="Edit"/>
 
         </form>
-        <form id="delete" method="get" action="serverSide">
+        <form id="delete" method="get" action="/controller/HistoryController/deleteAction">
             <input type="submit" id="submitDelete" value="Delete"/>
         </form>
 
@@ -60,3 +52,4 @@
 
 </body>
 </html>
+

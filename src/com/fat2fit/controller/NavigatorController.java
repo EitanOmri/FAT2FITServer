@@ -17,4 +17,9 @@ public class NavigatorController {
         dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
         dispatcher.forward(request, response);
     }
+    public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        RequestDispatcher dispatcher = null;
+        dispatcher = request.getServletContext().getRequestDispatcher("/SignUp.jsp");
+        dispatcher.forward(request, response);
+    }
 }

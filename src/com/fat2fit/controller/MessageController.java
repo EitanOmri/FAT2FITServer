@@ -54,7 +54,7 @@ public class MessageController {
             MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(), content, username);
             try {
                 messageToAdminDAO.saveMessage(messageToAdmin);
-                dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
 
             } catch (DBException e) {
                 e.printStackTrace();

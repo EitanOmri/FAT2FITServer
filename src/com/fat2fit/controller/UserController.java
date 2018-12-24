@@ -43,7 +43,7 @@ public class UserController {
                 hibernateUserDAO.saveUser(user);
                 HttpSession session = request.getSession();
                 session.setAttribute("userName", userName);
-                dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             } else {
 
                 PrintWriter out = response.getWriter();
@@ -70,7 +70,7 @@ public class UserController {
             if (hibernateUserDAO.testLogin(userName, password)) {
                 HttpSession session = request.getSession();
                 session.setAttribute("userName", userName);
-                dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
 
             } else {
                 //TODO: dispatcher to error page -username or paswword incorrect
@@ -101,7 +101,7 @@ public class UserController {
         if (request.getSession().getAttribute("userName") != null) {
         try {
             hibernateUserDAO.updateUser((String) request.getSession().getAttribute("userName"), weight, height);
-            dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
         } catch (DBException e) {
             e.printStackTrace();
         }

@@ -1,16 +1,38 @@
 package com.fat2fit.controller;
 
+import com.fat2fit.model.DBException;
+import com.fat2fit.model.HibernateUserDAO;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class NavigatorController {
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
-        dispatcher.forward(request, response);
+        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        HttpSession session=request.getSession();
+        StringBuffer sb = new StringBuffer();
+        try {
+            if(hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))){
+                sb.append("     <li><a href=\"/controller/AdminController/admin\">\n" +
+                        "                        <img src="+request.getContextPath()+"/IMG/admin.png alt=\" admin\">\n" +
+                        "                    <h2 style=\"font-size: 40px;color: white\">admin</h2>\n" +
+                        "                    <p style=\"font-size: 20px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
+                        "            </li>");
+
+                session.setAttribute("adminLink",sb.toString());
+            }
+            else {
+                session.setAttribute("adminLink","");}
+                dispatcher.forward(request, response);
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
     }
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;

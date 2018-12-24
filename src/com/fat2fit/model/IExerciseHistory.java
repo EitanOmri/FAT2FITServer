@@ -11,5 +11,8 @@ public interface IExerciseHistory {
 
     ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException;
 
+    WeeklyCalMmaping[] getStatisticsWeeklyCal(String username) throws DBException;
+
     ExerciseHistory getExercise(int id) throws DBException;
+
 }

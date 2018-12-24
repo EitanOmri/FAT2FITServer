@@ -10,6 +10,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="jars_this_code_sample_uses" />
           <element id="library" level="project" name="junit:junit:4.11" />
+          <element id="library" level="project" name="com.google.code.gson:gson:2.3.1" />
         </element>
       </element>
     </root>

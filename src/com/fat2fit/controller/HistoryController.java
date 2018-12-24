@@ -41,7 +41,6 @@ public class HistoryController {
 
     }
 
-
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();

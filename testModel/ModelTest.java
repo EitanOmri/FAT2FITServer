@@ -8,8 +8,7 @@ import static org.junit.Assert.*;
 
 public class ModelTest {
 
-
-    @Test
+        @Test
     public void userModelTest() {
 
         HibernateUserDAO userDAO = new HibernateUserDAO();

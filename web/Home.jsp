@@ -25,7 +25,7 @@
 
         <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">
                 
-            <li><a href="Statistics.html" data-ajax="false">
+            <li><a href="/controller/StatisticsController/weeklyBurnCal" data-ajax="false">
                         <img src="<%=request.getContextPath()%>/IMG/statistics.png" alt="statistics">
                     <h2 style="font-size: 40px;color: white">Statistics</h2>
                     <p style="font-size: 20px;color: white">lets show my ability</p></a>

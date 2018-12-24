@@ -63,7 +63,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        List history = session.createQuery("FROM ExerciseHistory WHERE Username=:parm").setParameter("parm", username).list();// hql
+        List history = session.createQuery("FROM com.fat2fit.model.ExerciseHistory exerciseHistory WHERE Username=:parm order by exerciseHistory.date desc").setParameter("parm", username).list();// hql
         session.close();
         ExerciseHistory[] returnArr = new ExerciseHistory[history.size()];
         returnArr = (ExerciseHistory[]) history.toArray(returnArr);

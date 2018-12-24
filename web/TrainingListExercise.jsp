@@ -37,10 +37,9 @@
                     <%=request.getSession().getAttribute("exerciseList")%>
             </tbody>
         </table>
-        <form id="bodyTraining" method="get"
-              action="/controller/HistoryController/addTrainingList?id=<%=request.getSession().getAttribute("trainingListId")%>">
-            <input type="submit" id="submit" value="Add" data-theme="b"/>
-        </form>
+     <form id="TrainingListExerciseForm" method="get" action="/controller/HistoryController/addTrainingList?id=<%=request.getSession().getAttribute("trainingListId")%>">
+         <input type="submit" id="submit" value="Add" data-theme="b"/>
+     </form>
     </div>
 
 

@@ -46,14 +46,14 @@
                     
             </li>
                
-            <li style="font-size: 50px"><a href="Top.html" data-rel="dialog">
+            <li style="font-size: 50px"><a href="/controller/StatisticsController/top3" data-rel="dialog">
                         <img src="<%=request.getContextPath()%>/IMG/top.png" alt="Top 3">
                     <h2 style="font-size: 40px;color: white">Top 3</h2>
                     <p style="font-size: 20px;color: white">the three best gymnasts of the week are...</p></a>
                     
             </li>
 
-            <li><a href="Message.html">
+            <li><a href="/controller/MessageController/message">
                         <img src="<%=request.getContextPath()%>/IMG/message.png" alt="message">
                     <h2 style="font-size: 40px;color: white">Message</h2>
                     <p style="font-size: 20px;color: white">these are your messages</p></a>

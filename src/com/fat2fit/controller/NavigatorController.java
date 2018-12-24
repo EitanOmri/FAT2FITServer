@@ -22,4 +22,6 @@ public class NavigatorController {
         dispatcher = request.getServletContext().getRequestDispatcher("/SignUp.jsp");
         dispatcher.forward(request, response);
     }
+
+
 }

@@ -30,7 +30,7 @@ public class HistoryController {
                             trainingListExercises[i].getReps(), new Date(), 1);
                     historyDAO.saveExercise(exerciseHistory);
                 }
-                dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListMenu.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/TrainingController/workoutMenu");
             } catch (DBException e) {
                 e.printStackTrace();
             }

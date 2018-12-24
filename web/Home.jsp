@@ -69,9 +69,9 @@
             <li data-icon="gear"><a href="/controller/SettingsController/settings">
                         <img src=<%=request.getContextPath()%>/IMG/settings.png alt=" settings">
                     <h2 style="font-size: 40px;color: white">Settings</h2>
-                    <p style="font-size: 20px;color: white">change your details</p></a>
-                    
+                    <p style="font-size: 20px;color: white">change your details</p></a>  
             </li>
+            <%=request.getSession().getAttribute("adminLink")%>
         </ul>
 
     </div>

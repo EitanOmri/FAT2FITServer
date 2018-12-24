@@ -164,7 +164,7 @@ public class HistoryController {
                     }
                 }
             }
-            dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             dispatcher.forward(request, response);
         } catch (DBException e) {
             e.printStackTrace();

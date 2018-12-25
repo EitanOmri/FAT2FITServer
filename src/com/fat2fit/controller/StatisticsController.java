@@ -65,16 +65,17 @@ public class StatisticsController {
                 Map<Object, Object> map = null;
                 List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
                 int j = calories.length - 1;
-                for (int i = 6; i >= 0; i--) {
+                for (int i = 0; i < 7; i++) {
                     map = new HashMap<Object, Object>();
+                    while (calories[j].getDate().getDate() < date.getDate() && j != 0) //there are days in array before the last week
+                        j--;
                     if (calories[j].getDate().getDate() == date.getDate()) {
                         map.put("label", days[today]);
-                        map.put("y", calories[j--].getCal());
-                    } else if (calories[j].getDate().getDate() < date.getDate()) { //there are days in array before the last week
-                        while (calories[j].getDate().getDate() < date.getDate())
+                        map.put("y", calories[j].getCal());
+                        if (j != 0)
                             j--;
-                    } else { //no training in this day
-                        map.put("label", days[today]);
+                    } else {
+                        map.put("label", days[today]); //no training in this day
                         map.put("y", 0);
                     }
                     list.add(map);

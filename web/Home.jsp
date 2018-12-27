@@ -53,12 +53,7 @@
                     
             </li>
 
-            <li><a href="/controller/MessageController/message">
-                        <img src="<%=request.getContextPath()%>/IMG/message.png" alt="message">
-                    <h2 style="font-size: 40px;color: white">Message</h2>
-                    <p style="font-size: 20px;color: white">these are your messages</p></a>
-                    
-            </li>
+            <%=request.getSession().getAttribute("messageLink")%>
              
             <li><a href="/controller/HistoryController/myHistory">
                         <img src="<%=request.getContextPath()%>/IMG/MyHistory.png" alt=" MyHistory">

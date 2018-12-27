@@ -5,6 +5,21 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateUserDAO implements IUser {
+
+
+    Factory factoryInstance;
+
+    @Override
+    public User[] getUseresWithOutAdmin() throws DBException {
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        List users = session.createQuery("FROM com.fat2fit.model.User where isManager=0").list();// hql
+        session.close();
+        User[] returnArr = new User[users.size()];
+        returnArr = (User[]) users.toArray(returnArr);
+        return returnArr;
+    }
+
     @Override
     public boolean isManager(String username) throws DBException {
         User user = getUser(username);
@@ -15,7 +30,19 @@ public class HibernateUserDAO implements IUser {
         return false;
     }
 
-    Factory factoryInstance;
+    @Override
+    public void addAdmin(String username) throws DBException {
+        User user = getUser(username);
+        if (user != null) {
+            user.setIsManager(1);
+
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
 
     public HibernateUserDAO() {
         factoryInstance = Factory.getFactoryInstance();

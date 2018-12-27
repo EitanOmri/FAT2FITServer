@@ -16,4 +16,10 @@ public interface IUser {
     void removeUser(String username) throws DBException;
 
     boolean isManager(String username) throws DBException;
+
+    void addAdmin(String username) throws DBException;
+
+    User[] getUseresWithOutAdmin() throws DBException;
+
+
 }

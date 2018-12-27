@@ -15,30 +15,50 @@ public class NavigatorController {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
+
         try {
-            if(hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))){
-                sb.append("     <li><a href=\"/controller/AdminController/admin\">\n" +
-                        "                        <img src="+request.getContextPath()+"/IMG/admin.png alt=\" admin\">\n" +
+            if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
+                sb.append("     <li><a href=\"/controller/AdminController/home\">\n" +
+                        "                        <img src=" + request.getContextPath() + "/IMG/admin.png alt=\" admin\">\n" +
                         "                    <h2 style=\"font-size: 40px;color: white\">admin</h2>\n" +
                         "                    <p style=\"font-size: 20px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
                         "            </li>");
 
-                session.setAttribute("adminLink",sb.toString());
+                session.setAttribute("adminLink", sb.toString());
+                session.setAttribute("messageLink", "");
+
+            } else {
+
+
+                sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
+                        "                        <img src=\"<%=request.getContextPath()%>/IMG/message.png\" alt=\"message\">\n" +
+                        "                    <h2 style=\"font-size: 40px;color: white\">Message</h2>\n" +
+                        "                    <p style=\"font-size: 20px;color: white\">these are your messages</p></a>\n" +
+                        "                    \n" +
+                        "            </li>\n" +
+                        "           ");
+                session.setAttribute("adminLink", "");
+                session.setAttribute("messageLink", sb.toString());
             }
-            else {
-                session.setAttribute("adminLink","");}
-                dispatcher.forward(request, response);
-        } catch (DBException e) {
-            e.printStackTrace();
-        }
+
+        dispatcher.forward(request, response);
+    } catch(
+    DBException e)
+
+    {
+        e.printStackTrace();
     }
+
+}
+
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
         dispatcher.forward(request, response);
     }
+
     public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/SignUp.jsp");

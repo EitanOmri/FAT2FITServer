@@ -27,7 +27,7 @@ public class HibernateUserDAO implements IUser {
         User user = getUser(username);
         if (user == null)
             return false;
-        if (user.isManager == 1)
+        if (user.getIsManager() == 1)
             return true;
         return false;
     }

@@ -51,7 +51,7 @@
                 <input type="date" name="birthday" id="birthday" value=""/>
             </div>
             <div data-role="fieldcontain">
-                <label for="height" style="color: black; font-size: large">height (in meters):</label>
+                <label for="height" style="color: black; font-size: large">height (in cm):</label>
                 <input type="number" name="height" id="height" value=""/>
             </div>
             <div data-role="fieldcontain">

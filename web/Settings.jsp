@@ -24,11 +24,11 @@
         <form name="changeWeight" method="get" action="/controller/UserController/update">
             <div data-role="fieldcontain">
                 <label for="Weight">change weight:
-                    <input type="number" name="weight" id="weight" value=""/></label>
+                    <input type="number" name="weight" id="weight" value="<%= session.getAttribute("weightEdit")%>"/></label>
             </div>
                 <div data-role="fieldcontain">
                 <label for="Height">change height:
-                    <input type="number" name="height" id="height" value=""/>
+                    <input type="number" name="height" id="height" value="<%= session.getAttribute("heightEdit")%>"/>
                     <input type="submit" name="submit" id="submit" value="Change" data-inline="true"/></label>
             </div>
         </form>

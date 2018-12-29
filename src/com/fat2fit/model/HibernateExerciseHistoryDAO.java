@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateExerciseHistoryDAO implements IExerciseHistory {
-    Factory factoryInstance;
+    private Factory factoryInstance;
 
     public HibernateExerciseHistoryDAO() {
         this.factoryInstance = Factory.getFactoryInstance();

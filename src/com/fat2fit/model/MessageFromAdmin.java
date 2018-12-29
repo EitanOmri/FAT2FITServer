@@ -3,17 +3,18 @@ package com.fat2fit.model;
 import java.util.Date;
 
 public class MessageFromAdmin {
-    int id;
-    String content;
-    Date date;
+    private int id;
+    private String content;
+    private Date date;
 
-    @Override
-    public String toString() {
-        return "MessageFromAdmin{" +
-                "id=" + id +
-                ", date=" + date +
-                ", content='" + content + '\'' +
-                '}';
+    public MessageFromAdmin(int id, Date date, String content) {
+        setId(id);
+        setDate(date);
+        setContent(content);
+    }
+
+    public MessageFromAdmin() {
+        super();
     }
 
     public int getId() {
@@ -40,14 +41,13 @@ public class MessageFromAdmin {
         this.content = content;
     }
 
-    public MessageFromAdmin() {
-        super();
-    }
-
-    public MessageFromAdmin(int id, Date date, String content) {
-        this.id = id;
-        this.date = date;
-        this.content = content;
+    @Override
+    public String toString() {
+        return "MessageFromAdmin{" +
+                "id=" + id +
+                ", date=" + date +
+                ", content='" + content + '\'' +
+                '}';
     }
 
 }

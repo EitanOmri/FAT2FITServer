@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateExercisesDAO implements IExercises {
-    Factory factoryInstance;
+    private Factory factoryInstance;
 
     public HibernateExercisesDAO() {
         factoryInstance = Factory.getFactoryInstance();
@@ -23,21 +23,22 @@ public class HibernateExercisesDAO implements IExercises {
 
     @Override
     public void saveExercise(Exercises exercises) throws DBException {
-        if(!isExerciseExsists(exercises.getId())){
-        Session session = factoryInstance.getFactory().openSession();
-        session.beginTransaction();
-        session.save(exercises);
-        session.getTransaction().commit();
-        session.close();
+        if (!isExerciseExsists(exercises.getId())) {
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
+            session.save(exercises);
+            session.getTransaction().commit();
+            session.close();
         }
     }
 
     @Override
     public boolean isExerciseExsists(int id) throws DBException {
-    if(getExercise(id)!=null)
-        return true;
-    return false;
+        if (getExercise(id) != null)
+            return true;
+        return false;
     }
+
     @Override
     public Exercises[] getAllExercises() throws DBException {
         Session session = factoryInstance.getFactory().openSession();
@@ -51,8 +52,8 @@ public class HibernateExercisesDAO implements IExercises {
 
     @Override
     public void deleteExercise(int id) throws DBException {
-        Exercises exercises=getExercise(id);
-        if(exercises!=null){
+        Exercises exercises = getExercise(id);
+        if (exercises != null) {
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
             session.delete(exercises);

@@ -11,12 +11,12 @@ public class ExerciseHistory {
     private int id;
 
     public ExerciseHistory(String username, int idExercise, int sets, int reps, Date date, int id) {
-        this.username = username;
-        this.idExercise = idExercise;
-        this.sets = sets;
-        this.reps = reps;
-        this.date = date;
-        this.id = id;
+        setUsername(username);
+        setIdExercise(idExercise);
+        setSets(sets);
+        setReps(reps);
+        setDate(date);
+        setId(id);
     }
 
     public ExerciseHistory() {

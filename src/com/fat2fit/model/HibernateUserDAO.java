@@ -5,9 +5,11 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateUserDAO implements IUser {
+    private Factory factoryInstance;
 
-
-    Factory factoryInstance;
+    public HibernateUserDAO() {
+        factoryInstance = Factory.getFactoryInstance();
+    }
 
     @Override
     public User[] getUseresWithOutAdmin() throws DBException {
@@ -42,10 +44,6 @@ public class HibernateUserDAO implements IUser {
             session.getTransaction().commit();
             session.close();
         }
-    }
-
-    public HibernateUserDAO() {
-        factoryInstance = Factory.getFactoryInstance();
     }
 
     @Override
@@ -87,6 +85,7 @@ public class HibernateUserDAO implements IUser {
         return false;
     }
 
+    @Override
     public void saveUser(User user) throws DBException {
         if (!isUserExsits(user.getUsername())) {
             Session session = factoryInstance.getFactory().openSession();

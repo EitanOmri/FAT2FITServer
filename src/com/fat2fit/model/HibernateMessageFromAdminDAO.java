@@ -5,7 +5,8 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateMessageFromAdminDAO implements IMessageFromAdmin {
-    Factory factoryInstance;
+    private Factory factoryInstance;
+
     public HibernateMessageFromAdminDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }
@@ -30,7 +31,7 @@ public class HibernateMessageFromAdminDAO implements IMessageFromAdmin {
 
     @Override
     public void deleteMessage(int id) throws DBException {
-        MessageFromAdmin message=getMessageFromAdmin(id);
+        MessageFromAdmin message = getMessageFromAdmin(id);
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         session.delete(message);

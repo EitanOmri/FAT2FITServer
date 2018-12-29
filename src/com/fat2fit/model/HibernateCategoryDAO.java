@@ -6,12 +6,11 @@ import java.util.List;
 
 public class HibernateCategoryDAO implements ICategory {
 
-    Factory factoryInstance;
+    private Factory factoryInstance;
 
     public HibernateCategoryDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }
-
 
     @Override
     public void addCategory(Category category) throws DBException {

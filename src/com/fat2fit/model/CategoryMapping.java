@@ -5,8 +5,8 @@ public class CategoryMapping {
     private long totalExercises;
 
     public CategoryMapping(String categoryName, long totalExercises) {
-        this.categoryName = categoryName;
-        this.totalExercises = totalExercises;
+        setCategoryName(categoryName);
+        setTotalExercises(totalExercises);
     }
 
     public CategoryMapping() {

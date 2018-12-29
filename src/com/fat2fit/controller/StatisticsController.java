@@ -50,7 +50,7 @@ public class StatisticsController {
 
     }
 
-    public void weeklyBurnCal(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+    public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
 
         String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         RequestDispatcher dispatcher = null;
@@ -85,6 +85,30 @@ public class StatisticsController {
                 Gson gsonObj = new Gson();
                 HttpSession session = request.getSession();
                 session.setAttribute("dataPointsWeekly", gsonObj.toJson(list));
+
+                //pie chart
+                list = new ArrayList<Map<Object, Object>>();
+
+                CategoryMapping[] categories = exerciseHistoryDAO.getStatisticsCategory(username);
+                int totalPercents = 0;
+                int totalExercise = 0;
+                for (int i = 0; i < categories.length; i++)
+                    totalExercise = +(int) categories[i].getTotalExercises();
+                for (int i = 0; i < categories.length; i++) {
+                    map = new HashMap<Object, Object>();
+                    map.put("label", categories[i].getCategoryName());
+                    if (i == categories.length - 1) {
+                        if (categories.length - 1 == 0) //there are only 1 category
+                            map.put("y", 100);
+                        else  //there are more then 1 category
+                            map.put("y", 100 - totalPercents);
+                    } else
+                        map.put("y", (int) (categories[i].getTotalExercises() / totalExercise));
+                    list.add(map);
+                    totalPercents += (int) (categories[i].getTotalExercises() / totalExercise);
+                }
+                session.setAttribute("dataPieCategory", gsonObj.toJson(list));
+
 
                 dispatcher = request.getServletContext().getRequestDispatcher("/Statistics.jsp");
             } catch (DBException e) {

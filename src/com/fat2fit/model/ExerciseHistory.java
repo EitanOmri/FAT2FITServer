@@ -3,26 +3,24 @@ package com.fat2fit.model;
 import java.util.Date;
 
 public class ExerciseHistory {
-    String username;
-    int idExercise;
-    int sets;
-    int reps;
-    Date date;
-    int id;
+    private String username;
+    private int idExercise;
+    private int sets;
+    private int reps;
+    private Date date;
+    private int id;
 
-    public ExerciseHistory() {super();
+    public ExerciseHistory(String username, int idExercise, int sets, int reps, Date date, int id) {
+        this.username = username;
+        this.idExercise = idExercise;
+        this.sets = sets;
+        this.reps = reps;
+        this.date = date;
+        this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "ExerciseHistory{" +
-                "username='" + username + '\'' +
-                ", idExercise=" + idExercise +
-                ", sets=" + sets +
-                ", reps=" + reps +
-                ", date=" + date +
-                ", id=" + id +
-                '}';
+    public ExerciseHistory() {
+        super();
     }
 
     public String getUsername() {
@@ -73,12 +71,16 @@ public class ExerciseHistory {
         this.id = id;
     }
 
-    public ExerciseHistory(String username, int idExercise, int sets, int reps, Date date, int id) {
-        this.username = username;
-        this.idExercise = idExercise;
-        this.sets = sets;
-        this.reps = reps;
-        this.date = date;
-        this.id = id;
+    @Override
+    public String toString() {
+        return "ExerciseHistory{" +
+                "username='" + username + '\'' +
+                ", idExercise=" + idExercise +
+                ", sets=" + sets +
+                ", reps=" + reps +
+                ", date=" + date +
+                ", id=" + id +
+                '}';
     }
+
 }

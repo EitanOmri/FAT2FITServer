@@ -100,4 +100,21 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
         }
     }
+
+    @Override
+    public CategoryMapping[] getStatisticsCategory(String username) throws DBException {
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        List categoryStat = session.createQuery(
+                "select new com.fat2fit.model.CategoryMapping(category.name,sum(exerciseHistory.reps*exerciseHistory.sets)) " +
+                        "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises, com.fat2fit.model.Category category " +
+                        " where exerciseHistory.idExercise=exercises.id and exercises.categoryID=category.id and exerciseHistory.username=:parm"+
+                        " group by category.id").setParameter("parm", username).list();// hql
+        session.close();
+        CategoryMapping[] returnArr = new CategoryMapping[categoryStat.size()];
+        returnArr = (CategoryMapping[]) categoryStat.toArray(returnArr);
+        return returnArr;
+    }
+
+
 }

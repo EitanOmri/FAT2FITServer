@@ -1,15 +1,16 @@
 package com.fat2fit.model;
 
 public class TrainingListName {
-    int id;
-    String name;
+    private int id;
+    private String name;
 
-    @Override
-    public String toString() {
-        return "TrainingListName{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public TrainingListName(int id, String name) {
+        setId(id);
+        setName(name);
+    }
+
+    public TrainingListName() {
+        super();
     }
 
     public int getId() {
@@ -28,11 +29,11 @@ public class TrainingListName {
         this.name = name;
     }
 
-    public TrainingListName() {super();
-    }
-
-    public TrainingListName(int id, String name) {
-        this.id = id;
-        this.name = name;
+    @Override
+    public String toString() {
+        return "TrainingListName{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

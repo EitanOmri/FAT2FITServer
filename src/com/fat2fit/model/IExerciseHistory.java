@@ -7,12 +7,15 @@ public interface IExerciseHistory {
 
     void deleteExercise(int id) throws DBException;
 
-    void updateExercise(int id, int reps,int sets) throws DBException;
+    void updateExercise(int id, int reps, int sets) throws DBException;
 
     ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException;
 
-    WeeklyCalMmaping[] getStatisticsWeeklyCal(String username) throws DBException;
+    WeeklyCalMapping[] getStatisticsWeeklyCal(String username) throws DBException;
 
     ExerciseHistory getExercise(int id) throws DBException;
+
+    CategoryMapping[] getStatisticsCategory(String username) throws DBException;
+
 
 }

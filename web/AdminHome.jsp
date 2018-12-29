@@ -21,9 +21,8 @@
         <h1>Manager</h1>
     </div>
     <div data-role="content" style="background-color: black">
-
         <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">
-                
+               
             <li><a href="MangeExercises.html" data-ajax="false">
                      <h2 style="font-size: 40px;color: white">Manage Exercises</h2>
                     <p style="font-size: 20px;color: white">lets show my ability</p></a>

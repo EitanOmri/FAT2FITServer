@@ -1,36 +1,33 @@
 package com.fat2fit.model;
 
-import org.hibernate.type.NumericBooleanType;
-import org.omg.DynamicAny.DynArray;
-
-import javax.xml.soap.SAAJResult;
 import java.util.Date;
 
 public class User {
-    String username;
-    String firsName;
-    String lastName;
-    String email;
-    String password;
-    Date dateOfBirth;
-    double weight;
-    double height;
-    int isManager;
+    private String username;
+    private String firsName;
+    private String lastName;
+    private String email;
+    private String password;
+    private Date dateOfBirth;
+    private double weight;
+    private double height;
+    private int isManager;
 
+    public User(String username, String firsName, String lastName, String email, String password, Date dateOfBirth, double weight, double height, int isManager) {
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", firsName='" + firsName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", weight=" + weight +
-                ", height=" + height +
-                ", isManager=" + (isManager==1? "true": "false" )+
-                '}';
+        setUsername(username);
+        setFirsName(firsName);
+        setLastName(lastName);
+        setEmail(email);
+        setPassword(password);
+        setDateOfBirth(dateOfBirth);
+        setWeight(weight);
+        setHeight(height);
+        setIsManager(isManager);
+    }
+
+    public User() {
+        super();
     }
 
     public String getUsername() {
@@ -105,19 +102,18 @@ public class User {
         this.isManager = isManager;
     }
 
-    public User() {
-        super();
-    }
-
-    public User(String username, String firsName, String lastName, String email, String password, Date dateOfBirth, double weight, double height, int isManager) {
-        this.username = username;
-        this.firsName = firsName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.dateOfBirth = dateOfBirth;
-        this.weight = weight;
-        this.height = height;
-        this.isManager = isManager;
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firsName='" + firsName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", isManager=" + (isManager == 1 ? "true" : "false") +
+                '}';
     }
 }

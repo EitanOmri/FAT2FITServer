@@ -18,7 +18,9 @@
 
         window.onload = function() {
 
-            var chart = new CanvasJS.Chart("chartContainer", {
+            var chart1 = new CanvasJS.Chart("chartContainer1", {
+                theme: "dark1", // "light1", "light2", "dark2"
+
                 title: {
                     text: "burn cal chart- weekly"
                 },
@@ -34,7 +36,24 @@
                     dataPoints: <%=request.getSession().getAttribute("dataPointsWeekly")%>
                 }]
             });
-            chart.render();
+
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
+                theme: "dark1", // "light1", "light2", "dark2"
+                exportEnabled: true,
+                animationEnabled: true,
+                title: {
+                    text: "Total exercises per category"
+                },
+                data: [{
+                    type: "pie",
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: <%=request.getSession().getAttribute("dataPieCategory")%>
+                }]
+            });
+            chart1.render();
+            chart2.render();
         }
     </script>
 </head>
@@ -49,7 +68,9 @@
     </div>
     <div data-role="content">
         <div data-role="fieldcontain">
-            <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+            <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
+            <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
+
         </div>
         <div data-role="footer" data-position="fixed">
             <h3>FAT2FIT</h3>

@@ -1,16 +1,12 @@
 package com.fat2fit.model;
 
 public class TopNMapping {
+    private String username;
+    private long totalCal;
 
-    String username;
-    long totalCal;
-
-    @Override
-    public String toString() {
-        return "TopNMapping{" +
-                "username='" + username + '\'' +
-                ", totalCal=" + totalCal +
-                '}';
+    public TopNMapping(String username, long totalCal) {
+        setUsername(username);
+        setTotalCal(totalCal);
     }
 
     public TopNMapping() {
@@ -33,8 +29,11 @@ public class TopNMapping {
         this.totalCal = totalCal;
     }
 
-    public TopNMapping(String username, long totalCal) {
-        this.username = username;
-        this.totalCal = totalCal;
+    @Override
+    public String toString() {
+        return "TopNMapping{" +
+                "username='" + username + '\'' +
+                ", totalCal=" + totalCal +
+                '}';
     }
 }

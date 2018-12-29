@@ -3,7 +3,6 @@ package com.fat2fit.controller;
 import com.fat2fit.model.DBException;
 import com.fat2fit.model.HibernateUserDAO;
 import com.fat2fit.model.User;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

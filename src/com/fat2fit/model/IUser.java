@@ -20,6 +20,4 @@ public interface IUser {
     void addAdmin(String username) throws DBException;
 
     User[] getUseresWithOutAdmin() throws DBException;
-
-
 }

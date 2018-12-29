@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateExerciseHistoryDAO implements IExerciseHistory {
-    Factory factoryInstance;
+    private Factory factoryInstance;
 
     public HibernateExerciseHistoryDAO() {
         this.factoryInstance = Factory.getFactoryInstance();
@@ -71,17 +71,17 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     }
 
     @Override
-    public WeeklyCalMmaping[] getStatisticsWeeklyCal(String username) throws DBException {
+    public WeeklyCalMapping[] getStatisticsWeeklyCal(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List history = session.createQuery(
-                "select new com.fat2fit.model.WeeklyCalMmaping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
+                "select new com.fat2fit.model.WeeklyCalMapping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
                 "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
                 " where exerciseHistory.idExercise=exercises.id and exerciseHistory.username=:parm"+
                 " group by exerciseHistory.date order by exerciseHistory.date desc").setParameter("parm", username).setMaxResults(7).list();// hql
         session.close();
-        WeeklyCalMmaping[] returnArr = new WeeklyCalMmaping[history.size()];
-        returnArr = (WeeklyCalMmaping[]) history.toArray(returnArr);
+        WeeklyCalMapping[] returnArr = new WeeklyCalMapping[history.size()];
+        returnArr = (WeeklyCalMapping[]) history.toArray(returnArr);
         return returnArr;
     }
 
@@ -100,4 +100,21 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
         }
     }
+
+    @Override
+    public CategoryMapping[] getStatisticsCategory(String username) throws DBException {
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        List categoryStat = session.createQuery(
+                "select new com.fat2fit.model.CategoryMapping(category.name,sum(exerciseHistory.reps*exerciseHistory.sets)) " +
+                        "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises, com.fat2fit.model.Category category " +
+                        " where exerciseHistory.idExercise=exercises.id and exercises.categoryID=category.id and exerciseHistory.username=:parm"+
+                        " group by category.id").setParameter("parm", username).list();// hql
+        session.close();
+        CategoryMapping[] returnArr = new CategoryMapping[categoryStat.size()];
+        returnArr = (CategoryMapping[]) categoryStat.toArray(returnArr);
+        return returnArr;
+    }
+
+
 }

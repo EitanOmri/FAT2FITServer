@@ -4,8 +4,9 @@ import org.hibernate.Session;
 
 import java.util.List;
 
-public class HibernateTrainingListNameDAO implements ITrainingListName{
-    Factory factoryInstance;
+public class HibernateTrainingListNameDAO implements ITrainingListName {
+    private Factory factoryInstance;
+
     public HibernateTrainingListNameDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }
@@ -30,7 +31,7 @@ public class HibernateTrainingListNameDAO implements ITrainingListName{
 
     @Override
     public void delete(int id) throws DBException {
-        if(getTrainigListName(id)!=null) {
+        if (getTrainigListName(id) != null) {
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
             session.delete(getTrainigListName(id));
@@ -38,6 +39,7 @@ public class HibernateTrainingListNameDAO implements ITrainingListName{
             session.close();
         }
     }
+
     @Override
     public TrainingListName[] getTrainingListNames() throws DBException {
 

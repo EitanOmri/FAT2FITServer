@@ -1,33 +1,24 @@
 package com.fat2fit.model;
 
+
 import java.util.Objects;
 
-public class Exercises {
-    int id;
-    String name;
-    int caloriesPerReps;
-    int categoryID;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Exercises exercises = (Exercises) o;
-        return id == exercises.id &&
-                caloriesPerReps == exercises.caloriesPerReps &&
-                categoryID == exercises.categoryID &&
-                Objects.equals(name, exercises.name);
+public class Exercises {
+    private int id;
+    private String name;
+    private int caloriesPerReps;
+    private int categoryID;
+
+    public Exercises(int id, String name, int caloriesPerReps, int categoryID) {
+       setId(id);
+       setName(name);
+       setCaloriesPerReps(caloriesPerReps);
+       setCategoryID(categoryID);
     }
 
-
-    @Override
-    public String toString() {
-        return "Exercises{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", caloriesPerReps=" + caloriesPerReps +
-                ", categoryID=" + categoryID +
-                '}';
+    public Exercises() {
+        super();
     }
 
     public int getId() {
@@ -62,13 +53,30 @@ public class Exercises {
         this.categoryID = categoryID;
     }
 
-    public Exercises() {super();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Exercises exercises = (Exercises) o;
+        return id == exercises.id &&
+                caloriesPerReps == exercises.caloriesPerReps &&
+                categoryID == exercises.categoryID &&
+                Objects.equals(name, exercises.name);
     }
 
-    public Exercises(int id, String name, int caloriesPerReps, int categoryID) {
-        this.id = id;
-        this.name = name;
-        this.caloriesPerReps = caloriesPerReps;
-        this.categoryID = categoryID;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id, caloriesPerReps, categoryID);
     }
+
+    @Override
+    public String toString() {
+        return "Exercises{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", caloriesPerReps=" + caloriesPerReps +
+                ", categoryID=" + categoryID +
+                '}';
+    }
+
 }

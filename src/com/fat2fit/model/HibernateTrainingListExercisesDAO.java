@@ -5,11 +5,11 @@ import org.hibernate.Session;
 import java.util.List;
 
 public class HibernateTrainingListExercisesDAO implements ITrainingListExercises {
-    Factory factoryInstance;
+    private Factory factoryInstance;
+
     public HibernateTrainingListExercisesDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }
-
 
     @Override
     public void add(TrainingListExercises trainingListExercises) throws DBException {
@@ -22,15 +22,15 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
 
     @Override
     public void delete(int id) throws DBException {
-        TrainingListExercises trainingListExercises=getTrainigList(id);
-       if(trainingListExercises!=null) {
-           Session session = factoryInstance.getFactory().openSession();
-           session.beginTransaction();
+        TrainingListExercises trainingListExercises = getTrainigList(id);
+        if (trainingListExercises != null) {
+            Session session = factoryInstance.getFactory().openSession();
+            session.beginTransaction();
 
-           session.delete(trainingListExercises);
-           session.getTransaction().commit();
-           session.close();
-       }
+            session.delete(trainingListExercises);
+            session.getTransaction().commit();
+            session.close();
+        }
     }
 
     @Override

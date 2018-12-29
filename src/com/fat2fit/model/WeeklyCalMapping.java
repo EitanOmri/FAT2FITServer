@@ -2,17 +2,16 @@ package com.fat2fit.model;
 
 import java.util.Date;
 
-public class WeeklyCalMmaping {
+public class WeeklyCalMapping {
     private Date date;
     private Long cal;
 
-    @Override
-    public String toString() {
-        return "WeeklyCalMmaping{" +
-                "date=" + date +
-                ", cal=" + cal +
-                '}';
+    public WeeklyCalMapping(Date date, Long cal) {
+        setDate(date);
+        setCal(cal);
     }
+
+    public WeeklyCalMapping() {super(); }
 
     public Date getDate() {
         return date;
@@ -30,11 +29,11 @@ public class WeeklyCalMmaping {
         this.cal = cal;
     }
 
-    public WeeklyCalMmaping() {
-    }
-
-    public WeeklyCalMmaping(Date date, Long cal) {
-        this.date = date;
-        this.cal = cal;
+    @Override
+    public String toString() {
+        return "WeeklyCalMapping{" +
+                "date=" + date +
+                ", cal=" + cal +
+                '}';
     }
 }

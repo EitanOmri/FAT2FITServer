@@ -71,17 +71,17 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     }
 
     @Override
-    public WeeklyCalMmaping[] getStatisticsWeeklyCal(String username) throws DBException {
+    public WeeklyCalMapping[] getStatisticsWeeklyCal(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List history = session.createQuery(
-                "select new com.fat2fit.model.WeeklyCalMmaping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
+                "select new com.fat2fit.model.WeeklyCalMapping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
                 "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
                 " where exerciseHistory.idExercise=exercises.id and exerciseHistory.username=:parm"+
                 " group by exerciseHistory.date order by exerciseHistory.date desc").setParameter("parm", username).setMaxResults(7).list();// hql
         session.close();
-        WeeklyCalMmaping[] returnArr = new WeeklyCalMmaping[history.size()];
-        returnArr = (WeeklyCalMmaping[]) history.toArray(returnArr);
+        WeeklyCalMapping[] returnArr = new WeeklyCalMapping[history.size()];
+        returnArr = (WeeklyCalMapping[]) history.toArray(returnArr);
         return returnArr;
     }
 

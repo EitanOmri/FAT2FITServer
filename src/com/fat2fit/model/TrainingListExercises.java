@@ -1,21 +1,22 @@
 package com.fat2fit.model;
 
 public class TrainingListExercises {
-    int id;
-    int idTraining;
-    int idExercise;
-    int sets;
-    int reps;
+    private int id;
+    private int idTraining;
+    private int idExercise;
+    private int sets;
+    private int reps;
 
-    @Override
-    public String toString() {
-        return "TrainingListExercises{" +
-                "id=" + id +
-                ", idTraining=" + idTraining +
-                ", idExercise=" + idExercise +
-                ", sets=" + sets +
-                ", reps=" + reps +
-                '}';
+    public TrainingListExercises(int id, int idTraining, int idExercise, int sets, int reps) {
+        setId(id);
+        setIdTraining(idTraining);
+        setIdExercise(idExercise);
+        setSets(sets);
+        setReps(reps);
+    }
+
+    public TrainingListExercises() {
+        super();
     }
 
     public int getId() {
@@ -58,14 +59,14 @@ public class TrainingListExercises {
         this.reps = reps;
     }
 
-    public TrainingListExercises() {super();
-    }
-
-    public TrainingListExercises(int id, int idTraining, int idExercise, int sets, int reps) {
-        this.id = id;
-        this.idTraining = idTraining;
-        this.idExercise = idExercise;
-        this.sets = sets;
-        this.reps = reps;
+    @Override
+    public String toString() {
+        return "TrainingListExercises{" +
+                "id=" + id +
+                ", idTraining=" + idTraining +
+                ", idExercise=" + idExercise +
+                ", sets=" + sets +
+                ", reps=" + reps +
+                '}';
     }
 }

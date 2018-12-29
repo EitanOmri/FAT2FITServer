@@ -58,7 +58,7 @@ public class StatisticsController {
         if (username != null) {
             HibernateExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
             try {
-                WeeklyCalMmaping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
+                WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
                 Date date = new Date();
                 date = new Date(date.getTime() - 6 * 24 * 60 * 60 * 1000); //week before today
                 int today = date.getDay();

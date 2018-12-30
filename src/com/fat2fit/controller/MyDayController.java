@@ -9,10 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type My day controller.
+ */
 public class MyDayController {
+    /**
+     * My day menu.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void myDayMenu(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
+        ICategory categoryDAO = new HibernateCategoryDAO();
         if (request.getSession().getAttribute("userName") != null) {
             try {
                 Category[] categories = categoryDAO.getCategories();
@@ -36,10 +48,19 @@ public class MyDayController {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Workout.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
-        HibernateCategoryDAO categoryDAO=new HibernateCategoryDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
+        ICategory categoryDAO=new HibernateCategoryDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         if (request.getSession().getAttribute("userName") != null) {
         try {

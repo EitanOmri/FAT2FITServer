@@ -8,16 +8,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 import com.google.gson.*;
 
+/**
+ * The type Statistics controller.
+ */
 public class StatisticsController {
+    /**
+     * Top 3.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void top3(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
-            HibernateExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
             try {
                 TopNMapping[] topNMappings = exerciseHistoryDAO.getTop3();
                 StringBuffer sb = new StringBuffer();
@@ -50,37 +64,51 @@ public class StatisticsController {
 
     }
 
+    /**
+     * Statistics.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-
-        String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+/*
+*this function creates lists of maps(necessary for CanavsJS library).
+* the first part of the takes the last 7 works days of the user and check if they were in the last week.
+* the second part of the function calculates the distribution of training by category.
+ */
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
-            HibernateExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
             try {
                 WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
-                Date date = new Date();
-                date = new Date(date.getTime() - 6 * 24 * 60 * 60 * 1000); //week before today
-                int today = date.getDay();
+                LocalDate date = LocalDate.now();
+                date = date.minusDays(6);
+                DayOfWeek today = date.getDayOfWeek();
                 Map<Object, Object> map = null;
                 List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
                 int j = calories.length - 1;
                 for (int i = 0; i < 7; i++) {
                     map = new HashMap<Object, Object>();
-                    while (calories[j].getDate().getDate() < date.getDate() && j != 0) //there are days in array before the last week
-                        j--;
-                    if (calories[j].getDate().getDate() == date.getDate()) {
-                        map.put("label", days[today]);
-                        map.put("y", calories[j].getCal());
-                        if (j != 0)
+                    if (j > 0)
+                        while (calories[j].getDate().getDate() < date.getDayOfMonth() && j > 0) //there are days in array before the last week
                             j--;
-                    } else {
-                        map.put("label", days[today]); //no training in this day
-                        map.put("y", 0);
-                    }
+                    if (j >= 0)
+                        if (calories[j].getDate().getDate() == date.getDayOfMonth()) {
+                            map.put("label", today.toString());
+                            map.put("y", calories[j].getCal());
+                            if (j > 0)
+                                j--;
+                        } else {
+                            map.put("label", today.toString()); //no training in this day
+                            map.put("y", 0);
+                        }
                     list.add(map);
-                    date = new Date(date.getTime() + 24 * 60 * 60 * 1000);//go to next day
-                    today = (today + 1) % 7; //go to next day
+                    date = date.plusDays(1);//go to next day
+                    today = today.plus(1); //go to next day
                 }
                 Gson gsonObj = new Gson();
                 HttpSession session = request.getSession();

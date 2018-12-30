@@ -4,9 +4,15 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The type Hibernate user dao.
+ */
 public class HibernateUserDAO implements IUser {
     private Factory factoryInstance;
 
+    /**
+     * Instantiates a new Hibernate user dao.
+     */
     public HibernateUserDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }

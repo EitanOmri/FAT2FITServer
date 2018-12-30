@@ -12,12 +12,24 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type History controller.
+ */
 public class HistoryController {
 
+    /**
+     * Add training list.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addTrainingList(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateTrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
-        HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
+        ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
+        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
@@ -41,10 +53,19 @@ public class HistoryController {
 
     }
 
+    /**
+     * My history.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
-        HibernateExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();
+        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
+        IExercises hibernateExercisesDAO = new HibernateExercisesDAO();
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
             try {
@@ -88,6 +109,15 @@ public class HistoryController {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Edit or delete view.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void editOrDeleteView(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         if (request.getSession().getAttribute("userName") != null) {
@@ -107,12 +137,21 @@ public class HistoryController {
 
     }
 
+    /**
+     * Delete action.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void deleteAction(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
         if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName")!=null) {
             int id = (int) session.getAttribute("idEditOrView");
-            HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
             try {
                 historyDAO.deleteExercise(id);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
@@ -124,6 +163,15 @@ public class HistoryController {
         }
     }
 
+    /**
+     * Update action.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void updateAction(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
@@ -131,7 +179,7 @@ public class HistoryController {
         int reps = Integer.parseInt(request.getParameter("reps"));
         if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName")!=null) {
             int id = (int) session.getAttribute("idEditOrView");
-            HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
             try {
                 historyDAO.updateExercise(id, reps, sets);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
@@ -142,10 +190,19 @@ public class HistoryController {
         }
     }
 
+    /**
+     * Add my day.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addMyDay(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         if(username!=null && session.getAttribute("categoryId")!=null){

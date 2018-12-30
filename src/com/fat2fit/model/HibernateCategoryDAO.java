@@ -4,10 +4,16 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The type Hibernate category dao.
+ */
 public class HibernateCategoryDAO implements ICategory {
 
     private Factory factoryInstance;
 
+    /**
+     * Instantiates a new Hibernate category dao.
+     */
     public HibernateCategoryDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }

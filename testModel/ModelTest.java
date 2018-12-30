@@ -3,14 +3,20 @@ import org.junit.Test;
 import java.util.Date;
 import static org.junit.Assert.*;
 
+/**
+ * The type Model test.
+ */
 public class ModelTest {
 
-        @Test
+    /**
+     * User model test.
+     */
+    @Test
     public void userModelTest() {
 
-        HibernateUserDAO userDAO = new HibernateUserDAO();
+        IUser userDAO = new HibernateUserDAO();
         try {
-            User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
+            User omri = new User( "omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
             userDAO.saveUser(omri);
 
             assertEquals("omrieitan", userDAO.getUser("omrieitan").getUsername());
@@ -43,9 +49,12 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Training list name model test.
+     */
     @Test
     public void trainingListNameModelTest() {
-        HibernateTrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
+        ITrainingListName listNameDAO = new HibernateTrainingListNameDAO();
         try {
             TrainingListName trainingListName = new TrainingListName(1, "test");
             listNameDAO.add(trainingListName);
@@ -55,12 +64,13 @@ public class ModelTest {
         } catch (DBException e) {
             e.printStackTrace();
         }
-
     }
-
+    /**
+     * Training list exercises model test.
+     */
     @Test
     public void trainingListExercisesModelTest() {
-        HibernateTrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
+        ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
         try {
             TrainingListExercises trainingListExercises1 = new TrainingListExercises(1, 1000, 1000, 5, 5);
             TrainingListExercises trainingListExercises2 = new TrainingListExercises(2, 1000, 1001, 5, 5);
@@ -80,9 +90,12 @@ public class ModelTest {
 
     }
 
+    /**
+     * Message from admin model test.
+     */
     @Test
     public void messageFromAdminModelTest() {
-        HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+        IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
         try {
             MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!");
             int countBeforeSave = messageFromAdminDAO.getAllMessageFromAdmin().length;
@@ -95,9 +108,12 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Message to admin model test.
+     */
     @Test
     public void messageToAdminModelTest() {
-        HibernateMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
+        IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
         try {
             MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!", "omrieitan");
             int countBeforeSave = messageToAdminDAO.getAllMessageToAdmin().length;
@@ -111,10 +127,13 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Exercises and history model test.
+     */
     @Test
     public void exercisesAndHistoryModelTest() {
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
-        HibernateExerciseHistoryDAO hibernateExerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
+        IExerciseHistory hibernateExerciseHistoryDAO = new HibernateExerciseHistoryDAO();
         ExerciseHistory exerciseHistory1 = new ExerciseHistory("tomer", 1, 4, 5, new Date(2018, 01, 31), 3);
         ExerciseHistory exerciseHistory2 = new ExerciseHistory("tomer", 1, 4, 5, new Date(2018, 01, 31), 3);
         ExerciseHistory exerciseHistory3 = new ExerciseHistory("omri", 1, 5, 5, new Date(2018, 01, 31), 3);
@@ -154,9 +173,12 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Category model test.
+     */
     @Test
     public void categoryModelTest() {
-        HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
+        ICategory categoryDAO = new HibernateCategoryDAO();
         Category category = new Category(1, "testCtegoty");
         try {
             int countBeforeSave = categoryDAO.getCategories().length;

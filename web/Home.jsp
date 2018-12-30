@@ -15,16 +15,24 @@
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
+
 </head>
 <body>
 <div data-role="page" id="Home" style="font-size: x-large">
+    <style type="text/css">
+        tab1 {
+            padding-left: 14em;
+        }
+        tab2 {
+            padding-left: 22em;
+        }
+    </style>
     <div data-role="header" data-position="fixed" data-theme="b">
-        <h1> hello <%=session.getAttribute("userName")%>,
+        <tab2>hello <%=session.getAttribute("userName")%>!</tab2>
+        <tab1>
             your bmi:<%=session.getAttribute("bmi")%>
             <img src="<%=request.getContextPath()%>/IMG/<%=session.getAttribute("bmiColor")%>-light.png"
-            alt="<%=session.getAttribute("bmiColor")%>" height="20%" width="20%"/>
-        </h1>
-
+                 alt="<%=session.getAttribute("bmiColor")%>" height="25px" width="50px"/></tab1>
     </div>
     <div data-role="content" style="background-color: black">
 

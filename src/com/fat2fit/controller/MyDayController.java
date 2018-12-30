@@ -39,6 +39,7 @@ public class MyDayController {
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        HibernateCategoryDAO categoryDAO=new HibernateCategoryDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         if (request.getSession().getAttribute("userName") != null) {
         try {
@@ -67,6 +68,7 @@ public class MyDayController {
             }
             HttpSession session = request.getSession();
             session.setAttribute("categoryId", id);
+            session.setAttribute("categoryName",categoryDAO.getCategory(id).getName());
             request.setAttribute("categoriesForm", sb.toString());
             dispatcher = request.getServletContext().getRequestDispatcher("/MyDayExercise.jsp");
         } catch (DBException e) {

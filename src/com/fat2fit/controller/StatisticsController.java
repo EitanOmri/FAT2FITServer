@@ -94,6 +94,7 @@ public class StatisticsController {
                 int totalExercise = 0;
                 for (int i = 0; i < categories.length; i++)
                     totalExercise = +(int) categories[i].getTotalExercises();
+
                 for (int i = 0; i < categories.length; i++) {
                     map = new HashMap<Object, Object>();
                     map.put("label", categories[i].getCategoryName());

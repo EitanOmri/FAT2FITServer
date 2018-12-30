@@ -40,6 +40,7 @@ public class TrainingController {
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();
+        HibernateTrainingListNameDAO listNameDAO=new HibernateTrainingListNameDAO();
         HibernateTrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         if (request.getSession().getAttribute("userName") != null) {
@@ -62,6 +63,7 @@ public class TrainingController {
                 HttpSession session = request.getSession();
                 session.setAttribute("exerciseList", sb.toString());
                 session.setAttribute("trainingListId", id);
+                session.setAttribute("trainingListName", listNameDAO.getTrainigListName(id).getName());
                 dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListExercise.jsp");
 
             } catch (DBException e) {

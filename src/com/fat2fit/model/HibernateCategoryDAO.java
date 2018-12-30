@@ -56,4 +56,16 @@ public class HibernateCategoryDAO implements ICategory {
         returnArr = (Category[]) categories.toArray(returnArr);
         return returnArr;
     }
+
+    @Override
+    public Category getCategoryByName(String name) throws DBException {
+        Session session = factoryInstance.getFactory().openSession();
+        session.beginTransaction();
+        List category = session.createQuery("FROM com.fat2fit.model.Category category WHERE Name=:parm ").setParameter("parm", name).list();// hql
+        session.close();
+        if (category.size() == 0)
+            return null;
+        else
+            return (Category) category.get(0);
+    }
 }

@@ -22,7 +22,7 @@
             to training
             list</a>
 
-        <h1>Full body</h1>
+        <h1><%=request.getSession().getAttribute("trainingListName")%></h1>
     </div>
     <div data-role="content">
         <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke" style=color:black> 

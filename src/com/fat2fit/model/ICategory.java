@@ -9,4 +9,5 @@ public interface ICategory {
 
     Category[] getCategories() throws DBException;
 
+    Category getCategoryByName(String name) throws DBException;
 }

@@ -28,8 +28,8 @@ public class HistoryController {
      */
     public void addTrainingList(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateTrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
-        HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
+        ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
+        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
@@ -64,8 +64,8 @@ public class HistoryController {
      */
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
-        HibernateExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();
+        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
+        IExercises hibernateExercisesDAO = new HibernateExercisesDAO();
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
             try {
@@ -151,7 +151,7 @@ public class HistoryController {
         HttpSession session = request.getSession();
         if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName")!=null) {
             int id = (int) session.getAttribute("idEditOrView");
-            HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
             try {
                 historyDAO.deleteExercise(id);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
@@ -179,7 +179,7 @@ public class HistoryController {
         int reps = Integer.parseInt(request.getParameter("reps"));
         if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName")!=null) {
             int id = (int) session.getAttribute("idEditOrView");
-            HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
             try {
                 historyDAO.updateExercise(id, reps, sets);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
@@ -201,8 +201,8 @@ public class HistoryController {
      */
     public void addMyDay(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExerciseHistoryDAO historyDAO = new HibernateExerciseHistoryDAO();
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         if(username!=null && session.getAttribute("categoryId")!=null){

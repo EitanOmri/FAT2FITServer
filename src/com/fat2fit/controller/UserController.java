@@ -2,6 +2,7 @@ package com.fat2fit.controller;
 
 import com.fat2fit.model.DBException;
 import com.fat2fit.model.HibernateUserDAO;
+import com.fat2fit.model.IUser;
 import com.fat2fit.model.User;
 import com.sun.deploy.net.HttpRequest;
 
@@ -31,7 +32,7 @@ public class UserController {
      */
     public void addUser(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("UserName");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
@@ -84,7 +85,7 @@ public class UserController {
      */
     public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("UserName");
         String password = request.getParameter("password");
         try {
@@ -115,7 +116,7 @@ public class UserController {
      */
     public void logout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         session.invalidate();
         dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
@@ -134,7 +135,7 @@ public class UserController {
      */
     public void update(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         double height = Double.parseDouble(request.getParameter("height"));
         double weight = Double.parseDouble(request.getParameter("weight"));
         if (request.getSession().getAttribute("userName") != null) {

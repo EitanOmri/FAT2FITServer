@@ -24,7 +24,7 @@ public class MyDayController {
      */
     public void myDayMenu(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
+        ICategory categoryDAO = new HibernateCategoryDAO();
         if (request.getSession().getAttribute("userName") != null) {
             try {
                 Category[] categories = categoryDAO.getCategories();
@@ -59,8 +59,8 @@ public class MyDayController {
      */
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
-        HibernateCategoryDAO categoryDAO=new HibernateCategoryDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
+        ICategory categoryDAO=new HibernateCategoryDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         if (request.getSession().getAttribute("userName") != null) {
         try {

@@ -2,6 +2,7 @@ package com.fat2fit.controller;
 
 import com.fat2fit.model.DBException;
 import com.fat2fit.model.HibernateUserDAO;
+import com.fat2fit.model.IUser;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ public class NavigatorController {
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
-        HibernateUserDAO userDAO = new HibernateUserDAO();
+        IUser userDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
         String username = (String) request.getSession().getAttribute("userName");

@@ -27,7 +27,7 @@ public class MessageController {
     public void message(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         if (request.getSession().getAttribute("userName") != null) {
-            HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+            IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
             try {
                 MessageFromAdmin[] messageFromAdmins = messageFromAdminDAO.getAllMessageFromAdmin();
                 StringBuffer sb = new StringBuffer();
@@ -70,7 +70,7 @@ public class MessageController {
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
             String content = request.getParameter("content");
-            HibernateMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
+            IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
             MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(), content, username);
             try {
                 messageToAdminDAO.saveMessage(messageToAdmin);
@@ -99,11 +99,11 @@ public class MessageController {
     public void deleteMessageToAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         try {
             if (hibernateUserDAO.isManager(username)) {
                 int id =Integer.parseInt( request.getParameter("id"));
-                HibernateMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
+                IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
                 messageToAdminDAO.deleteMessage(id);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
             } else {
@@ -129,11 +129,11 @@ public class MessageController {
     public void addMessageFromAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         try {
             if (hibernateUserDAO.isManager(username)) {
                 String content = request.getParameter("content");
-                HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+                IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
                 MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(), content);
                 messageFromAdminDAO.saveMessage(messageFromAdmin);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
@@ -160,11 +160,11 @@ public class MessageController {
     public void deleteMessageFromAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         try {
             if (hibernateUserDAO.isManager(username)) {
                 int id =Integer.parseInt( request.getParameter("id"));
-                HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+                IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
                 messageFromAdminDAO.deleteMessage(id);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
             } else {

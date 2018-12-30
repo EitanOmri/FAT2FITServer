@@ -26,7 +26,7 @@ public class AdminController {
      */
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
         try {
@@ -54,7 +54,7 @@ public class AdminController {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
         try {
-            HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+            IUser hibernateUserDAO = new HibernateUserDAO();
 
             if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                 User[] users = hibernateUserDAO.getUseresWithOutAdmin();
@@ -99,7 +99,7 @@ public class AdminController {
      */
     public void addAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
         try {
@@ -129,8 +129,8 @@ public class AdminController {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
         try {
-            HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
-            HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
+            IUser hibernateUserDAO = new HibernateUserDAO();
+            ICategory categoryDAO = new HibernateCategoryDAO();
 
             if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                 Category[] categories = categoryDAO.getCategories();
@@ -162,9 +162,9 @@ public class AdminController {
      */
     public void addExercise(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO userDAO = new HibernateUserDAO();
-        HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        IUser userDAO = new HibernateUserDAO();
+        ICategory categoryDAO = new HibernateCategoryDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
         try {
             if (userDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                 String exerciseName = request.getParameter("exerciseName");
@@ -198,8 +198,8 @@ public class AdminController {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
         try {
-            HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
-            HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+            IUser hibernateUserDAO = new HibernateUserDAO();
+            IExercises exercisesDAO = new HibernateExercisesDAO();
 
             if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                 Exercises[] exercises = exercisesDAO.getAllExercises();
@@ -247,10 +247,10 @@ public class AdminController {
      */
     public void addTrainingList(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
-        HibernateTrainingListExercisesDAO trainingListExercisesDAO = new HibernateTrainingListExercisesDAO();
-        HibernateTrainingListNameDAO trainingListNameDAO = new HibernateTrainingListNameDAO();
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        IExercises exercisesDAO = new HibernateExercisesDAO();
+        ITrainingListExercises trainingListExercisesDAO = new HibernateTrainingListExercisesDAO();
+        ITrainingListName trainingListNameDAO = new HibernateTrainingListNameDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         try {
@@ -292,9 +292,9 @@ public class AdminController {
      */
     public void managerMessage(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
-        HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
-        HibernateMessageToAdminDAO toAdminDAO=new HibernateMessageToAdminDAO();
+        IUser hibernateUserDAO = new HibernateUserDAO();
+        IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+        IMessageToAdmin toAdminDAO=new HibernateMessageToAdminDAO();
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         try {

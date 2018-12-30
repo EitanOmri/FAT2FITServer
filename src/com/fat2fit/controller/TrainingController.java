@@ -24,7 +24,7 @@ public class TrainingController {
      */
     public void workoutMenu(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateTrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
+        ITrainingListName listNameDAO = new HibernateTrainingListNameDAO();
         if (request.getSession().getAttribute("userName") != null) {
             try {
                 TrainingListName[] listNames = listNameDAO.getTrainingListNames();
@@ -60,9 +60,9 @@ public class TrainingController {
      */
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        HibernateExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();
-        HibernateTrainingListNameDAO listNameDAO=new HibernateTrainingListNameDAO();
-        HibernateTrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
+        IExercises hibernateExercisesDAO = new HibernateExercisesDAO();
+        ITrainingListName listNameDAO=new HibernateTrainingListNameDAO();
+        ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
         int id = Integer.parseInt(request.getParameter("id"));
         if (request.getSession().getAttribute("userName") != null) {
             try {

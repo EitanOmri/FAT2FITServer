@@ -29,7 +29,7 @@ public class StatisticsController {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
-            HibernateExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
             try {
                 TopNMapping[] topNMappings = exerciseHistoryDAO.getTop3();
                 StringBuffer sb = new StringBuffer();
@@ -77,7 +77,7 @@ public class StatisticsController {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
-            HibernateExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+            IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
             try {
                 WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
                 Date date = new Date();
@@ -88,17 +88,19 @@ public class StatisticsController {
                 int j = calories.length - 1;
                 for (int i = 0; i < 7; i++) {
                     map = new HashMap<Object, Object>();
-                    while (calories[j].getDate().getDate() < date.getDate() && j != 0) //there are days in array before the last week
-                        j--;
-                    if (calories[j].getDate().getDate() == date.getDate()) {
-                        map.put("label", days[today]);
-                        map.put("y", calories[j].getCal());
-                        if (j != 0)
+                    if (j > 0)
+                        while (calories[j].getDate().getDate() < date.getDate() && j > 0) //there are days in array before the last week
                             j--;
-                    } else {
-                        map.put("label", days[today]); //no training in this day
-                        map.put("y", 0);
-                    }
+                    if (j > 0)
+                        if (calories[j].getDate().getDate() == date.getDate()) {
+                            map.put("label", days[today]);
+                            map.put("y", calories[j].getCal());
+                            if (j > 0)
+                                j--;
+                        } else {
+                            map.put("label", days[today]); //no training in this day
+                            map.put("y", 0);
+                        }
                     list.add(map);
                     date = new Date(date.getTime() + 24 * 60 * 60 * 1000);//go to next day
                     today = (today + 1) % 7; //go to next day

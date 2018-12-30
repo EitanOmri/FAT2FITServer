@@ -72,7 +72,10 @@ public class ExerciseHistory {
      * @param idExercise the id exercise
      */
     public void setIdExercise(int idExercise) {
-        this.idExercise = idExercise;
+        if (idExercise > 0)
+            this.idExercise = idExercise;
+        else
+            this.idExercise = 0;
     }
 
     /**
@@ -90,7 +93,11 @@ public class ExerciseHistory {
      * @param sets the sets
      */
     public void setSets(int sets) {
-        this.sets = sets;
+
+        if (sets > 0)
+            this.sets = sets;
+        else
+            this.sets = 0;
     }
 
     /**
@@ -108,7 +115,9 @@ public class ExerciseHistory {
      * @param reps the reps
      */
     public void setReps(int reps) {
-        this.reps = reps;
+        if (reps > 0)
+            this.reps = reps;
+        else this.reps = 0;
     }
 
     /**
@@ -144,7 +153,10 @@ public class ExerciseHistory {
      * @param id the id
      */
     public void setId(int id) {
-        this.id = id;
+        if (id > 0)
+            this.id = id;
+        else
+            this.id = 0;
     }
 
     @Override

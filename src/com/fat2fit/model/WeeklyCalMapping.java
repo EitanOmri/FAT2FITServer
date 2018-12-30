@@ -23,7 +23,9 @@ public class WeeklyCalMapping {
     /**
      * Instantiates a new Weekly cal mapping.
      */
-    public WeeklyCalMapping() {super(); }
+    public WeeklyCalMapping() {
+        super();
+    }
 
     /**
      * Gets date.
@@ -58,7 +60,10 @@ public class WeeklyCalMapping {
      * @param cal the cal
      */
     public void setCal(Long cal) {
-        this.cal = cal;
+        if (cal > 0)
+            this.cal = cal;
+        else
+            this.cal = (long) 0;
     }
 
     @Override

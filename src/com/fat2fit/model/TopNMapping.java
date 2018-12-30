@@ -58,7 +58,10 @@ public class TopNMapping {
      * @param totalCal the total cal
      */
     public void setTotalCal(long totalCal) {
+        if (totalCal>0)
         this.totalCal = totalCal;
+        else
+            this.totalCal=0;
     }
 
     @Override

@@ -58,7 +58,11 @@ public class CategoryMapping {
      * @param totalExercises the total exercises
      */
     public void setTotalExercises(long totalExercises) {
-        this.totalExercises = totalExercises;
+
+        if (totalExercises > 0)
+            this.totalExercises = totalExercises;
+        else
+            this.totalExercises = 0;
     }
 
     @Override

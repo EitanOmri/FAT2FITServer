@@ -45,7 +45,12 @@ public class MessageFromAdmin {
      * @param id the id
      */
     public void setId(int id) {
-        this.id = id;
+
+        if (id > 0)
+            this.id = id;
+        else
+            this.id = 0;
+
     }
 
     /**

@@ -172,7 +172,10 @@ public class User {
      * @param weight the weight
      */
     public void setWeight(double weight) {
-        this.weight = weight;
+        if (weight > 40)
+            this.weight = weight;
+        else
+            this.weight = 40;
     }
 
     /**
@@ -190,7 +193,10 @@ public class User {
      * @param height the height
      */
     public void setHeight(double height) {
-        this.height = height;
+        if (height > 140)
+            this.height = height;
+        else
+            this.height = 140;
     }
 
     /**
@@ -208,7 +214,10 @@ public class User {
      * @param isManager the is manager
      */
     public void setIsManager(int isManager) {
-        this.isManager = isManager;
+        if (isManager == 0 || isManager == 1)
+            this.isManager = isManager;
+        else
+            this.isManager = 0;
     }
 
     @Override

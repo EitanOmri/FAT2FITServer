@@ -22,10 +22,10 @@ public class Exercises {
      * @param categoryID      the category id
      */
     public Exercises(int id, String name, int caloriesPerReps, int categoryID) {
-       setId(id);
-       setName(name);
-       setCaloriesPerReps(caloriesPerReps);
-       setCategoryID(categoryID);
+        setId(id);
+        setName(name);
+        setCaloriesPerReps(caloriesPerReps);
+        setCategoryID(categoryID);
     }
 
     /**
@@ -50,7 +50,12 @@ public class Exercises {
      * @param id the id
      */
     public void setId(int id) {
-        this.id = id;
+
+        if (id > 0)
+            this.id = id;
+        else
+            this.id = 0;
+
     }
 
     /**
@@ -68,6 +73,7 @@ public class Exercises {
      * @param name the name
      */
     public void setName(String name) {
+
         this.name = name;
     }
 
@@ -86,7 +92,10 @@ public class Exercises {
      * @param caloriesPerReps the calories per reps
      */
     public void setCaloriesPerReps(int caloriesPerReps) {
-        this.caloriesPerReps = caloriesPerReps;
+        if (caloriesPerReps > 0)
+            this.caloriesPerReps = caloriesPerReps;
+        else
+            this.caloriesPerReps = 0;
     }
 
     /**
@@ -104,7 +113,10 @@ public class Exercises {
      * @param categoryID the category id
      */
     public void setCategoryID(int categoryID) {
-        this.categoryID = categoryID;
+        if (categoryID > 0)
+            this.categoryID = categoryID;
+        else
+            this.categoryID = 0;
     }
 
     @Override

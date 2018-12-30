@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.*;
 
 import com.google.gson.*;
@@ -73,37 +75,39 @@ public class StatisticsController {
      */
     public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
 
-        String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+       // String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
             IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
             try {
                 WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
-                Date date = new Date();
-                date = new Date(date.getTime() - 6 * 24 * 60 * 60 * 1000); //week before today
-                int today = date.getDay();
+                LocalDate date = LocalDate.now();
+               date= date.minusDays(6);
+                //date = new Date(date.getTime() - 6 * 24 * 60 * 60 * 1000); //week before today
+                DayOfWeek today = date.getDayOfWeek();
+
                 Map<Object, Object> map = null;
                 List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
                 int j = calories.length - 1;
                 for (int i = 0; i < 7; i++) {
                     map = new HashMap<Object, Object>();
                     if (j > 0)
-                        while (calories[j].getDate().getDate() < date.getDate() && j > 0) //there are days in array before the last week
+                        while (calories[j].getDate().getDate() < date.getDayOfMonth() && j > 0) //there are days in array before the last week
                             j--;
-                    if (j > 0)
-                        if (calories[j].getDate().getDate() == date.getDate()) {
-                            map.put("label", days[today]);
+                    if (j >= 0)
+                        if (calories[j].getDate().getDate() == date.getDayOfMonth()) {
+                            map.put("label", today.toString());
                             map.put("y", calories[j].getCal());
                             if (j > 0)
                                 j--;
                         } else {
-                            map.put("label", days[today]); //no training in this day
+                            map.put("label", today.toString()); //no training in this day
                             map.put("y", 0);
                         }
                     list.add(map);
-                    date = new Date(date.getTime() + 24 * 60 * 60 * 1000);//go to next day
-                    today = (today + 1) % 7; //go to next day
+                    date = date.plusDays(1);//go to next day
+                    today = today.plus(1); //go to next day
                 }
                 Gson gsonObj = new Gson();
                 HttpSession session = request.getSession();

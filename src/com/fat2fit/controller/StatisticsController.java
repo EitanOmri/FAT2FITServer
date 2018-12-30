@@ -75,7 +75,7 @@ public class StatisticsController {
      */
     public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
 
-       // String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        // String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {
@@ -83,10 +83,8 @@ public class StatisticsController {
             try {
                 WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
                 LocalDate date = LocalDate.now();
-               date= date.minusDays(6);
-                //date = new Date(date.getTime() - 6 * 24 * 60 * 60 * 1000); //week before today
+                date = date.minusDays(6);
                 DayOfWeek today = date.getDayOfWeek();
-
                 Map<Object, Object> map = null;
                 List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
                 int j = calories.length - 1;

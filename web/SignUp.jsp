@@ -51,11 +51,11 @@
                 <input type="date" name="birthday" id="birthday" value=""/>
             </div>
             <div data-role="fieldcontain">
-                <label for="height" style="color: black; font-size: large">height:</label>
+                <label for="height" style="color: black; font-size: large">height (in cm):</label>
                 <input type="number" name="height" id="height" value=""/>
             </div>
             <div data-role="fieldcontain">
-                <label for="weight" style="color: black; font-size: large">weight:</label>
+                <label for="weight" style="color: black; font-size: large">weight (in Kg):</label>
                 <input type="number" name="weight" id="weight" value=""/>
             </div>
             <fieldset data-role="controlgroup" >

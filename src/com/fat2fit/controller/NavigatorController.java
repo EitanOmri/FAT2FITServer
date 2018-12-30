@@ -14,12 +14,13 @@ public class NavigatorController {
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
-        HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
+        HibernateUserDAO userDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
+        String username = (String) request.getSession().getAttribute("userName");
 
         try {
-            if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
+            if (userDAO.isManager(username)) {
                 sb.append("     <li><a href=\"/controller/AdminController/home\">\n" +
                         "                        <img src=" + request.getContextPath() + "/IMG/admin.png alt=\" admin\">\n" +
                         "                    <h2 style=\"font-size: 40px;color: white\">admin</h2>\n" +
@@ -30,8 +31,6 @@ public class NavigatorController {
                 session.setAttribute("messageLink", "");
 
             } else {
-
-
                 sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
                         "                        <img src=\"<%=request.getContextPath()%>/IMG/message.png\" alt=\"message\">\n" +
                         "                    <h2 style=\"font-size: 40px;color: white\">Message</h2>\n" +
@@ -42,16 +41,25 @@ public class NavigatorController {
                 session.setAttribute("adminLink", "");
                 session.setAttribute("messageLink", sb.toString());
             }
+            double height = userDAO.getUser(username).getHeight() / 100;
+            double weight = userDAO.getUser(username).getWeight();
+            double bmi = weight / (height * height);
+            String color;
+            if (bmi < 18.5 || bmi > 30)
+                color = "red";
+            else if (bmi >= 25)
+                color = "yellow";
+            else
+                color = "green";
+            session.setAttribute("bmiColor", color);
+            session.setAttribute("bmi", String.format("%.2f", bmi));
+            dispatcher.forward(request, response);
+        } catch (
+                DBException e) {
+            e.printStackTrace();
+        }
 
-        dispatcher.forward(request, response);
-    } catch(
-    DBException e)
-
-    {
-        e.printStackTrace();
     }
-
-}
 
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;

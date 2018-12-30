@@ -74,8 +74,11 @@ public class StatisticsController {
      * @throws IOException      the io exception
      */
     public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-
-        // String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+/*
+*this function creates lists of maps(necessary for CanavsJS library).
+* the first part of the takes the last 7 works days of the user and check if they were in the last week.
+* the second part of the function calculates the distribution of training by category.
+ */
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null) {

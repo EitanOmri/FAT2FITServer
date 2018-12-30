@@ -3,8 +3,14 @@ package com.fat2fit.model;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
+/**
+ * The type Factory.
+ */
 public class Factory {
     private static Factory factoryInstance; //singleton
+    /**
+     * The Factory.
+     */
     SessionFactory factory;
 
     private Factory() {
@@ -17,6 +23,11 @@ public class Factory {
         }
     }
 
+    /**
+     * Gets factory instance.
+     *
+     * @return the factory instance
+     */
     public static Factory getFactoryInstance() {
         if (factoryInstance == null) {
             factoryInstance = new Factory();
@@ -24,6 +35,11 @@ public class Factory {
         return factoryInstance;
     }
 
+    /**
+     * Gets factory.
+     *
+     * @return the factory
+     */
     public SessionFactory getFactory() {
         return factory;
     }

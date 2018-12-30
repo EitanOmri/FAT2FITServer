@@ -10,7 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Navigator controller.
+ */
 public class NavigatorController {
+    /**
+     * Home.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
@@ -61,12 +73,30 @@ public class NavigatorController {
 
     }
 
+    /**
+     * My history.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Sign up.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/SignUp.jsp");

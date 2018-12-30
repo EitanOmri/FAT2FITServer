@@ -9,7 +9,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * The type Training controller.
+ */
 public class TrainingController {
+    /**
+     * Workout menu.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void workoutMenu(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateTrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
@@ -37,6 +49,15 @@ public class TrainingController {
 
     }
 
+    /**
+     * Workout.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();

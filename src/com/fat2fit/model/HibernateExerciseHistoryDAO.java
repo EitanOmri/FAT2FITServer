@@ -4,9 +4,15 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The type Hibernate exercise history dao.
+ */
 public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     private Factory factoryInstance;
 
+    /**
+     * Instantiates a new Hibernate exercise history dao.
+     */
     public HibernateExerciseHistoryDAO() {
         this.factoryInstance = Factory.getFactoryInstance();
     }

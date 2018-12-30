@@ -16,7 +16,19 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type User controller.
+ */
 public class UserController {
+    /**
+     * Add user.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addUser(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
@@ -61,6 +73,15 @@ public class UserController {
 
     }
 
+    /**
+     * Login.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
@@ -83,6 +104,15 @@ public class UserController {
 
     }
 
+    /**
+     * Logout.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void logout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
@@ -93,6 +123,15 @@ public class UserController {
 
     }
 
+    /**
+     * Update.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void update(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();

@@ -3,14 +3,20 @@ import org.junit.Test;
 import java.util.Date;
 import static org.junit.Assert.*;
 
+/**
+ * The type Model test.
+ */
 public class ModelTest {
 
-        @Test
+    /**
+     * User model test.
+     */
+    @Test
     public void userModelTest() {
 
         HibernateUserDAO userDAO = new HibernateUserDAO();
         try {
-            User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
+            User omri = new User( "omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
             userDAO.saveUser(omri);
 
             assertEquals("omrieitan", userDAO.getUser("omrieitan").getUsername());
@@ -43,6 +49,9 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Training list name model test.
+     */
     @Test
     public void trainingListNameModelTest() {
         HibernateTrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
@@ -58,6 +67,9 @@ public class ModelTest {
 
     }
 
+    /**
+     * Training list exercises model test.
+     */
     @Test
     public void trainingListExercisesModelTest() {
         HibernateTrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
@@ -80,6 +92,9 @@ public class ModelTest {
 
     }
 
+    /**
+     * Message from admin model test.
+     */
     @Test
     public void messageFromAdminModelTest() {
         HibernateMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
@@ -95,6 +110,9 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Message to admin model test.
+     */
     @Test
     public void messageToAdminModelTest() {
         HibernateMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
@@ -111,6 +129,9 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Exercises and history model test.
+     */
     @Test
     public void exercisesAndHistoryModelTest() {
         HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
@@ -154,6 +175,9 @@ public class ModelTest {
         }
     }
 
+    /**
+     * Category model test.
+     */
     @Test
     public void categoryModelTest() {
         HibernateCategoryDAO categoryDAO = new HibernateCategoryDAO();

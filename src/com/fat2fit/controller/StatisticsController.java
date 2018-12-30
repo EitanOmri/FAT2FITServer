@@ -12,7 +12,19 @@ import java.util.*;
 
 import com.google.gson.*;
 
+/**
+ * The type Statistics controller.
+ */
 public class StatisticsController {
+    /**
+     * Top 3.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void top3(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
@@ -50,6 +62,15 @@ public class StatisticsController {
 
     }
 
+    /**
+     * Statistics.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
 
         String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};

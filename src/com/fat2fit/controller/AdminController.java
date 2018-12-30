@@ -11,7 +11,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Admin controller.
+ */
 public class AdminController {
+    /**
+     * Home.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
@@ -29,6 +41,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Add admin home.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addAdminHome(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
@@ -67,6 +88,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Add admin.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();
@@ -86,6 +116,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Manage exercise home.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void manageExerciseHome(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
@@ -112,6 +151,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Add exercise.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addExercise(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO userDAO = new HibernateUserDAO();
@@ -137,6 +185,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Manage traininig list home.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void manageTraininigListHome(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
@@ -179,6 +236,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Add training list.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addTrainingList(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateExercisesDAO exercisesDAO = new HibernateExercisesDAO();
@@ -215,6 +281,15 @@ public class AdminController {
         }
     }
 
+    /**
+     * Manager message.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void managerMessage(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         HibernateUserDAO hibernateUserDAO = new HibernateUserDAO();

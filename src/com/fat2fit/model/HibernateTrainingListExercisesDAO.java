@@ -4,9 +4,15 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The type Hibernate training list exercises dao.
+ */
 public class HibernateTrainingListExercisesDAO implements ITrainingListExercises {
     private Factory factoryInstance;
 
+    /**
+     * Instantiates a new Hibernate training list exercises dao.
+     */
     public HibernateTrainingListExercisesDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }

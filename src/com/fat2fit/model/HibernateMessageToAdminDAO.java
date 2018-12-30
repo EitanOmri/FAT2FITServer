@@ -4,9 +4,15 @@ import org.hibernate.Session;
 
 import java.util.List;
 
+/**
+ * The type Hibernate message to admin dao.
+ */
 public class HibernateMessageToAdminDAO implements IMessageToAdmin {
     private Factory factoryInstance;
 
+    /**
+     * Instantiates a new Hibernate message to admin dao.
+     */
     public HibernateMessageToAdminDAO() {
         factoryInstance = Factory.getFactoryInstance();
     }

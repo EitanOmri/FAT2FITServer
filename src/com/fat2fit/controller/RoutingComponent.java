@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+/**
+ * The type Routing component.
+ */
 @WebServlet(name = "RoutingComponent", urlPatterns = {"/controller/*"})
 public class RoutingComponent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

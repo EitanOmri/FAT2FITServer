@@ -11,7 +11,19 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Message controller.
+ */
 public class MessageController {
+    /**
+     * Message.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void message(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         if (request.getSession().getAttribute("userName") != null) {
@@ -44,6 +56,15 @@ public class MessageController {
 
     }
 
+    /**
+     * Add message to admin.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addMessageToAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
@@ -66,6 +87,15 @@ public class MessageController {
 
     }
 
+    /**
+     * Delete message to admin.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void deleteMessageToAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
@@ -87,6 +117,15 @@ public class MessageController {
 
     }
 
+    /**
+     * Add message from admin.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void addMessageFromAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
@@ -109,6 +148,15 @@ public class MessageController {
 
     }
 
+    /**
+     * Delete message from admin.
+     *
+     * @param request        the request
+     * @param response       the response
+     * @param strAfterAction the str after action
+     * @throws ServletException the servlet exception
+     * @throws IOException      the io exception
+     */
     public void deleteMessageFromAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");

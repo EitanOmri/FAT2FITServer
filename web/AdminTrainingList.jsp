@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: omris
-  Date: 23/12/2018
-  Time: 13:50
+  Date: 30/12/2018
+  Time: 09:40
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,13 +16,17 @@
 
 </head>
 <body>
-<div data-role="page" id="myDayExercisePage">
+<div data-role="page" id="adminTrainingList">
     <div data-role="header" data-position="fixed">
-        <a href="/controller/MyDayController/myDayMenu" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
-        <h1><%=request.getSession().getAttribute("categoryName")%></h1>
+        <a href="/controller/AdminController/home" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
+        <h1>Create a new training list</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
-        <form id="myDayExerciseForm" method="get" action="/controller/HistoryController/addMyDay">
+        <form id="myDayExerciseForm" method="get" action="/controller/AdminController/addTrainingList">
+            <div data-role="fieldcontain">
+                <label for="trainingListName">Exercise's name:
+                    <input type="text" name="trainingListName" id="trainingListName" value=""/></label>
+            </div>
             <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
                      <thead>
                    <tr>      
@@ -32,10 +36,9 @@
                        </tr>
                  </thead>
                      <tbody>
-                    <%=request.getAttribute("categoriesForm")%>
+            <%=request.getSession().getAttribute("listOfExercisesToAdd")%>
                  </tbody>
                    </table>
-
             <input type="submit" id="submit" value="Add"/>
         </form>
     </div>
@@ -45,3 +48,4 @@
 </div>
 </body>
 </html>
+

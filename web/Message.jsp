@@ -57,11 +57,7 @@
                 </tbody>
                    
             </table>
-
-
-
         </div>
-
     </div>
     <div data-role="footer" data-position="fixed">
         <h3>FAT2FIT</h3>

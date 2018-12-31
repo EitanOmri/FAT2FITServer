@@ -99,9 +99,12 @@ public class NavigatorController {
      * @throws IOException      the io exception
      */
     public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-        RequestDispatcher dispatcher = null;
-        dispatcher = request.getServletContext().getRequestDispatcher("/SignUp.jsp");
-        dispatcher.forward(request, response);
+        response.addHeader("Access-Control-Allow-Origin","*");
+        response.sendRedirect("http://localhost:63343/FAT2FITClient/SignUp.html");
+    }
+    public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+       response.addHeader("Access-Control-Allow-Origin","*");
+       response.sendRedirect("http://localhost:63343/FAT2FITClient/Login.html");
     }
 
 

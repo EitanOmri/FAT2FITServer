@@ -47,7 +47,7 @@ public class HistoryController {
                 e.printStackTrace();
             }
         } else {
-            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         }
         dispatcher.forward(request, response);
 
@@ -104,7 +104,7 @@ public class HistoryController {
                 e.printStackTrace();
             }
         } else {
-            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         }
         dispatcher.forward(request, response);
     }
@@ -130,7 +130,7 @@ public class HistoryController {
             session.setAttribute("repsEditOrView", reps);
             dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
         } else {
-            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         }
 
         dispatcher.forward(request, response);
@@ -227,7 +227,7 @@ public class HistoryController {
             e.printStackTrace();
         }}
         else{
-            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");}
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");}
         dispatcher.forward(request, response);
 
     }

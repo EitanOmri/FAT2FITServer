@@ -40,7 +40,7 @@ public class SettingsController {
             }
         }
         else
-        dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         dispatcher.forward(request, response);
 
     }

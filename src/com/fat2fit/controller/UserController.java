@@ -128,7 +128,7 @@ public class UserController {
         IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         session.invalidate();
-        dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         dispatcher.forward(request, response);
 
     }
@@ -158,7 +158,7 @@ public class UserController {
                     e.printStackTrace();
                 }
             } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
         }else {
             //todo: the  height or weight parmeters not numeric dispacther to error page

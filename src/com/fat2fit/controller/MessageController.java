@@ -25,10 +25,11 @@ public class MessageController {
      * @throws IOException      the io exception
      */
     public void message(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //dispatcher to message page and load all messages from DB
         RequestDispatcher dispatcher = null;
-        if (request.getSession().getAttribute("userName") != null) {
-            IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
-            try {
+        try {
+            if (request.getSession().getAttribute("userName") != null) {
+                IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
                 MessageFromAdmin[] messageFromAdmins = messageFromAdminDAO.getAllMessageFromAdmin();
                 StringBuffer sb = new StringBuffer();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -44,16 +45,15 @@ public class MessageController {
                 }
                 HttpSession session = request.getSession();
                 session.setAttribute("messageFromAdminTable", sb.toString());
-
                 dispatcher = request.getServletContext().getRequestDispatcher("/Message.jsp");
-            } catch (DBException e) {
-                e.printStackTrace();
-            }
-
-        } else
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
-        dispatcher.forward(request, response);
-
+            } else
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+        } catch (DBException e) {
+            e.printStackTrace();
+            //todo:error page
+        } finally {
+            dispatcher.forward(request, response);
+        }
     }
 
     /**
@@ -66,25 +66,25 @@ public class MessageController {
      * @throws IOException      the io exception
      */
     public void addMessageToAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //save a new message to admin in the DB
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
-        if (username != null) {
-            String content = request.getParameter("content");
-            IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
-            MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(), content, username);
-            try {
+        try {
+            if (username != null) {
+                String content = request.getParameter("content");
+                IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
+                MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(), content, username);
                 messageToAdminDAO.saveMessage(messageToAdmin);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-
-            } catch (DBException e) {
-                e.printStackTrace();
+            } else {
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
-        } else {
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
-
+        } catch (DBException e) {
+            e.printStackTrace();
+            //todo:error page
+        } finally {
+            dispatcher.forward(request, response);
         }
-        dispatcher.forward(request, response);
-
     }
 
     /**
@@ -97,24 +97,34 @@ public class MessageController {
      * @throws IOException      the io exception
      */
     public void deleteMessageToAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //delete message from DB
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         IUser hibernateUserDAO = new HibernateUserDAO();
+        int id;
         try {
-            if (hibernateUserDAO.isManager(username)) {
-                int id =Integer.parseInt( request.getParameter("id"));
-                IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
-                messageToAdminDAO.deleteMessage(id);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
-            } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+            if (username != null) {
+                if (hibernateUserDAO.isManager(username)) {
+                    if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
+                        id = Integer.parseInt(request.getParameter("id"));
+                        IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
+                        messageToAdminDAO.deleteMessage(id);
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                    } else {//non numeric
+                        //todo:error page
+                    }
+                } else {//no admin
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                }
+            } else { //no session
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
         } catch (DBException e) {
             e.printStackTrace();
+            //todo:error page
+        } finally {
+            dispatcher.forward(request, response);
         }
-
-        dispatcher.forward(request, response);
-
     }
 
     /**
@@ -127,25 +137,30 @@ public class MessageController {
      * @throws IOException      the io exception
      */
     public void addMessageFromAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //save message to admin in the DB
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         IUser hibernateUserDAO = new HibernateUserDAO();
         try {
-            if (hibernateUserDAO.isManager(username)) {
-                String content = request.getParameter("content");
-                IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
-                MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(), content);
-                messageFromAdminDAO.saveMessage(messageFromAdmin);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+            if (username != null) {
+                if (hibernateUserDAO.isManager(username)) {
+                    String content = request.getParameter("content");
+                    IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+                    MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(), content);
+                    messageFromAdminDAO.saveMessage(messageFromAdmin);
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                } else {
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                }
             } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                //todo:error page
             }
         } catch (DBException e) {
             e.printStackTrace();
+            //todo:error page
+        } finally {
+            dispatcher.forward(request, response);
         }
-
-        dispatcher.forward(request, response);
-
     }
 
     /**
@@ -158,24 +173,34 @@ public class MessageController {
      * @throws IOException      the io exception
      */
     public void deleteMessageFromAdmin(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //delete message from DB
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         IUser hibernateUserDAO = new HibernateUserDAO();
+        int id;
         try {
-            if (hibernateUserDAO.isManager(username)) {
-                int id =Integer.parseInt( request.getParameter("id"));
-                IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
-                messageFromAdminDAO.deleteMessage(id);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
-            } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+            if (username != null) {
+                if (hibernateUserDAO.isManager(username)) {
+                    if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
+                        id = Integer.parseInt(request.getParameter("id"));
+                        IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+                        messageFromAdminDAO.deleteMessage(id);
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                    } else {//non numeric
+                        //todo:error page
+                    }
+                } else {//no admin
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                }
+            } else { //no session
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
         } catch (DBException e) {
             e.printStackTrace();
+            //todo:error page
+        } finally {
+            dispatcher.forward(request, response);
         }
-
-        dispatcher.forward(request, response);
-
     }
 
 }

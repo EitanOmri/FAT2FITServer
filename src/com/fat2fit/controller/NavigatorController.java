@@ -99,12 +99,13 @@ public class NavigatorController {
      * @throws IOException      the io exception
      */
     public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin","*");
+        response.addHeader("Access-Control-Allow-Origin", "*");
         response.sendRedirect("http://localhost:63343/FAT2FITClient/SignUp.html");
     }
+
     public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-       response.addHeader("Access-Control-Allow-Origin","*");
-       response.sendRedirect("http://localhost:63343/FAT2FITClient/Login.html");
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.sendRedirect("http://localhost:63343/FAT2FITClient/Login.html");
     }
 
 

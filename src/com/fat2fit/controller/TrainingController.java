@@ -32,8 +32,8 @@ public class TrainingController {
                 for (int i = 0; i < listNames.length; i++) {
                     sb.append("<li> <a href=\"/controller/TrainingController/workout?id=");
                     sb.append(listNames[i].getId() + "\"");
-                    if (i%2==0)
-                    sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"font-size: 45px;background-color: #323131;color: white\">");
+                    if (i % 2 == 0)
+                        sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"font-size: 45px;background-color: #323131;color: white\">");
                     else
                         sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"font-size: 45px;background-color: white;color: #323131\">");
                     sb.append(listNames[i].getName());
@@ -97,8 +97,9 @@ public class TrainingController {
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
-        } else
+        } else {
             //todo:non numeric
-            dispatcher.forward(request, response);
+        }
+        dispatcher.forward(request, response);
     }
 }

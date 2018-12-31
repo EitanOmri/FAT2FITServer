@@ -254,8 +254,6 @@ public class AdminController {
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminTrainingList.jsp");
                 } else
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-
-                dispatcher.forward(request, response);
             }
         } catch (DBException e) {
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -308,7 +306,6 @@ public class AdminController {
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }
-                dispatcher.forward(request, response);
             }
         } catch (DBException e) {
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -386,15 +383,14 @@ public class AdminController {
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }
-                dispatcher.forward(request, response);
-            }
+             }
         } catch (DBException e) {
             e.printStackTrace();
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
 
         } finally {
             dispatcher.forward(request, response);
-        }
+            }
     }
 
 }

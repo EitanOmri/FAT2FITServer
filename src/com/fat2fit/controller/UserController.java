@@ -30,7 +30,9 @@ public class UserController {
      * @throws ServletException the servlet exception
      * @throws IOException      the io exception
      */
-    public void addUser(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+    public void addUser(HttpServletRequest request, HttpServletResponse response, String strAfterAction)
+            throws ServletException, IOException {
+        //adding new user to the DB
         RequestDispatcher dispatcher = null;
         IUser hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("UserName");
@@ -47,7 +49,7 @@ public class UserController {
                     && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
                 weight = Double.parseDouble(request.getParameter("weight"));
                 height = Double.parseDouble(request.getParameter("height"));
-                int isManager = 0;
+                int isManager = 0; //in defult new user is not admin
                 Date birthdayDate = null;
                 birthdayDate = sdf.parse(birthday);
                 User user = new User(userName, firstName, lastName, email, password, birthdayDate, weight, height, isManager);
@@ -56,28 +58,18 @@ public class UserController {
                     HttpSession session = request.getSession();
                     session.setAttribute("userName", userName);
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                } else {
-
-                    PrintWriter out = response.getWriter();
-                    out.println("there already user with the same username");
+                } else { //the username already existing
                     //TODO: add dispatcher to new page with error "username has  already token please
                 }
-
-
-                dispatcher.forward(request, response);
-
-
-            } else {
-
+            } else { //non numeric
                 //todo: the  height or weight parmeters not numeric dispacther to error page
-
             }
         } catch (DBException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
+        } finally {
+            dispatcher.forward(request, response);
         }
     }
 
@@ -90,27 +82,31 @@ public class UserController {
      * @throws ServletException the servlet exception
      * @throws IOException      the io exception
      */
-    public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
-            ServletException, IOException {
+    public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction)
+            throws ServletException, IOException {
+        //login and dispatcher to home page
         RequestDispatcher dispatcher = null;
         IUser hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("UserName");
         String password = request.getParameter("password");
         try {
-            if (hibernateUserDAO.testLogin(userName, password)) {
-                HttpSession session = request.getSession();
-                session.setAttribute("userName", userName);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-
+            if (userName != null && password != null) {
+                if (hibernateUserDAO.testLogin(userName, password)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("userName", userName);
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                } else {
+                    //TODO: dispatcher to error page -username or paswword incorrect
+                }
             } else {
-                //TODO: dispatcher to error page -username or paswword incorrect
+                //todo: error page, bad parameters
             }
-            dispatcher.forward(request, response);
         } catch (DBException e) {
             e.printStackTrace();
+            //todo: error page
+        } finally {
+            dispatcher.forward(request, response);
         }
-
-
     }
 
     /**
@@ -124,13 +120,13 @@ public class UserController {
      */
     public void logout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
             ServletException, IOException {
+        //logout from the server
         RequestDispatcher dispatcher = null;
         IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
-        session.invalidate();
-        dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+        session.invalidate(); //remove all atr
+        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         dispatcher.forward(request, response);
-
     }
 
     /**
@@ -144,26 +140,28 @@ public class UserController {
      */
     public void update(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
             ServletException, IOException {
+      //update the user's weight and height
         RequestDispatcher dispatcher = null;
         IUser hibernateUserDAO = new HibernateUserDAO();
-        if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
-                && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
-            double height = Double.parseDouble(request.getParameter("height"));
-            double weight = Double.parseDouble(request.getParameter("weight"));
-            if (request.getSession().getAttribute("userName") != null) {
-                try {
+        try {
+            if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
+                    && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
+                double height = Double.parseDouble(request.getParameter("height"));
+                double weight = Double.parseDouble(request.getParameter("weight"));
+                if (request.getSession().getAttribute("userName") != null) {
                     hibernateUserDAO.updateUser((String) request.getSession().getAttribute("userName"), weight, height);
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                } catch (DBException e) {
-                    e.printStackTrace();
+                } else {
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
             } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
+                //todo: the  height or weight parmeters not numeric dispacther to error page
             }
-        }else {
-            //todo: the  height or weight parmeters not numeric dispacther to error page
-
+        } catch (DBException e) {
+            e.printStackTrace();
+            //todo: error page
+        } finally {
+            dispatcher.forward(request, response);
         }
-        dispatcher.forward(request, response);
     }
 }

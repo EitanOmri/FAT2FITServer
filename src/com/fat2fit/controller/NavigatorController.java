@@ -25,51 +25,57 @@ public class NavigatorController {
      * @throws IOException      the io exception
      */
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //dispatcher to home page
         RequestDispatcher dispatcher = null;
         dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
         IUser userDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
         String username = (String) request.getSession().getAttribute("userName");
-
         try {
-            if (userDAO.isManager(username)) {
-                sb.append("     <li><a href=\"/controller/AdminController/home\">\n" +
-                        "                        <img src=" + request.getContextPath() + "/IMG/admin.png alt=\" admin\">\n" +
-                        "                    <h2 style=\"font-size: 40px;color: white\">admin</h2>\n" +
-                        "                    <p style=\"font-size: 20px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
-                        "            </li>");
+            if (username != null) {
+                if (userDAO.isManager(username)) {
+                    sb.append("     <li><a href=\"/controller/AdminController/home\">\n" +
+                            "                        <img src=" + request.getContextPath() + "/IMG/admin.png alt=\" admin\">\n" +
+                            "                    <h2 style=\"font-size: 40px;color: white\">admin</h2>\n" +
+                            "                    <p style=\"font-size: 20px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
+                            "            </li>");
 
-                session.setAttribute("adminLink", sb.toString());
-                session.setAttribute("messageLink", "");
+                    session.setAttribute("adminLink", sb.toString());
+                    session.setAttribute("messageLink", "");
 
+                } else {
+                    sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
+                            "                        <img src=\"<%=request.getContextPath()%>/IMG/message.png\" alt=\"message\">\n" +
+                            "                    <h2 style=\"font-size: 40px;color: white\">Message</h2>\n" +
+                            "                    <p style=\"font-size: 20px;color: white\">these are your messages</p></a>\n" +
+                            "                    \n" +
+                            "            </li>\n" +
+                            "           ");
+                    session.setAttribute("adminLink", "");
+                    session.setAttribute("messageLink", sb.toString());
+                }
+                //calculate the BMI
+                double height = userDAO.getUser(username).getHeight() / 100;
+                double weight = userDAO.getUser(username).getWeight();
+                double bmi = weight / (height * height);
+                String color;
+                if (bmi < 18.5 || bmi > 30)
+                    color = "red";
+                else if (bmi >= 25)
+                    color = "yellow";
+                else
+                    color = "green";
+                session.setAttribute("bmiColor", color);
+                session.setAttribute("bmi", String.format("%.2f", bmi));
             } else {
-                sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
-                        "                        <img src=\"<%=request.getContextPath()%>/IMG/message.png\" alt=\"message\">\n" +
-                        "                    <h2 style=\"font-size: 40px;color: white\">Message</h2>\n" +
-                        "                    <p style=\"font-size: 20px;color: white\">these are your messages</p></a>\n" +
-                        "                    \n" +
-                        "            </li>\n" +
-                        "           ");
-                session.setAttribute("adminLink", "");
-                session.setAttribute("messageLink", sb.toString());
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
-            double height = userDAO.getUser(username).getHeight() / 100;
-            double weight = userDAO.getUser(username).getWeight();
-            double bmi = weight / (height * height);
-            String color;
-            if (bmi < 18.5 || bmi > 30)
-                color = "red";
-            else if (bmi >= 25)
-                color = "yellow";
-            else
-                color = "green";
-            session.setAttribute("bmiColor", color);
-            session.setAttribute("bmi", String.format("%.2f", bmi));
-            dispatcher.forward(request, response);
         } catch (
                 DBException e) {
             e.printStackTrace();
+        } finally {
+            dispatcher.forward(request, response);
         }
 
     }
@@ -85,7 +91,11 @@ public class NavigatorController {
      */
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         RequestDispatcher dispatcher = null;
-        dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
+        String username = (String) request.getSession().getAttribute("userName");
+        if (username != null)
+            dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
+        else
+            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         dispatcher.forward(request, response);
     }
 
@@ -99,9 +109,13 @@ public class NavigatorController {
      * @throws IOException      the io exception
      */
     public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-        RequestDispatcher dispatcher = null;
-        dispatcher = request.getServletContext().getRequestDispatcher("/SignUp.jsp");
-        dispatcher.forward(request, response);
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.sendRedirect("http://localhost:63343/FAT2FITClient/SignUp.html");
+    }
+
+    public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.sendRedirect("http://localhost:63343/FAT2FITClient/Login.html");
     }
 
 

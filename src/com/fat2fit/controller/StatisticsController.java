@@ -28,11 +28,12 @@ public class StatisticsController {
      * @throws IOException      the io exception
      */
     public void top3(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //dispatcher to top 3 users
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
-        if (username != null) {
-            IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
-            try {
+        try {
+            if (username != null) {
+                IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
                 TopNMapping[] topNMappings = exerciseHistoryDAO.getTop3();
                 StringBuffer sb = new StringBuffer();
                 for (int i = 0; i < topNMappings.length; i++) {
@@ -51,17 +52,15 @@ public class StatisticsController {
                 }
                 HttpSession session = request.getSession();
                 session.setAttribute("topNTable", sb.toString());
-
                 dispatcher = request.getServletContext().getRequestDispatcher("/Top3.jsp");
-            } catch (DBException e) {
-                e.printStackTrace();
-            }
-
-        } else
-            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
-        dispatcher.forward(request, response);
-
-
+            } else
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+        } catch (DBException e) {
+            e.printStackTrace();
+            //todo: error page
+        } finally {
+            dispatcher.forward(request, response);
+        }
     }
 
     /**
@@ -74,16 +73,16 @@ public class StatisticsController {
      * @throws IOException      the io exception
      */
     public void statistics(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-/*
-*this function creates lists of maps(necessary for CanavsJS library).
-* the first part of the takes the last 7 works days of the user and check if they were in the last week.
-* the second part of the function calculates the distribution of training by category.
- */
+        /*
+         *this function creates lists of maps(necessary for CanavsJS library).
+         * the first part of the takes the last 7 works days of the user and check if they were in the last week.
+         * the second part of the function calculates the distribution of training by category.
+         */
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
-        if (username != null) {
-            IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
-            try {
+        try {
+            if (username != null) {
+                IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
                 WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
                 LocalDate date = LocalDate.now();
                 date = date.minusDays(6);
@@ -116,7 +115,6 @@ public class StatisticsController {
 
                 //pie chart
                 list = new ArrayList<Map<Object, Object>>();
-
                 CategoryMapping[] categories = exerciseHistoryDAO.getStatisticsCategory(username);
                 int totalPercents = 0;
                 int totalExercise = 0;
@@ -137,17 +135,14 @@ public class StatisticsController {
                     totalPercents += (int) (categories[i].getTotalExercises() / totalExercise);
                 }
                 session.setAttribute("dataPieCategory", gsonObj.toJson(list));
-
-
                 dispatcher = request.getServletContext().getRequestDispatcher("/Statistics.jsp");
-            } catch (DBException e) {
-                e.printStackTrace();
-            }
-
-        } else
-            dispatcher = request.getServletContext().getRequestDispatcher("/Login.jsp");
-        dispatcher.forward(request, response);
-
-
+            } else
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+        } catch (DBException e) {
+            e.printStackTrace();
+            //todo: error page
+        } finally {
+            dispatcher.forward(request, response);
+        }
     }
 }

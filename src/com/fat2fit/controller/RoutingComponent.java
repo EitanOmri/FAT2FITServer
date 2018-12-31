@@ -18,18 +18,19 @@ public class RoutingComponent extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String str = request.getRequestURI();
         PrintWriter out = response.getWriter();
-        String[] splited=str.split("/",5);
-        String controllerName=splited[2];
-        String actionName=splited[3];
-        String strAfterAction=splited.length==5? splited[4]: null;
+        String[] splited = str.split("/", 5);
+        String controllerName = splited[2];
+        String actionName = splited[3];
+        String strAfterAction = splited.length == 5 ? splited[4] : null;
         try {
-            Class controllerClass=Class.forName("com.fat2fit.controller."+controllerName);
+            Class controllerClass = Class.forName("com.fat2fit.controller." + controllerName);
             Object controller = controllerClass.newInstance();
-            Method method=controllerClass.getMethod(actionName,HttpServletRequest.class,HttpServletResponse.class, String.class);
-            method.invoke(controller,request,response,strAfterAction );
+            Method method = controllerClass.getMethod(actionName, HttpServletRequest.class, HttpServletResponse.class, String.class);
+            method.invoke(controller, request, response, strAfterAction);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

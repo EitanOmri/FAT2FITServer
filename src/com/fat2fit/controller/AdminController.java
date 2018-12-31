@@ -118,7 +118,6 @@ public class AdminController {
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
 
-            dispatcher.forward(request, response);
         } catch (DBException e) {
             e.printStackTrace();
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -137,7 +136,7 @@ public class AdminController {
      * @throws IOException      the io exception
      */
     public void manageExerciseHome(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-    //dispatcher to the home page of adding exercise
+        //dispatcher to the home page of adding exercise
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
         try {
@@ -156,8 +155,9 @@ public class AdminController {
                     }
                     session.setAttribute("listOfCategories", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminExercise.jsp");
-                } else
-                    dispatcher.forward(request, response);
+                } else {
+                    //todo:error page
+                }
             }
         } catch (DBException e) {
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -383,14 +383,14 @@ public class AdminController {
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }
-             }
+            }
         } catch (DBException e) {
             e.printStackTrace();
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
 
         } finally {
             dispatcher.forward(request, response);
-            }
+        }
     }
 
 }

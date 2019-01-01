@@ -74,16 +74,16 @@ public class TrainingController {
                 if (request.getSession().getAttribute("userName") != null) {
                     TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
                     StringBuffer sb = new StringBuffer();
-                    for (int i = 0; i < trainingListExercises.length; i++) {
+                    for (TrainingListExercises listExercises: trainingListExercises) {
                         sb.append("<tr>");
                         sb.append("<th>");
-                        sb.append(hibernateExercisesDAO.getExercise(trainingListExercises[i].getIdExercise()).getName());
+                        sb.append(hibernateExercisesDAO.getExercise(listExercises.getIdExercise()).getName());
                         sb.append("</th>");
                         sb.append("<th>");
-                        sb.append(trainingListExercises[i].getSets());
+                        sb.append(listExercises.getSets());
                         sb.append("</th>");
                         sb.append("<th>");
-                        sb.append(trainingListExercises[i].getReps());
+                        sb.append(listExercises.getReps());
                         sb.append("</th>");
                         sb.append("</tr>");
                     }

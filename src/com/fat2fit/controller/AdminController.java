@@ -66,20 +66,20 @@ public class AdminController {
                 if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                     User[] users = hibernateUserDAO.getUseresWithOutAdmin();
                     StringBuffer sb = new StringBuffer();
-                    for (int i = 0; i < users.length; i++) {
+                    for (User user : users) {
                         sb.append("<tr>");
                         sb.append("<th>");
-                        sb.append(users[i].getUsername());
+                        sb.append(user.getUsername());
                         sb.append("</th>");
                         sb.append("<th>");
-                        sb.append(users[i].getFirsName());
+                        sb.append(user.getFirsName());
                         sb.append("</th>");
                         sb.append("<td>");
-                        sb.append(users[i].getLastName());
+                        sb.append(user.getLastName());
                         sb.append("</td>");
                         sb.append("<td>");
                         sb.append("<a href=\"/controller/AdminController/addAdmin?userName=");
-                        sb.append(users[i].getUsername() + "\"");
+                        sb.append(user.getUsername() + "\"");
                         sb.append("data-role=\"button\" data-transition=\"pop\">Make gym admin");
                         sb.append("</a></td>");
                         sb.append("</tr>");
@@ -148,9 +148,9 @@ public class AdminController {
                 if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                     Category[] categories = categoryDAO.getCategories();
                     StringBuffer sb = new StringBuffer();
-                    for (int i = 0; i < categories.length; i++) {
+                    for (Category category : categories) {
                         sb.append("<option value=\"");
-                        sb.append(categories[i].getName());
+                        sb.append(category.getName());
                         sb.append("\">");
                     }
                     session.setAttribute("listOfCategories", sb.toString());
@@ -233,23 +233,23 @@ public class AdminController {
                 if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
                     Exercises[] exercises = exercisesDAO.getAllExercises();
                     StringBuffer sb = new StringBuffer();
-                    for (int i = 0; i < exercises.length; i++) {
+                    for (Exercises exercisesLoop : exercises) {
                         sb.append("<tr>");
                         sb.append("<th>");
-                        sb.append(exercises[i].getName());
+                        sb.append(exercisesLoop.getName());
                         sb.append("</th>");
                         sb.append("<td>");
                         sb.append("<input type=\"number\" name=\"sets");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercisesLoop.getId());
                         sb.append("\" id=\"sets");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercisesLoop.getId());
                         sb.append("\"/></td>");
 
                         sb.append("<td>");
                         sb.append("<input type=\"number\" name=\"reps");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercisesLoop.getId());
                         sb.append("\" id=\"reps");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercisesLoop.getId());
                         sb.append("\"/></td>");
                         sb.append("</tr>");
 
@@ -296,8 +296,8 @@ public class AdminController {
                         int id = trainingListNameDAO.getTrainingListNames().length + 1;
                         TrainingListName listName = new TrainingListName(id, trainingListName);
                         trainingListNameDAO.add(listName);
-                        for (int i = 0; i < exercises.length; i++) {
-                            int exId = exercises[i].getId();
+                        for (Exercises exercise : exercises) {
+                            int exId = exercise.getId();
                             if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
                                 int reps = Integer.parseInt(request.getParameter("reps" + exId));
                                 int sets = Integer.parseInt(request.getParameter("sets" + exId));
@@ -349,17 +349,17 @@ public class AdminController {
                     MessageToAdmin[] messageToAdmins = toAdminDAO.getAllMessageToAdmin();
                     StringBuffer sb = new StringBuffer();
                     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                    for (int i = 0; i < messageFromAdmins.length; i++) {
+                    for (MessageFromAdmin fromAdmin : messageFromAdmins) {
                         sb.append("<tr>");
                         sb.append("<th>");
-                        sb.append(df.format(messageFromAdmins[i].getDate()));
+                        sb.append(df.format(fromAdmin.getDate()));
                         sb.append("</th>");
                         sb.append("<th>");
-                        sb.append(messageFromAdmins[i].getContent());
+                        sb.append(fromAdmin.getContent());
                         sb.append("</th>");
                         sb.append("<th>");
                         sb.append("<a href=\"/controller/MessageController/deleteMessageFromAdmin?id=");
-                        sb.append(messageFromAdmins[i].getId() + "\"");
+                        sb.append(fromAdmin.getId() + "\"");
                         sb.append("data-role=\"button\">Delete");
                         sb.append("</a>");
                         sb.append("</th>");
@@ -367,20 +367,20 @@ public class AdminController {
                     }
                     session.setAttribute("historyMessageFromAdminTable", sb.toString());
                     sb = new StringBuffer();
-                    for (int i = 0; i < messageToAdmins.length; i++) {
+                    for (MessageToAdmin toAdmin : messageToAdmins) {
                         sb.append("<tr>");
                         sb.append("<th>");
-                        sb.append(df.format(messageToAdmins[i].getDate()));
+                        sb.append(df.format(toAdmin.getDate()));
                         sb.append("</th>");
                         sb.append("<th>");
-                        sb.append(messageToAdmins[i].getUsername());
+                        sb.append(toAdmin.getUsername());
                         sb.append("</th>");
                         sb.append("<th>");
-                        sb.append(messageToAdmins[i].getContent());
+                        sb.append(toAdmin.getContent());
                         sb.append("</th>");
                         sb.append("<th>");
                         sb.append("<a href=\"/controller/MessageController/deleteMessageToAdmin?id=");
-                        sb.append(messageToAdmins[i].getId() + "\"");
+                        sb.append(toAdmin.getId() + "\"");
                         sb.append("data-role=\"button\">Delete");
                         sb.append("</a>");
                         sb.append("</th>");

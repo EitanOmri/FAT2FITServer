@@ -2,6 +2,9 @@ package com.fat2fit.model;
 
 import org.hibernate.Session;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,18 +24,21 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public TopNMapping[] getTop3() throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_YEAR, -7);// go back 7 days
+        Date minDate = cal.getTime();
         List history = session.createQuery("  " +
-                "select new com.fat2fit.model.TopNMapping(exerciseHistory.username," + "sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
-                "FROM ExerciseHistory exerciseHistory, Exercises exercises " +
-                "where exerciseHistory.idExercise=exercises.id  " +
+                "select new com.fat2fit.model.TopNMapping(exerciseHistory.username, " +
+                "sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
+                "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
+                "where exerciseHistory.idExercise=exercises.id  and exerciseHistory.date >=:parm " +
                 "group by Username " +
-                "order by sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)" +
-                " desc").setMaxResults(3).list();// hql
+                "order by sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps) " +
+                "desc").setParameter("parm", minDate).setMaxResults(3).list();// hql
         session.close();
         TopNMapping[] returnArr = new TopNMapping[history.size()];
         returnArr = (TopNMapping[]) history.toArray(returnArr);
         return returnArr;
-
     }
 
     @Override
@@ -82,9 +88,9 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         session.beginTransaction();
         List history = session.createQuery(
                 "select new com.fat2fit.model.WeeklyCalMapping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
-                "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
-                " where exerciseHistory.idExercise=exercises.id and exerciseHistory.username=:parm"+
-                " group by exerciseHistory.date order by exerciseHistory.date desc").setParameter("parm", username).setMaxResults(7).list();// hql
+                        "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
+                        " where exerciseHistory.idExercise=exercises.id and exerciseHistory.username=:parm" +
+                        " group by exerciseHistory.date order by exerciseHistory.date desc").setParameter("parm", username).setMaxResults(7).list();// hql
         session.close();
         WeeklyCalMapping[] returnArr = new WeeklyCalMapping[history.size()];
         returnArr = (WeeklyCalMapping[]) history.toArray(returnArr);
@@ -93,8 +99,8 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public void updateExercise(int id, int reps, int sets) throws DBException {
-        ExerciseHistory exerciseHistory=getExercise(id);
-        if(exerciseHistory!=null){
+        ExerciseHistory exerciseHistory = getExercise(id);
+        if (exerciseHistory != null) {
             exerciseHistory.setReps(reps);
             exerciseHistory.setSets(sets);
             Session session = factoryInstance.getFactory().openSession();
@@ -114,7 +120,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         List categoryStat = session.createQuery(
                 "select new com.fat2fit.model.CategoryMapping(category.name,sum(exerciseHistory.reps*exerciseHistory.sets)) " +
                         "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises, com.fat2fit.model.Category category " +
-                        " where exerciseHistory.idExercise=exercises.id and exercises.categoryID=category.id and exerciseHistory.username=:parm"+
+                        " where exerciseHistory.idExercise=exercises.id and exercises.categoryID=category.id and exerciseHistory.username=:parm" +
                         " group by category.id").setParameter("parm", username).list();// hql
         session.close();
         CategoryMapping[] returnArr = new CategoryMapping[categoryStat.size()];

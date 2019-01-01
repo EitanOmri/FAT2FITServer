@@ -33,13 +33,13 @@ public class MessageController {
                 MessageFromAdmin[] messageFromAdmins = messageFromAdminDAO.getAllMessageFromAdmin();
                 StringBuffer sb = new StringBuffer();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                for (int i = 0; i < messageFromAdmins.length; i++) {
+                for (MessageFromAdmin fromAdmin: messageFromAdmins) {
                     sb.append("<tr>");
                     sb.append("<th>");
-                    sb.append(df.format(messageFromAdmins[i].getDate()));
+                    sb.append(df.format(fromAdmin.getDate()));
                     sb.append("</th>");
                     sb.append("<th>");
-                    sb.append(messageFromAdmins[i].getContent());
+                    sb.append(fromAdmin.getContent());
                     sb.append("</th>");
                     sb.append("</tr>");
                 }

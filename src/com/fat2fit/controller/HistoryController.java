@@ -37,11 +37,11 @@ public class HistoryController {
                 String username = (String) request.getSession().getAttribute("userName");
                 if (username != null) {
                     TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
-                    for (int i = 0; i < trainingListExercises.length; i++) {
+                    for (TrainingListExercises listExercises : trainingListExercises) {
                         ExerciseHistory exerciseHistory = new ExerciseHistory(username,
-                                trainingListExercises[i].getIdExercise(),
-                                trainingListExercises[i].getSets(),
-                                trainingListExercises[i].getReps(), new Date(), 1);
+                                listExercises.getIdExercise(),
+                                listExercises.getSets(),
+                                listExercises.getReps(), new Date(), 1);
                         historyDAO.saveExercise(exerciseHistory);
                     }
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/TrainingController/workoutMenu");
@@ -78,23 +78,23 @@ public class HistoryController {
                 ExerciseHistory[] exerciseHistory = historyDAO.getAllHistoryPerUser(username);
                 StringBuffer sb = new StringBuffer();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                for (int i = 0; i < exerciseHistory.length; i++) {
+                for (ExerciseHistory history : exerciseHistory) {
                     sb.append("<tr>");
                     sb.append("<th>");
-                    sb.append(df.format(exerciseHistory[i].getDate()));
+                    sb.append(df.format(history.getDate()));
                     sb.append("</th>");
                     sb.append("<th>");
-                    sb.append(hibernateExercisesDAO.getExercise(exerciseHistory[i].getIdExercise()).getName());
+                    sb.append(hibernateExercisesDAO.getExercise(history.getIdExercise()).getName());
                     sb.append("</th>");
                     sb.append("<td>");
-                    sb.append(exerciseHistory[i].getSets());
+                    sb.append(history.getSets());
                     sb.append("</td>");
                     sb.append("<td>");
-                    sb.append(exerciseHistory[i].getReps());
+                    sb.append(history.getReps());
                     sb.append("</td>");
                     sb.append("<td>");
                     sb.append("<a href=\"/controller/HistoryController/editOrDeleteView?id=");
-                    sb.append(exerciseHistory[i].getId() + "&sets=" + exerciseHistory[i].getSets() + "&reps=" + exerciseHistory[i].getReps() + "\"");
+                    sb.append(history.getId() + "&sets=" + history.getSets() + "&reps=" + history.getReps() + "\"");
                     sb.append("data-role=\"button\" data-rel=\"dialog\" data-transition=\"pop\">Edit/Delete");
                     sb.append("</a></td>");
                     sb.append("</tr>");
@@ -233,8 +233,8 @@ public class HistoryController {
                 if (username != null && session.getAttribute("categoryId") != null) {
                     int categoryId = (int) session.getAttribute("categoryId");
                     Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
-                    for (int i = 0; i < exercises.length; i++) {
-                        int exId = exercises[i].getId();
+                    for (Exercises exercise : exercises) {
+                        int exId = exercise.getId();
                         if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
                             int reps = Integer.parseInt(request.getParameter("reps" + exId));
                             int sets = Integer.parseInt(request.getParameter("sets" + exId));

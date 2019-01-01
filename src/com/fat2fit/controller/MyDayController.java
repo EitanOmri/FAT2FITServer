@@ -74,26 +74,24 @@ public class MyDayController {
                 if (request.getSession().getAttribute("userName") != null) {
                     Exercises[] exercises = exercisesDAO.getExercisesByCategory(id);
                     StringBuffer sb = new StringBuffer();
-                    for (int i = 0; i < exercises.length; i++) {
+                    for (Exercises exercise : exercises) {
                         sb.append("<tr>");
                         sb.append("<th>");
-                        sb.append(exercises[i].getName());
+                        sb.append(exercise.getName());
                         sb.append("</th>");
                         sb.append("<td>");
                         sb.append("<input type=\"number\" name=\"sets");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercise.getId());
                         sb.append("\" id=\"sets");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercise.getId());
                         sb.append("\"/></td>");
-
                         sb.append("<td>");
                         sb.append("<input type=\"number\" name=\"reps");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercise.getId());
                         sb.append("\" id=\"reps");
-                        sb.append(exercises[i].getId());
+                        sb.append(exercise.getId());
                         sb.append("\"/></td>");
                         sb.append("</tr>");
-
                     }
                     HttpSession session = request.getSession();
                     session.setAttribute("categoryId", id);

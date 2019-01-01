@@ -32,28 +32,31 @@ public class HistoryController {
         IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
         int id;
         try {
-            if (request.getParameter("id").matches("-?\\d+(\\d+)?")) {
-                id = Integer.parseInt(request.getParameter("id"));
-                String username = (String) request.getSession().getAttribute("userName");
-                if (username != null) {
-                    TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
-                    for (int i = 0; i < trainingListExercises.length; i++) {
-                        ExerciseHistory exerciseHistory = new ExerciseHistory(username,
-                                trainingListExercises[i].getIdExercise(),
-                                trainingListExercises[i].getSets(),
-                                trainingListExercises[i].getReps(), new Date(), 1);
-                        historyDAO.saveExercise(exerciseHistory);
+            if (request.getParameter("id") != null) {
+                if (request.getParameter("id").matches("-?\\d+(\\d+)?")) {
+                    id = Integer.parseInt(request.getParameter("id"));
+                    String username = (String) request.getSession().getAttribute("userName");
+                    if (username != null) {
+                        TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
+                        for (TrainingListExercises listExercises : trainingListExercises) {
+                            ExerciseHistory exerciseHistory = new ExerciseHistory(username,
+                                    listExercises.getIdExercise(),
+                                    listExercises.getSets(),
+                                    listExercises.getReps(), new Date(), 1);
+                            historyDAO.saveExercise(exerciseHistory);
+                        }
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/TrainingController/workoutMenu");
+                    } else {
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                     }
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/TrainingController/workoutMenu");
-                } else {
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
-            } else
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/error");//todo: non numeric
+            }
         } catch (DBException e) {
             e.printStackTrace();
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -78,23 +81,23 @@ public class HistoryController {
                 ExerciseHistory[] exerciseHistory = historyDAO.getAllHistoryPerUser(username);
                 StringBuffer sb = new StringBuffer();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                for (int i = 0; i < exerciseHistory.length; i++) {
+                for (ExerciseHistory history : exerciseHistory) {
                     sb.append("<tr>");
                     sb.append("<th>");
-                    sb.append(df.format(exerciseHistory[i].getDate()));
+                    sb.append(df.format(history.getDate()));
                     sb.append("</th>");
                     sb.append("<th>");
-                    sb.append(hibernateExercisesDAO.getExercise(exerciseHistory[i].getIdExercise()).getName());
+                    sb.append(hibernateExercisesDAO.getExercise(history.getIdExercise()).getName());
                     sb.append("</th>");
                     sb.append("<td>");
-                    sb.append(exerciseHistory[i].getSets());
+                    sb.append(history.getSets());
                     sb.append("</td>");
                     sb.append("<td>");
-                    sb.append(exerciseHistory[i].getReps());
+                    sb.append(history.getReps());
                     sb.append("</td>");
                     sb.append("<td>");
                     sb.append("<a href=\"/controller/HistoryController/editOrDeleteView?id=");
-                    sb.append(exerciseHistory[i].getId() + "&sets=" + exerciseHistory[i].getSets() + "&reps=" + exerciseHistory[i].getReps() + "\"");
+                    sb.append(history.getId() + "&sets=" + history.getSets() + "&reps=" + history.getReps() + "\"");
                     sb.append("data-role=\"button\" data-rel=\"dialog\" data-transition=\"pop\">Edit/Delete");
                     sb.append("</a></td>");
                     sb.append("</tr>");
@@ -106,10 +109,10 @@ public class HistoryController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
         } catch (DBException e) {
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
-
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -128,23 +131,25 @@ public class HistoryController {
         RequestDispatcher dispatcher = null;
         int id, sets, reps;
         if (request.getSession().getAttribute("userName") != null) {
-            if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")
-                    && request.getParameter("sets").matches("-?\\d+(\\.\\d+)?")
-                    && request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")) {
-                id = Integer.parseInt(request.getParameter("id"));
-                sets = Integer.parseInt(request.getParameter("sets"));
-                reps = Integer.parseInt(request.getParameter("reps"));
-                HttpSession session = request.getSession();
-                session.setAttribute("idEditOrView", id);
-                session.setAttribute("setsEditOrView", sets);
-                session.setAttribute("repsEditOrView", reps);
-                dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
-            } else {
-                //todo: non numeric
+            if (request.getParameter("id") != null) {
+                if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")
+                        && request.getParameter("sets").matches("-?\\d+(\\.\\d+)?")
+                        && request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")) {
+                    id = Integer.parseInt(request.getParameter("id"));
+                    sets = Integer.parseInt(request.getParameter("sets"));
+                    reps = Integer.parseInt(request.getParameter("reps"));
+                    HttpSession session = request.getSession();
+                    session.setAttribute("idEditOrView", id);
+                    session.setAttribute("setsEditOrView", sets);
+                    session.setAttribute("repsEditOrView", reps);
+                    dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
+                }
             }
         } else {
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         }
+        if (dispatcher == null)
+            dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -168,9 +173,10 @@ public class HistoryController {
                 historyDAO.deleteExercise(id);
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
             } catch (DBException e) {
-                //todo:dispatcher error page
                 e.printStackTrace();
             } finally {
+                if (dispatcher == null)
+                    dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
                 dispatcher.forward(request, response);
             }
         }
@@ -189,20 +195,26 @@ public class HistoryController {
         //update action from DB
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
-        int sets = Integer.parseInt(request.getParameter("sets"));
-        int reps = Integer.parseInt(request.getParameter("reps"));
-        if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName") != null) {
-            int id = (int) session.getAttribute("idEditOrView");
-            IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
-            try {
-                historyDAO.updateExercise(id, reps, sets);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
-            } catch (DBException e) {
-                //todo:dispatcher error page
-                e.printStackTrace();
-            } finally {
-                dispatcher.forward(request, response);
+        try {
+            if (request.getParameter("sets") != null && request.getParameter("reps") != null) {
+                if (request.getParameter("sets").matches("-?\\d+(\\.\\d+)?")
+                        && request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")) {
+                    int sets = Integer.parseInt(request.getParameter("sets"));
+                    int reps = Integer.parseInt(request.getParameter("reps"));
+                    if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName") != null) {
+                        int id = (int) session.getAttribute("idEditOrView");
+                        IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
+                        historyDAO.updateExercise(id, reps, sets);
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
+                    }
+                }
             }
+        } catch (DBException e) {
+            e.printStackTrace();
+        } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         }
     }
 
@@ -223,29 +235,39 @@ public class HistoryController {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         try {
-            if (username != null && session.getAttribute("categoryId") != null) {
-                int categoryId = (int) session.getAttribute("categoryId");
-                Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
-                for (int i = 0; i < exercises.length; i++) {
-                    int exId = exercises[i].getId();
-                    if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
-                        int reps = Integer.parseInt(request.getParameter("reps" + exId));
-                        int sets = Integer.parseInt(request.getParameter("sets" + exId));
-                        if (reps > 0 && sets > 0) {
-                            ExerciseHistory exerciseHistory = new ExerciseHistory(username,
-                                    exId, sets, reps, new Date(), 1);
-                            historyDAO.saveExercise(exerciseHistory);
+            if (session.getAttribute("categoryId") != null) {
+                if (username != null) {
+                    int categoryId = (int) session.getAttribute("categoryId");
+                    Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
+                    for (Exercises exercise : exercises) {
+                        int exId = exercise.getId();
+                        if (request.getParameter("sets" + exId) != null && request.getParameter("reps" + exId) != null) {
+                            if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
+                                if (request.getParameter("reps" + exId).matches("-?\\d+(\\.\\d+)?") &&
+                                        request.getParameter("sets" + exId).matches("-?\\d+(\\.\\d+)?")) {
+                                    int reps = Integer.parseInt(request.getParameter("reps" + exId));
+                                    int sets = Integer.parseInt(request.getParameter("sets" + exId));
+                                    if (reps > 0 && sets > 0) {
+                                        ExerciseHistory exerciseHistory = new ExerciseHistory(username,
+                                                exId, sets, reps, new Date(), 1);
+                                        historyDAO.saveExercise(exerciseHistory);
+                                    }
+                                }
+                            }
                         }
                     }
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+
+                } else {
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-            } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
+
         } catch (DBException e) {
             e.printStackTrace();
-            //todo:error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

@@ -48,7 +48,6 @@ public class StatisticsController {
                     sb.append(topNMappings[i].getTotalCal());
                     sb.append("</th>");
                     sb.append("</tr>");
-
                 }
                 HttpSession session = request.getSession();
                 session.setAttribute("topNTable", sb.toString());
@@ -57,8 +56,9 @@ public class StatisticsController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
-            //todo: error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -118,8 +118,8 @@ public class StatisticsController {
                 CategoryMapping[] categories = exerciseHistoryDAO.getStatisticsCategory(username);
                 int totalPercents = 0;
                 int totalExercise = 0;
-                for (int i = 0; i < categories.length; i++)
-                    totalExercise = +(int) categories[i].getTotalExercises();
+                for (CategoryMapping categoryMapping : categories)
+                    totalExercise = +(int) categoryMapping.getTotalExercises();
 
                 for (int i = 0; i < categories.length; i++) {
                     map = new HashMap<Object, Object>();
@@ -140,8 +140,9 @@ public class StatisticsController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
-            //todo: error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

@@ -1,12 +1,15 @@
 import com.fat2fit.model.*;
 import org.junit.Test;
+
 import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
  * The type Model test.
  */
 public class ModelTest {
+
 
     /**
      * User model test.
@@ -16,7 +19,7 @@ public class ModelTest {
 
         IUser userDAO = new HibernateUserDAO();
         try {
-            User omri = new User( "omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
+            User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
             userDAO.saveUser(omri);
 
             assertEquals("omrieitan", userDAO.getUser("omrieitan").getUsername());
@@ -65,6 +68,7 @@ public class ModelTest {
             e.printStackTrace();
         }
     }
+
     /**
      * Training list exercises model test.
      */
@@ -160,12 +164,11 @@ public class ModelTest {
             assertEquals("omri", arr[2].getUsername());
             assertEquals(2, hibernateExerciseHistoryDAO.getAllHistoryPerUser("tomer").length);
             assertEquals(1, hibernateExerciseHistoryDAO.getAllHistoryPerUser("omri").length);
-            hibernateExerciseHistoryDAO.updateExercise(1,100,1000);
-            assertEquals(100,hibernateExerciseHistoryDAO.getExercise(1).getReps());
-            assertEquals(1000,hibernateExerciseHistoryDAO.getExercise(1).getSets());
+            hibernateExerciseHistoryDAO.updateExercise(1, 100, 1000);
+            assertEquals(100, hibernateExerciseHistoryDAO.getExercise(1).getReps());
+            assertEquals(1000, hibernateExerciseHistoryDAO.getExercise(1).getSets());
             for (int i = 1; i < 6; i++)
                 hibernateExerciseHistoryDAO.deleteExercise(i);
-
             exercisesDAO.deleteExercise(1);
             assertEquals(countBeforeSave, exercisesDAO.getAllExercises().length);
         } catch (DBException e) {

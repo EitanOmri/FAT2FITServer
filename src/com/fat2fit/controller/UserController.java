@@ -45,30 +45,30 @@ public class UserController {
         double weight;
         double height;
         try {
-            if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
-                    && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
-                weight = Double.parseDouble(request.getParameter("weight"));
-                height = Double.parseDouble(request.getParameter("height"));
-                int isManager = 0; //in defult new user is not admin
-                Date birthdayDate = null;
-                birthdayDate = sdf.parse(birthday);
-                User user = new User(userName, firstName, lastName, email, password, birthdayDate, weight, height, isManager);
-                if (!hibernateUserDAO.isUserExsits(userName)) {
-                    hibernateUserDAO.saveUser(user);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("userName", userName);
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                } else { //the username already existing
-                    //TODO: add dispatcher to new page with error "username has  already token please
+            if (userName != null && firstName != null && lastName != null && email != null && password != null && birthday != null) {
+                if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
+                        && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
+                    weight = Double.parseDouble(request.getParameter("weight"));
+                    height = Double.parseDouble(request.getParameter("height"));
+                    int isManager = 0; //in default new user is not admin
+                    Date birthdayDate = null;
+                    birthdayDate = sdf.parse(birthday);
+                    User user = new User(userName, firstName, lastName, email, password, birthdayDate, weight, height, isManager);
+                    if (!hibernateUserDAO.isUserExsits(userName)) {
+                        hibernateUserDAO.saveUser(user);
+                        HttpSession session = request.getSession();
+                        session.setAttribute("userName", userName);
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                    }
                 }
-            } else { //non numeric
-                //todo: the  height or weight parmeters not numeric dispacther to error page
             }
         } catch (DBException e) {
             e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -95,16 +95,13 @@ public class UserController {
                     HttpSession session = request.getSession();
                     session.setAttribute("userName", userName);
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                } else {
-                    //TODO: dispatcher to error page -username or paswword incorrect
                 }
-            } else {
-                //todo: error page, bad parameters
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo: error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -140,27 +137,28 @@ public class UserController {
      */
     public void update(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
             ServletException, IOException {
-      //update the user's weight and height
+        //update the user's weight and height
         RequestDispatcher dispatcher = null;
         IUser hibernateUserDAO = new HibernateUserDAO();
         try {
-            if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
-                    && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
-                double height = Double.parseDouble(request.getParameter("height"));
-                double weight = Double.parseDouble(request.getParameter("weight"));
-                if (request.getSession().getAttribute("userName") != null) {
-                    hibernateUserDAO.updateUser((String) request.getSession().getAttribute("userName"), weight, height);
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                } else {
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+            if (request.getParameter("weight") != null && request.getParameter("height") != null) {
+                if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
+                        && request.getParameter("height").matches("-?\\d+(\\.\\d+)?")) {
+                    double height = Double.parseDouble(request.getParameter("height"));
+                    double weight = Double.parseDouble(request.getParameter("weight"));
+                    if (request.getSession().getAttribute("userName") != null) {
+                        hibernateUserDAO.updateUser((String) request.getSession().getAttribute("userName"), weight, height);
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                    } else {
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+                    }
                 }
-            } else {
-                //todo: the  height or weight parmeters not numeric dispacther to error page
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo: error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

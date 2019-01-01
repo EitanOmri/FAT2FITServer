@@ -46,9 +46,10 @@ public class MyDayController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
         } catch (DBException e) {
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -69,47 +70,46 @@ public class MyDayController {
         ICategory categoryDAO = new HibernateCategoryDAO();
         int id;
         try {
-            if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
-                id = Integer.parseInt(request.getParameter("id"));
-                if (request.getSession().getAttribute("userName") != null) {
-                    Exercises[] exercises = exercisesDAO.getExercisesByCategory(id);
-                    StringBuffer sb = new StringBuffer();
-                    for (int i = 0; i < exercises.length; i++) {
-                        sb.append("<tr>");
-                        sb.append("<th>");
-                        sb.append(exercises[i].getName());
-                        sb.append("</th>");
-                        sb.append("<td>");
-                        sb.append("<input type=\"number\" name=\"sets");
-                        sb.append(exercises[i].getId());
-                        sb.append("\" id=\"sets");
-                        sb.append(exercises[i].getId());
-                        sb.append("\"/></td>");
-
-                        sb.append("<td>");
-                        sb.append("<input type=\"number\" name=\"reps");
-                        sb.append(exercises[i].getId());
-                        sb.append("\" id=\"reps");
-                        sb.append(exercises[i].getId());
-                        sb.append("\"/></td>");
-                        sb.append("</tr>");
-
+            if (request.getParameter("id") != null) {
+                if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
+                    id = Integer.parseInt(request.getParameter("id"));
+                    if (request.getSession().getAttribute("userName") != null) {
+                        Exercises[] exercises = exercisesDAO.getExercisesByCategory(id);
+                        StringBuffer sb = new StringBuffer();
+                        for (Exercises exercise : exercises) {
+                            sb.append("<tr>");
+                            sb.append("<th>");
+                            sb.append(exercise.getName());
+                            sb.append("</th>");
+                            sb.append("<td>");
+                            sb.append("<input type=\"number\" name=\"sets");
+                            sb.append(exercise.getId());
+                            sb.append("\" id=\"sets");
+                            sb.append(exercise.getId());
+                            sb.append("\"/></td>");
+                            sb.append("<td>");
+                            sb.append("<input type=\"number\" name=\"reps");
+                            sb.append(exercise.getId());
+                            sb.append("\" id=\"reps");
+                            sb.append(exercise.getId());
+                            sb.append("\"/></td>");
+                            sb.append("</tr>");
+                        }
+                        HttpSession session = request.getSession();
+                        session.setAttribute("categoryId", id);
+                        session.setAttribute("categoryName", categoryDAO.getCategory(id).getName());
+                        request.setAttribute("categoriesForm", sb.toString());
+                        dispatcher = request.getServletContext().getRequestDispatcher("/MyDayExercise.jsp");
+                    } else {
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                     }
-                    HttpSession session = request.getSession();
-                    session.setAttribute("categoryId", id);
-                    session.setAttribute("categoryName", categoryDAO.getCategory(id).getName());
-                    request.setAttribute("categoriesForm", sb.toString());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/MyDayExercise.jsp");
-                } else {
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
-            } else {
-                //todo:error page
             }
         } catch (DBException e) {
             e.printStackTrace();
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

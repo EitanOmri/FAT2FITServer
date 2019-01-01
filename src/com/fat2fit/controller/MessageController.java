@@ -33,7 +33,7 @@ public class MessageController {
                 MessageFromAdmin[] messageFromAdmins = messageFromAdminDAO.getAllMessageFromAdmin();
                 StringBuffer sb = new StringBuffer();
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                for (MessageFromAdmin fromAdmin: messageFromAdmins) {
+                for (MessageFromAdmin fromAdmin : messageFromAdmins) {
                     sb.append("<tr>");
                     sb.append("<th>");
                     sb.append(df.format(fromAdmin.getDate()));
@@ -50,8 +50,9 @@ public class MessageController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
-            //todo:error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -72,17 +73,20 @@ public class MessageController {
         try {
             if (username != null) {
                 String content = request.getParameter("content");
-                IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
-                MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(), content, username);
-                messageToAdminDAO.saveMessage(messageToAdmin);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                if (content != null) {
+                    IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
+                    MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(), content, username);
+                    messageToAdminDAO.saveMessage(messageToAdmin);
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                }
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo:error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -105,13 +109,13 @@ public class MessageController {
         try {
             if (username != null) {
                 if (hibernateUserDAO.isManager(username)) {
-                    if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
-                        id = Integer.parseInt(request.getParameter("id"));
-                        IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
-                        messageToAdminDAO.deleteMessage(id);
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
-                    } else {//non numeric
-                        //todo:error page
+                    if (request.getParameter("id") != null) {
+                        if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
+                            id = Integer.parseInt(request.getParameter("id"));
+                            IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
+                            messageToAdminDAO.deleteMessage(id);
+                            dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                        }
                     }
                 } else {//no admin
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -121,8 +125,9 @@ public class MessageController {
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo:error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -145,20 +150,21 @@ public class MessageController {
             if (username != null) {
                 if (hibernateUserDAO.isManager(username)) {
                     String content = request.getParameter("content");
-                    IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
-                    MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(), content);
-                    messageFromAdminDAO.saveMessage(messageFromAdmin);
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                    if (content != null) {
+                        IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+                        MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(), content);
+                        messageFromAdminDAO.saveMessage(messageFromAdmin);
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                    }
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }
-            } else {
-                //todo:error page
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo:error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -181,13 +187,13 @@ public class MessageController {
         try {
             if (username != null) {
                 if (hibernateUserDAO.isManager(username)) {
-                    if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
-                        id = Integer.parseInt(request.getParameter("id"));
-                        IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
-                        messageFromAdminDAO.deleteMessage(id);
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
-                    } else {//non numeric
-                        //todo:error page
+                    if (request.getParameter("id") != null) {
+                        if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
+                            id = Integer.parseInt(request.getParameter("id"));
+                            IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+                            messageFromAdminDAO.deleteMessage(id);
+                            dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/managerMessage");
+                        }
                     }
                 } else {//no admin
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -197,8 +203,9 @@ public class MessageController {
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo:error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

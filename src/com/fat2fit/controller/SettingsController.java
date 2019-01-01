@@ -36,10 +36,11 @@ public class SettingsController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/Settings.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
-        } catch (
-                DBException e) {
+        } catch (DBException e) {
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

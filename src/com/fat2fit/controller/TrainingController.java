@@ -47,8 +47,9 @@ public class TrainingController {
             }
         } catch (DBException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -69,39 +70,40 @@ public class TrainingController {
         ITrainingListName listNameDAO = new HibernateTrainingListNameDAO();
         ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
         try {
-            if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                if (request.getSession().getAttribute("userName") != null) {
-                    TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
-                    StringBuffer sb = new StringBuffer();
-                    for (TrainingListExercises listExercises: trainingListExercises) {
-                        sb.append("<tr>");
-                        sb.append("<th>");
-                        sb.append(hibernateExercisesDAO.getExercise(listExercises.getIdExercise()).getName());
-                        sb.append("</th>");
-                        sb.append("<th>");
-                        sb.append(listExercises.getSets());
-                        sb.append("</th>");
-                        sb.append("<th>");
-                        sb.append(listExercises.getReps());
-                        sb.append("</th>");
-                        sb.append("</tr>");
+            if (request.getParameter("id") != null) {
+                if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    if (request.getSession().getAttribute("userName") != null) {
+                        TrainingListExercises[] trainingListExercises = listExercisesDAO.getbyTrainigId(id);
+                        StringBuffer sb = new StringBuffer();
+                        for (TrainingListExercises listExercises : trainingListExercises) {
+                            sb.append("<tr>");
+                            sb.append("<th>");
+                            sb.append(hibernateExercisesDAO.getExercise(listExercises.getIdExercise()).getName());
+                            sb.append("</th>");
+                            sb.append("<th>");
+                            sb.append(listExercises.getSets());
+                            sb.append("</th>");
+                            sb.append("<th>");
+                            sb.append(listExercises.getReps());
+                            sb.append("</th>");
+                            sb.append("</tr>");
+                        }
+                        HttpSession session = request.getSession();
+                        session.setAttribute("exerciseList", sb.toString());
+                        session.setAttribute("trainingListId", id);
+                        session.setAttribute("trainingListName", listNameDAO.getTrainigListName(id).getName());
+                        dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListExercise.jsp");
+                    } else { //no session
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                     }
-                    HttpSession session = request.getSession();
-                    session.setAttribute("exerciseList", sb.toString());
-                    session.setAttribute("trainingListId", id);
-                    session.setAttribute("trainingListName", listNameDAO.getTrainigListName(id).getName());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListExercise.jsp");
-                } else { //no session
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
-            } else { //id is non numeric
-                //todo:non numeric
             }
         } catch (DBException e) {
             e.printStackTrace();
-            //todo: error page
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

@@ -189,20 +189,25 @@ public class HistoryController {
         //update action from DB
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
-        int sets = Integer.parseInt(request.getParameter("sets"));
-        int reps = Integer.parseInt(request.getParameter("reps"));
-        if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName") != null) {
-            int id = (int) session.getAttribute("idEditOrView");
-            IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
-            try {
-                historyDAO.updateExercise(id, reps, sets);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
-            } catch (DBException e) {
-                //todo:dispatcher error page
-                e.printStackTrace();
-            } finally {
-                dispatcher.forward(request, response);
+        try {
+            if (request.getParameter("sets").matches("-?\\d+(\\.\\d+)?")
+                    && request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")) {
+                int sets = Integer.parseInt(request.getParameter("sets"));
+                int reps = Integer.parseInt(request.getParameter("reps"));
+                if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName") != null) {
+                    int id = (int) session.getAttribute("idEditOrView");
+                    IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
+                    historyDAO.updateExercise(id, reps, sets);
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");
+                }
+            } else {
+                //todo:non numeric
             }
+        } catch (DBException e) {
+            //todo:dispatcher error page
+            e.printStackTrace();
+        } finally {
+            dispatcher.forward(request, response);
         }
     }
 
@@ -223,24 +228,29 @@ public class HistoryController {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         try {
-            if (username != null && session.getAttribute("categoryId") != null) {
-                int categoryId = (int) session.getAttribute("categoryId");
-                Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
-                for (int i = 0; i < exercises.length; i++) {
-                    int exId = exercises[i].getId();
-                    if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
-                        int reps = Integer.parseInt(request.getParameter("reps" + exId));
-                        int sets = Integer.parseInt(request.getParameter("sets" + exId));
-                        if (reps > 0 && sets > 0) {
-                            ExerciseHistory exerciseHistory = new ExerciseHistory(username,
-                                    exId, sets, reps, new Date(), 1);
-                            historyDAO.saveExercise(exerciseHistory);
+            if (request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")
+                    && request.getParameter("sets").matches("-?\\d+(\\.\\d+)?")) {
+                if (username != null && session.getAttribute("categoryId") != null) {
+                    int categoryId = (int) session.getAttribute("categoryId");
+                    Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
+                    for (int i = 0; i < exercises.length; i++) {
+                        int exId = exercises[i].getId();
+                        if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
+                            int reps = Integer.parseInt(request.getParameter("reps" + exId));
+                            int sets = Integer.parseInt(request.getParameter("sets" + exId));
+                            if (reps > 0 && sets > 0) {
+                                ExerciseHistory exerciseHistory = new ExerciseHistory(username,
+                                        exId, sets, reps, new Date(), 1);
+                                historyDAO.saveExercise(exerciseHistory);
+                            }
                         }
                     }
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                } else {
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             } else {
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+                //todo: no numeric
             }
         } catch (DBException e) {
             e.printStackTrace();

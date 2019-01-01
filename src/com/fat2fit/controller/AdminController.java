@@ -186,18 +186,22 @@ public class AdminController {
             if (request.getSession().getAttribute("userName") == null)
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             else {
-                if (userDAO.isManager((String) request.getSession().getAttribute("userName"))) {
-                    String exerciseName = request.getParameter("exerciseName");
-                    int cal = Integer.parseInt(request.getParameter("cal"));
-                    String category = request.getParameter("category");
-                    int categoryId = categoryDAO.getCategoryByName(category).getId();
-                    int id = exercisesDAO.getAllExercises().length + 1;
-                    Exercises exercises = new Exercises(id, exerciseName, cal, categoryId);
-                    exercisesDAO.saveExercise(exercises);
+                if (request.getParameter("cal").matches("-?\\d+(\\.\\d+)?")) {
+                    if (userDAO.isManager((String) request.getSession().getAttribute("userName"))) {
+                        String exerciseName = request.getParameter("exerciseName");
+                        int cal = Integer.parseInt(request.getParameter("cal"));
+                        String category = request.getParameter("category");
+                        int categoryId = categoryDAO.getCategoryByName(category).getId();
+                        int id = exercisesDAO.getAllExercises().length + 1;
+                        Exercises exercises = new Exercises(id, exerciseName, cal, categoryId);
+                        exercisesDAO.saveExercise(exercises);
 
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/home");
-                } else
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/home");
+                    } else
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                } else {
+                    //todo:no numeric
+                }
             }
         } catch (DBException e) {
             e.printStackTrace();
@@ -287,22 +291,26 @@ public class AdminController {
             else {
                 if (hibernateUserDAO.isManager(username)) {
                     String trainingListName = request.getParameter("trainingListName");
-                    Exercises[] exercises = exercisesDAO.getAllExercises();
-                    int id = trainingListNameDAO.getTrainingListNames().length + 1;
-                    TrainingListName listName = new TrainingListName(id, trainingListName);
-                    trainingListNameDAO.add(listName);
-                    for (int i = 0; i < exercises.length; i++) {
-                        int exId = exercises[i].getId();
-                        if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
-                            int reps = Integer.parseInt(request.getParameter("reps" + exId));
-                            int sets = Integer.parseInt(request.getParameter("sets" + exId));
-                            if (reps > 0 && sets > 0) {
-                                TrainingListExercises trainingListExercises = new TrainingListExercises(1, id, exId, sets, reps);
-                                trainingListExercisesDAO.add(trainingListExercises);
+                    if (trainingListName != null) {
+                        Exercises[] exercises = exercisesDAO.getAllExercises();
+                        int id = trainingListNameDAO.getTrainingListNames().length + 1;
+                        TrainingListName listName = new TrainingListName(id, trainingListName);
+                        trainingListNameDAO.add(listName);
+                        for (int i = 0; i < exercises.length; i++) {
+                            int exId = exercises[i].getId();
+                            if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
+                                int reps = Integer.parseInt(request.getParameter("reps" + exId));
+                                int sets = Integer.parseInt(request.getParameter("sets" + exId));
+                                if (reps > 0 && sets > 0) {
+                                    TrainingListExercises trainingListExercises = new TrainingListExercises(1, id, exId, sets, reps);
+                                    trainingListExercisesDAO.add(trainingListExercises);
+                                }
                             }
                         }
+                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                    } else {
+                        //todo: no parameter
                     }
-                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }

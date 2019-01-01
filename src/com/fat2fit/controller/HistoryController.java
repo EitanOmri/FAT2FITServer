@@ -235,31 +235,34 @@ public class HistoryController {
         HttpSession session = request.getSession();
         String username = (String) session.getAttribute("userName");
         try {
-            if (request.getParameter("sets") != null && request.getParameter("reps") != null && session.getAttribute("categoryId") != null) {
-                if (request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")
-                        && request.getParameter("sets").matches("-?\\d+(\\.\\d+)?")) {
-                    if (username != null ){
-                        int categoryId = (int) session.getAttribute("categoryId");
-                        Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
-                        for (Exercises exercise : exercises) {
-                            int exId = exercise.getId();
+            if (session.getAttribute("categoryId") != null) {
+                if (username != null) {
+                    int categoryId = (int) session.getAttribute("categoryId");
+                    Exercises[] exercises = exercisesDAO.getExercisesByCategory(categoryId);
+                    for (Exercises exercise : exercises) {
+                        int exId = exercise.getId();
+                        if (request.getParameter("sets" + exId) != null && request.getParameter("reps" + exId) != null) {
                             if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
-                                int reps = Integer.parseInt(request.getParameter("reps" + exId));
-                                int sets = Integer.parseInt(request.getParameter("sets" + exId));
-                                if (reps > 0 && sets > 0) {
-                                    ExerciseHistory exerciseHistory = new ExerciseHistory(username,
-                                            exId, sets, reps, new Date(), 1);
-                                    historyDAO.saveExercise(exerciseHistory);
+                                if (request.getParameter("reps" + exId).matches("-?\\d+(\\.\\d+)?") &&
+                                        request.getParameter("sets" + exId).matches("-?\\d+(\\.\\d+)?")) {
+                                    int reps = Integer.parseInt(request.getParameter("reps" + exId));
+                                    int sets = Integer.parseInt(request.getParameter("sets" + exId));
+                                    if (reps > 0 && sets > 0) {
+                                        ExerciseHistory exerciseHistory = new ExerciseHistory(username,
+                                                exId, sets, reps, new Date(), 1);
+                                        historyDAO.saveExercise(exerciseHistory);
+                                    }
                                 }
                             }
                         }
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-
-                    } else {
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                     }
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+
+                } else {
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                 }
             }
+
         } catch (DBException e) {
             e.printStackTrace();
         } finally {

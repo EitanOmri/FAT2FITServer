@@ -46,7 +46,7 @@ public class NavigatorController {
 
                 } else {
                     sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
-                            "                        <img src=\"<%=request.getContextPath()%>/IMG/message.png\" alt=\"message\">\n" +
+                            "                        <img src=" + request.getContextPath() + "/IMG/message.png alt=\"message\">\n" +
                             "                    <h2 style=\"font-size: 40px;color: white\">Message</h2>\n" +
                             "                    <p style=\"font-size: 20px;color: white\">these are your messages</p></a>\n" +
                             "                    \n" +

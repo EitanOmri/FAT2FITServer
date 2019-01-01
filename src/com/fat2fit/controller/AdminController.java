@@ -38,9 +38,10 @@ public class AdminController {
                     dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
             }
         } catch (DBException e) {
-            dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -91,8 +92,9 @@ public class AdminController {
             }
         } catch (DBException e) {
             e.printStackTrace();
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -112,16 +114,21 @@ public class AdminController {
         IUser hibernateUserDAO = new HibernateUserDAO();
         try {
             String username = request.getParameter("userName");
-            if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
-                hibernateUserDAO.addAdmin(username);
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/home");
-            } else
-                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+            if (username != null) {
+                if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
+                    hibernateUserDAO.addAdmin(username);
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/home");
+                } else
+                    dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
 
+            } else {
+                dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+            }
         } catch (DBException e) {
             e.printStackTrace();
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -155,14 +162,13 @@ public class AdminController {
                     }
                     session.setAttribute("listOfCategories", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminExercise.jsp");
-                } else {
-                    //todo:error page
                 }
             }
         } catch (DBException e) {
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -186,27 +192,27 @@ public class AdminController {
             if (request.getSession().getAttribute("userName") == null)
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             else {
-                if (request.getParameter("cal").matches("-?\\d+(\\.\\d+)?")) {
-                    if (userDAO.isManager((String) request.getSession().getAttribute("userName"))) {
-                        String exerciseName = request.getParameter("exerciseName");
-                        int cal = Integer.parseInt(request.getParameter("cal"));
-                        String category = request.getParameter("category");
-                        int categoryId = categoryDAO.getCategoryByName(category).getId();
-                        int id = exercisesDAO.getAllExercises().length + 1;
-                        Exercises exercises = new Exercises(id, exerciseName, cal, categoryId);
-                        exercisesDAO.saveExercise(exercises);
-
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/home");
-                    } else
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                } else {
-                    //todo:no numeric
+                if (request.getParameter("cal") != null && request.getParameter("category") != null && request.getParameter("exerciseName") != null) {
+                    if (request.getParameter("cal").matches("-?\\d+(\\.\\d+)?")) {
+                        if (userDAO.isManager((String) request.getSession().getAttribute("userName"))) {
+                            String exerciseName = request.getParameter("exerciseName");
+                            int cal = Integer.parseInt(request.getParameter("cal"));
+                            String category = request.getParameter("category");
+                            int categoryId = categoryDAO.getCategoryByName(category).getId();
+                            int id = exercisesDAO.getAllExercises().length + 1;
+                            Exercises exercises = new Exercises(id, exerciseName, cal, categoryId);
+                            exercisesDAO.saveExercise(exercises);
+                            dispatcher = request.getServletContext().getRequestDispatcher("/controller/AdminController/home");
+                        } else
+                            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
+                    }
                 }
             }
         } catch (DBException e) {
             e.printStackTrace();
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -260,9 +266,10 @@ public class AdminController {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             }
         } catch (DBException e) {
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -291,34 +298,41 @@ public class AdminController {
             else {
                 if (hibernateUserDAO.isManager(username)) {
                     String trainingListName = request.getParameter("trainingListName");
-                    if (trainingListName != null && !trainingListName.equals("")) {
-                        Exercises[] exercises = exercisesDAO.getAllExercises();
-                        int id = trainingListNameDAO.getTrainingListNames().length + 1;
-                        TrainingListName listName = new TrainingListName(id, trainingListName);
-                        trainingListNameDAO.add(listName);
-                        for (Exercises exercise : exercises) {
-                            int exId = exercise.getId();
-                            if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
-                                int reps = Integer.parseInt(request.getParameter("reps" + exId));
-                                int sets = Integer.parseInt(request.getParameter("sets" + exId));
-                                if (reps > 0 && sets > 0) {
-                                    TrainingListExercises trainingListExercises = new TrainingListExercises(1, id, exId, sets, reps);
-                                    trainingListExercisesDAO.add(trainingListExercises);
+                    if (trainingListName != null) {
+                        if (!trainingListName.equals("")) {
+                            Exercises[] exercises = exercisesDAO.getAllExercises();
+                            int id = trainingListNameDAO.getTrainingListNames().length + 1;
+                            TrainingListName listName = new TrainingListName(id, trainingListName);
+                            trainingListNameDAO.add(listName);
+                            for (Exercises exercise : exercises) {
+                                int exId = exercise.getId();
+
+                                if (request.getParameter("reps" + exId) != null && request.getParameter("sets" + exId) != null) {
+                                    if (request.getParameter("reps" + exId) != "" && request.getParameter("sets" + exId) != "") {
+                                        if (request.getParameter("reps" + exId).matches("-?\\d+(\\.\\d+)?")
+                                                && request.getParameter("sets" + exId).matches("-?\\d+(\\.\\d+)?")) {
+                                            int reps = Integer.parseInt(request.getParameter("reps" + exId));
+                                            int sets = Integer.parseInt(request.getParameter("sets" + exId));
+                                            if (reps > 0 && sets > 0) {
+                                                TrainingListExercises trainingListExercises = new TrainingListExercises(1, id, exId, sets, reps);
+                                                trainingListExercisesDAO.add(trainingListExercises);
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                         }
-                        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-                    } else {
-                        dispatcher = request.getServletContext().getRequestDispatcher("/ErrorParameters.jsp");
                     }
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }
             }
         } catch (DBException e) {
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             e.printStackTrace();
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -394,9 +408,9 @@ public class AdminController {
             }
         } catch (DBException e) {
             e.printStackTrace();
-            dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
-
         } finally {
+            if (dispatcher == null)
+                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

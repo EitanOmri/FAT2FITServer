@@ -291,7 +291,7 @@ public class AdminController {
             else {
                 if (hibernateUserDAO.isManager(username)) {
                     String trainingListName = request.getParameter("trainingListName");
-                    if (trainingListName != null) {
+                    if (trainingListName != null && !trainingListName.equals("")) {
                         Exercises[] exercises = exercisesDAO.getAllExercises();
                         int id = trainingListNameDAO.getTrainingListNames().length + 1;
                         TrainingListName listName = new TrainingListName(id, trainingListName);
@@ -309,7 +309,7 @@ public class AdminController {
                         }
                         dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                     } else {
-                        //todo: no parameter
+                        dispatcher = request.getServletContext().getRequestDispatcher("/ErrorParameters.jsp");
                     }
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");

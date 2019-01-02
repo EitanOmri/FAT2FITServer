@@ -162,4 +162,28 @@ public class UserController {
             dispatcher.forward(request, response);
         }
     }
+
+    public void isExistUserName(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
+            ServletException, IOException {
+        //update the user's weight and height
+        RequestDispatcher dispatcher = null;
+        IUser hibernateUserDAO = new HibernateUserDAO();
+        String userName = request.getParameter("userName");
+        PrintWriter out = response.getWriter();
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        try {
+            if (userName != null) {
+                if (!hibernateUserDAO.isUserExsits(userName)) {
+                    out.print("false");
+                } else {
+                    out.print("true");
+                }
+            } else {
+                out.print("true");
+            }
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

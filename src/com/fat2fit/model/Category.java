@@ -1,7 +1,7 @@
 package com.fat2fit.model;
 
 /**
- * The type Category.
+ * Mapping Category table to java object.
  */
 public class Category {
     private int id;
@@ -19,7 +19,7 @@ public class Category {
     }
 
     /**
-     * Instantiates a new Category.
+     * Empty constructor, needs for hibernate.
      */
     public Category() {
         super();

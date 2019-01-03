@@ -5,7 +5,7 @@ import java.util.Objects;
 
 
 /**
- * The type Exercises.
+ * Mapping Exercises table to java object.
  */
 public class Exercises {
     private int id;
@@ -29,7 +29,7 @@ public class Exercises {
     }
 
     /**
-     * Instantiates a new Exercises.
+     * Empty constructor, needs for hibernate.
      */
     public Exercises() {
         super();

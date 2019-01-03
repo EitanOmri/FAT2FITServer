@@ -107,7 +107,7 @@ public class HibernateUserDAO implements IUser {
         User user = getUser(username);
         if (user != null)
             if (password.equals(user.getPassword()))
-                return true;
+                return true; //test pass
         return false;
     }
 

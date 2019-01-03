@@ -1,7 +1,7 @@
 package com.fat2fit.model;
 
 /**
- * The type Category mapping.
+ * Mapping the result of query about category statistics to java object.
  */
 public class CategoryMapping {
     private String categoryName;
@@ -19,7 +19,7 @@ public class CategoryMapping {
     }
 
     /**
-     * Instantiates a new Category mapping.
+     * Empty constructor, needs for hibernate.
      */
     public CategoryMapping() {
         super();

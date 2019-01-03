@@ -3,7 +3,7 @@ package com.fat2fit.model;
 import java.util.Date;
 
 /**
- * The type User.
+ * Mapping User table to java object.
  */
 public class User {
     private String username;
@@ -43,7 +43,7 @@ public class User {
     }
 
     /**
-     * Instantiates a new User.
+     * Empty constructor, needs for hibernate.
      */
     public User() {
         super();

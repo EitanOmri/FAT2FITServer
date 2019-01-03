@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * The type Hibernate exercise history dao.
+ * this class responsible to makes queries to the exercise history table in the data base.
  */
 public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     private Factory factoryInstance;
@@ -27,6 +28,9 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DAY_OF_YEAR, -7);// go back 7 days
         Date minDate = cal.getTime();
+        /*the query returns a list of TopNMapping.
+        we found the 3 users that burn the most calories in the last week and the total calories each of them burned.
+         */
         List history = session.createQuery("  " +
                 "select new com.fat2fit.model.TopNMapping(exerciseHistory.username, " +
                 "sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
@@ -36,6 +40,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
                 "order by sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps) " +
                 "desc").setParameter("parm", minDate).setMaxResults(3).list();// hql
         session.close();
+        //converts list to array
         TopNMapping[] returnArr = new TopNMapping[history.size()];
         returnArr = (TopNMapping[]) history.toArray(returnArr);
         return returnArr;
@@ -43,6 +48,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public void deleteExercise(int id) throws DBException {
+        //the basic way to delete new object by session
         ExerciseHistory exercises = getExercise(id);
         if (exercises != null) {
             Session session = factoryInstance.getFactory().openSession();
@@ -55,6 +61,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public ExerciseHistory getExercise(int id) throws DBException {
+        //the basic way to get object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         ExerciseHistory exerciseHistory = (ExerciseHistory) session.get(ExerciseHistory.class, id);
@@ -64,6 +71,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public void saveExercise(ExerciseHistory exerciseHistory) throws DBException {
+        //the basic way to save new object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         session.save(exerciseHistory);
@@ -75,6 +83,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
+        //getting list of all exercises by username
         List history = session.createQuery("FROM com.fat2fit.model.ExerciseHistory exerciseHistory WHERE Username=:parm order by exerciseHistory.date desc").setParameter("parm", username).list();// hql
         session.close();
         ExerciseHistory[] returnArr = new ExerciseHistory[history.size()];

@@ -5,7 +5,7 @@ package com.fat2fit.model;
  */
 public interface IExerciseHistory {
     /**
-     * Get top 3 top n mapping [ ].
+     * Get top 3 burn calories users in the last week.
      *
      * @return the top n mapping [ ]
      * @throws DBException the db exception
@@ -13,7 +13,7 @@ public interface IExerciseHistory {
     TopNMapping[] getTop3() throws DBException;
 
     /**
-     * Save exercise.
+     * add exercise.
      *
      * @param exerciseHistory the exercise history
      * @throws DBException the db exception
@@ -29,7 +29,7 @@ public interface IExerciseHistory {
     void deleteExercise(int id) throws DBException;
 
     /**
-     * Update exercise.
+     * Update reps and sets for existing exercise.
      *
      * @param id   the id
      * @param reps the reps
@@ -39,7 +39,7 @@ public interface IExerciseHistory {
     void updateExercise(int id, int reps, int sets) throws DBException;
 
     /**
-     * Get all history per user exercise history [ ].
+     * Get all exercise history by user.
      *
      * @param username the username
      * @return the exercise history [ ]
@@ -48,7 +48,7 @@ public interface IExerciseHistory {
     ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException;
 
     /**
-     * Get statistics weekly cal weekly cal mapping [ ].
+     * Get statistics of the last 7 days that the user trains and the total calories he burns for each day.
      *
      * @param username the username
      * @return the weekly cal mapping [ ]
@@ -57,7 +57,7 @@ public interface IExerciseHistory {
     WeeklyCalMapping[] getStatisticsWeeklyCal(String username) throws DBException;
 
     /**
-     * Gets exercise.
+     * Gets exercise by id.
      *
      * @param id the id
      * @return the exercise
@@ -66,7 +66,7 @@ public interface IExerciseHistory {
     ExerciseHistory getExercise(int id) throws DBException;
 
     /**
-     * Get statistics category category mapping [ ].
+     * Get statistics of the all burned calories divided per category.
      *
      * @param username the username
      * @return the category mapping [ ]

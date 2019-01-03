@@ -4,7 +4,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
- * The type Factory.
+ * The Singleton design. helps to the model classes use with only ONE instance of SessionFactory.
  */
 public class Factory {
     private static Factory factoryInstance; //singleton
@@ -17,16 +17,15 @@ public class Factory {
         try {
             factory = new AnnotationConfiguration().configure().buildSessionFactory();
         } catch (Throwable ex) {
-
             System.out.println("Initial SessionFactory creation failed.");
             throw new ExceptionInInitializerError(ex);
         }
     }
 
     /**
-     * Gets factory instance.
+     * Gets session factory instance.
      *
-     * @return the factory instance
+     * @return the session factory instance
      */
     public static Factory getFactoryInstance() {
         if (factoryInstance == null) {
@@ -36,9 +35,9 @@ public class Factory {
     }
 
     /**
-     * Gets factory.
+     * Gets session factory.
      *
-     * @return the factory
+     * @return the session factory
      */
     public SessionFactory getFactory() {
         return factory;

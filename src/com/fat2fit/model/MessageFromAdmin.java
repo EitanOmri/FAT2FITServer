@@ -3,7 +3,7 @@ package com.fat2fit.model;
 import java.util.Date;
 
 /**
- * The type Message from admin.
+ * Mapping Message from admin table to java object.
  */
 public class MessageFromAdmin {
     private int id;
@@ -24,7 +24,7 @@ public class MessageFromAdmin {
     }
 
     /**
-     * Instantiates a new Message from admin.
+     * Empty constructor, needs for hibernate.
      */
     public MessageFromAdmin() {
         super();

@@ -95,12 +95,14 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public WeeklyCalMapping[] getStatisticsWeeklyCal(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
+        //
         List history = session.createQuery(
                 "select new com.fat2fit.model.WeeklyCalMapping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
                         "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
                         " where exerciseHistory.idExercise=exercises.id and exerciseHistory.username=:parm" +
                         " group by exerciseHistory.date order by exerciseHistory.date desc").setParameter("parm", username).setMaxResults(7).list();// hql
         session.close();
+        //converts list to array
         WeeklyCalMapping[] returnArr = new WeeklyCalMapping[history.size()];
         returnArr = (WeeklyCalMapping[]) history.toArray(returnArr);
         return returnArr;
@@ -126,6 +128,9 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public CategoryMapping[] getStatisticsCategory(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
+          /*the query returns a list of CategoryMapping.
+        we get all the categories and the total calories each of them burned.
+         */
         List categoryStat = session.createQuery(
                 "select new com.fat2fit.model.CategoryMapping(category.name,sum(exerciseHistory.reps*exerciseHistory.sets)) " +
                         "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises, com.fat2fit.model.Category category " +

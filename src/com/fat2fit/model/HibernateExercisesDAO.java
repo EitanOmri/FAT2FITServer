@@ -6,6 +6,7 @@ import java.util.List;
 
 /**
  * The type Hibernate exercises dao.
+ * this class responsible to makes queries to the exercise table in the data base.
  */
 public class HibernateExercisesDAO implements IExercises {
     private Factory factoryInstance;
@@ -29,7 +30,7 @@ public class HibernateExercisesDAO implements IExercises {
 
     @Override
     public void saveExercise(Exercises exercises) throws DBException {
-        if (!isExerciseExsists(exercises.getId())) {
+        if (!isExerciseExists(exercises.getId())) {
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
             session.save(exercises);
@@ -39,7 +40,7 @@ public class HibernateExercisesDAO implements IExercises {
     }
 
     @Override
-    public boolean isExerciseExsists(int id) throws DBException {
+    public boolean isExerciseExists(int id) throws DBException {
         if (getExercise(id) != null)
             return true;
         return false;

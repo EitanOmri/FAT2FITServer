@@ -31,7 +31,7 @@ public interface IExercises {
     boolean isExerciseExists(int id) throws DBException;
 
     /**
-     * Get all exercises exercises .
+     * Get all exercises.
      *
      * @return the exercises [ ]
      * @throws DBException the db exception
@@ -39,9 +39,9 @@ public interface IExercises {
     Exercises[] getAllExercises() throws DBException;
 
     /**
-     * Get exercises by category exercises [ ].
+     * Get all exercise history by category id.
      *
-     * @param id the id
+     * @param id the category id
      * @return the exercises [ ]
      * @throws DBException the db exception
      */
@@ -50,7 +50,7 @@ public interface IExercises {
     /**
      * Delete exercise.
      *
-     * @param id the id
+     * @param id the exercise id
      * @throws DBException the db exception
      */
     void deleteExercise(int id) throws DBException;

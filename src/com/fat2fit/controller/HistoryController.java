@@ -103,7 +103,7 @@ public class HistoryController {
                     sb.append("</tr>");
                 }
                 HttpSession session = request.getSession();
-                session.setAttribute("myHistoryTable", sb.toString());
+                request.setAttribute("myHistoryTable", sb.toString());
                 dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
@@ -139,9 +139,9 @@ public class HistoryController {
                     sets = Integer.parseInt(request.getParameter("sets"));
                     reps = Integer.parseInt(request.getParameter("reps"));
                     HttpSession session = request.getSession();
-                    session.setAttribute("idEditOrView", id);
-                    session.setAttribute("setsEditOrView", sets);
-                    session.setAttribute("repsEditOrView", reps);
+                    request.setAttribute("idEditOrView", id);
+                    request.setAttribute("setsEditOrView", sets);
+                    request.setAttribute("repsEditOrView", reps);
                     dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
                 }
             }
@@ -166,8 +166,8 @@ public class HistoryController {
         //remove action from DB
         RequestDispatcher dispatcher = null;
         HttpSession session = request.getSession();
-        if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName") != null) {
-            int id = (int) session.getAttribute("idEditOrView");
+        if (request.getAttribute("idEditOrView") != null && request.getAttribute("userName") != null) {
+            int id = (int) request.getAttribute("idEditOrView");
             IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
             try {
                 historyDAO.deleteExercise(id);
@@ -201,8 +201,8 @@ public class HistoryController {
                         && request.getParameter("reps").matches("-?\\d+(\\.\\d+)?")) {
                     int sets = Integer.parseInt(request.getParameter("sets"));
                     int reps = Integer.parseInt(request.getParameter("reps"));
-                    if (session.getAttribute("idEditOrView") != null && session.getAttribute("userName") != null) {
-                        int id = (int) session.getAttribute("idEditOrView");
+                    if (request.getAttribute("idEditOrView") != null && request.getAttribute("userName") != null) {
+                        int id = (int) request.getAttribute("idEditOrView");
                         IExerciseHistory historyDAO = new HibernateExerciseHistoryDAO();
                         historyDAO.updateExercise(id, reps, sets);
                         dispatcher = request.getServletContext().getRequestDispatcher("/controller/HistoryController/myHistory");

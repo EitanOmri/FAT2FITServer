@@ -35,7 +35,7 @@
                    </tr>
              </thead>
                  <tbody>
-                 <%=request.getSession().getAttribute("topNTable")%>
+                 <%=request.getAttribute("topNTable")%>
 
              </tbody>
                </table>

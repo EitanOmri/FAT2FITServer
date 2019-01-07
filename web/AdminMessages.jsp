@@ -54,7 +54,7 @@
                 </tr>     
                 </thead>     
                 <tbody>
-                <%=request.getSession().getAttribute("messageToAdminTable")%>
+                <%=request.getAttribute("messageToAdminTable")%>
                 </tbody>
                    
             </table>
@@ -70,7 +70,7 @@
                 </tr>     
                 </thead>     
                 <tbody>
-                <%=request.getSession().getAttribute("historyMessageFromAdminTable")%>
+                <%=request.getAttribute("historyMessageFromAdminTable")%>
                 </tbody>
                    
             </table>

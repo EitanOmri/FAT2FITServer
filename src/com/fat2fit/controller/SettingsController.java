@@ -31,8 +31,8 @@ public class SettingsController {
             if (username != null) {
                 IUser userDAO = new HibernateUserDAO();
                 HttpSession session = request.getSession();
-                session.setAttribute("weightEdit", userDAO.getUser(username).getWeight());
-                session.setAttribute("heightEdit", userDAO.getUser(username).getHeight());
+                request.setAttribute("weightEdit", userDAO.getUser(username).getWeight());
+                request.setAttribute("heightEdit", userDAO.getUser(username).getHeight());
                 dispatcher = request.getServletContext().getRequestDispatcher("/Settings.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");

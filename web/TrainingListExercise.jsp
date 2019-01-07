@@ -22,7 +22,7 @@
             to training
             list</a>
 
-        <h1><%=request.getSession().getAttribute("trainingListName")%></h1>
+        <h1><%=session.getAttribute("trainingListName")%></h1>
     </div>
     <div data-role="content">
         <table data-role="table" id="table-column-toggle"  style="color:black"> 
@@ -34,10 +34,10 @@
             </tr>     
             </thead>
             <tbody>     
-                    <%=request.getSession().getAttribute("exerciseList")%>
+                    <%=session.getAttribute("exerciseList")%>
             </tbody>
         </table>
-     <form id="TrainingListExerciseForm" method="get" action="/controller/HistoryController/addTrainingList?id=<%=request.getSession().getAttribute("trainingListId")%>">
+     <form id="TrainingListExerciseForm" method="get" action="/controller/HistoryController/addTrainingList?id=<%=session.getAttribute("trainingListId")%>">
          <input type="submit" id="submit" value="Add" data-theme="b"/>
      </form>
     </div>

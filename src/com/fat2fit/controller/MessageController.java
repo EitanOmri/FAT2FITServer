@@ -44,7 +44,7 @@ public class MessageController {
                     sb.append("</tr>");
                 }
                 HttpSession session = request.getSession();
-                session.setAttribute("messageFromAdminTable", sb.toString());
+                request.setAttribute("messageFromAdminTable", sb.toString());
                 dispatcher = request.getServletContext().getRequestDispatcher("/Message.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");

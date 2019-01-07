@@ -34,7 +34,7 @@
             </tr>     
             </thead>     
             <tbody>
-            <%=request.getSession().getAttribute("AddAdminHomeTable")%>
+            <%=request.getAttribute("AddAdminHomeTable")%>
             </tbody>
                
         </table>

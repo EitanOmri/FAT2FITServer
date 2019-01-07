@@ -34,9 +34,9 @@ public class TrainingController {
                     sb.append("<li> <a href=\"/controller/TrainingController/workout?id=");
                     sb.append(listNames[i].getId() + "\"");
                     if (i % 2 == 0)
-                        sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"font-size: 45px;background-color: #323131;color: white\">");
+                        sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"background-color: #323131;color: white\">");
                     else
-                        sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"font-size: 45px;background-color: white;color: #323131\">");
+                        sb.append("class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\" data-rel=\"dialog\"   data-transition=\"pop\" style=\"background-color: white;color: #323131\">");
                     sb.append(listNames[i].getName());
                     sb.append("</a></li>");
                 }
@@ -78,15 +78,15 @@ public class TrainingController {
                         StringBuffer sb = new StringBuffer();
                         for (TrainingListExercises listExercises : trainingListExercises) {
                             sb.append("<tr>");
-                            sb.append("<th>");
+                            sb.append("<td>");
                             sb.append(hibernateExercisesDAO.getExercise(listExercises.getIdExercise()).getName());
-                            sb.append("</th>");
-                            sb.append("<th>");
+                            sb.append("</td>");
+                            sb.append("<td>");
                             sb.append(listExercises.getSets());
-                            sb.append("</th>");
-                            sb.append("<th>");
+                            sb.append("</td>");
+                            sb.append("<td>");
                             sb.append(listExercises.getReps());
-                            sb.append("</th>");
+                            sb.append("</td>");
                             sb.append("</tr>");
                         }
                         HttpSession session = request.getSession();

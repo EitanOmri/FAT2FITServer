@@ -34,9 +34,9 @@ public class MyDayController {
                     sb.append("<li> <a href=\"/controller/MyDayController/workout?id=");
                     sb.append(categories[i].getId() + "\"");
                     if (i % 2 == 0)
-                        sb.append(" data-rel=\"dialog\" data-transition=\"popup\"  class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\"  style=\"font-size: 45px;background-color: #323131;color: white;\">");
+                        sb.append(" data-rel=\"dialog\" data-transition=\"popup\"  class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\"  style=\"background-color: #323131;color: white;\">");
                     else
-                        sb.append(" data-rel=\"dialog\" data-transition=\"popup\"  class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\"  style=\"font-size: 45px;background-color: white;color: #323131;\">");
+                        sb.append(" data-rel=\"dialog\" data-transition=\"popup\"  class=\"ui-shadow-icon ui-btn ui-shadow   ui-btn-icon-left\"  style=\"background-color: white;color: #323131;\">");
                     sb.append(categories[i].getName());
                     sb.append("</a></li>");
                 }

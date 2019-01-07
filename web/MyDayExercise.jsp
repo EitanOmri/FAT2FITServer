@@ -21,9 +21,9 @@
         <a href="/controller/MyDayController/myDayMenu" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
         <h1><%=request.getSession().getAttribute("categoryName")%></h1>
     </div>
-    <div data-role="content" style="height: 1000px;">
+    <div data-role="content">
         <form id="myDayExerciseForm" method="get" action="/controller/HistoryController/addMyDay">
-            <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
+            <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke">
                      <thead>
                    <tr>      
                          <th data-priority="10">Exercise</th>

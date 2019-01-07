@@ -30,7 +30,7 @@ public interface ICategory {
     Category getCategory(int id) throws DBException;
 
     /**
-     * Get categories category [ ].
+     * Get all categories.
      *
      * @return the category [ ]
      * @throws DBException the db exception

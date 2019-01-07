@@ -1,7 +1,7 @@
 package com.fat2fit.model;
 
 /**
- * The type Top n mapping.
+ * Mapping the result of query about top n statistics to java object.
  */
 public class TopNMapping {
     private String username;
@@ -19,7 +19,7 @@ public class TopNMapping {
     }
 
     /**
-     * Instantiates a new Top n mapping.
+     * Empty constructor, needs for hibernate.
      */
     public TopNMapping() {
         super();
@@ -58,10 +58,10 @@ public class TopNMapping {
      * @param totalCal the total cal
      */
     public void setTotalCal(long totalCal) {
-        if (totalCal>0)
-        this.totalCal = totalCal;
+        if (totalCal > 0)
+            this.totalCal = totalCal;
         else
-            this.totalCal=0;
+            this.totalCal = 0;
     }
 
     @Override

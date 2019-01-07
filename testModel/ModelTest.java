@@ -147,9 +147,9 @@ public class ModelTest {
         try {
             Exercises exercises = new Exercises(1, "testExercise", 100, 10000);
             int countBeforeSave = exercisesDAO.getAllExercises().length;
-            assertFalse(exercisesDAO.isExerciseExsists(1));
+            assertFalse(exercisesDAO.isExerciseExists(1));
             exercisesDAO.saveExercise(exercises);
-            assertTrue(exercisesDAO.isExerciseExsists(1));
+            assertTrue(exercisesDAO.isExerciseExists(1));
             assertEquals(countBeforeSave + 1, exercisesDAO.getAllExercises().length);
             assertEquals(exercises, exercisesDAO.getExercise(1));
             //history

@@ -3,7 +3,7 @@ package com.fat2fit.model;
 import java.util.Date;
 
 /**
- * The type Exercise history.
+ * Mapping Exercise history table to java object.
  */
 public class ExerciseHistory {
     private String username;
@@ -33,7 +33,7 @@ public class ExerciseHistory {
     }
 
     /**
-     * Instantiates a new Exercise history.
+     * Empty constructor, needs for hibernate.
      */
     public ExerciseHistory() {
         super();

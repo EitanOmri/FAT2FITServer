@@ -3,7 +3,7 @@ package com.fat2fit.model;
 import java.util.Date;
 
 /**
- * The type Weekly cal mapping.
+ * Mapping the result of query about weekly burn calories to java object.
  */
 public class WeeklyCalMapping {
     private Date date;
@@ -21,7 +21,7 @@ public class WeeklyCalMapping {
     }
 
     /**
-     * Instantiates a new Weekly cal mapping.
+     * Empty constructor, needs for hibernate.
      */
     public WeeklyCalMapping() {
         super();

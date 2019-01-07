@@ -1,7 +1,7 @@
 package com.fat2fit.model;
 
 /**
- * The type Training list exercises.
+ * Mapping Training list exercises table to java object.
  */
 public class TrainingListExercises {
     private int id;
@@ -28,7 +28,7 @@ public class TrainingListExercises {
     }
 
     /**
-     * Instantiates a new Training list exercises.
+     * Empty constructor, needs for hibernate.
      */
     public TrainingListExercises() {
         super();

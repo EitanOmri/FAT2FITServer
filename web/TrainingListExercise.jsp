@@ -25,12 +25,12 @@
         <h1><%=request.getSession().getAttribute("trainingListName")%></h1>
     </div>
     <div data-role="content">
-        <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke" style=color:black> 
+        <table data-role="table" id="table-column-toggle"  style="color:black"> 
             <thead>   
             <tr>
-                <th data-priority="5">Exercise</th>
-                <th data-priority="3">Sets</th>
-                <th data-priority="5">Reps</th>       
+                <th data-priority="1">Exercise</th>
+                <th data-priority="2">Sets</th>
+                <th data-priority="3">Reps</th>       
             </tr>     
             </thead>
             <tbody>     

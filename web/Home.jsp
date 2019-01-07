@@ -16,7 +16,7 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
-<div data-role="page" id="Home" style="font-size: x-large">
+<div data-role="page" id="Home" style="font-size: medium">
     <style type="text/css">
         tab1 {
             padding-left: 2em;
@@ -34,29 +34,29 @@
                 
             <li><a href="/controller/StatisticsController/statistics" data-ajax="false">
                         <img src="<%=request.getContextPath()%>/IMG/statistics.png" alt="statistics"/>
-                    <h2 style="font-size: 40px;color: white">Statistics</h2>
-                    <p style="font-size: 20px;color: white">lets show my ability</p></a>
+                    <h2 style="font-size: 35px;color: white">Statistics</h2>
+                    <p style="font-size: 15px;color: white">lets show my ability</p></a>
                     
             </li>
                 
             <li><a href="/controller/TrainingController/workoutMenu">
                         <img src="<%=request.getContextPath()%>/IMG/workout.png" alt="workout list"/>
-                    <h2 style="font-size: 40px;color: white">Workout</h2>
-                    <p style="font-size: 20px;color: white">training list for you</p></a>
+                    <h2 style="font-size: 35px;color: white">Workout</h2>
+                    <p style="font-size: 15px;color: white">training list for you</p></a>
                     
             </li>
                 
             <li><a href="/controller/MyDayController/myDayMenu">
                         <img src="<%=request.getContextPath()%>/IMG/myDay.png" alt="my day"/>
-                    <h2 style="font-size: 40px;color: white">My day</h2>
-                    <p style="font-size: 20px;color: white">build your own workout plan</p></a>
+                    <h2 style="font-size: 35px;color: white">My day</h2>
+                    <p style="font-size: 15px;color: white">build your own workout plan</p></a>
                     
             </li>
                
-            <li style="font-size: 50px"><a href="/controller/StatisticsController/top3" data-rel="dialog">
+            <li><a href="/controller/StatisticsController/top3" data-rel="dialog">
                         <img src="<%=request.getContextPath()%>/IMG/top.png" alt="Top 3"/>
-                    <h2 style="font-size: 40px;color: white">Top 3</h2>
-                    <p style="font-size: 20px;color: white">the three best gymnasts of the week are...</p></a>
+                    <h2 style="font-size: 35px;color: white">Top 3</h2>
+                    <p style="font-size: 15px;color: white">the three best gymnasts of the week are...</p></a>
                     
             </li>
 
@@ -64,14 +64,14 @@
              
             <li><a href="/controller/HistoryController/myHistory">
                         <img src="<%=request.getContextPath()%>/IMG/MyHistory.png" alt=" MyHistory"/>
-                    <h2 style="font-size: 40px;color: white">MyHistory</h2>
-                    <p style="font-size: 20px;color: white">view your history</p></a>
+                    <h2 style="font-size: 35px;color: white">MyHistory</h2>
+                    <p style="font-size: 15px;color: white">view your history</p></a>
                     
             </li>
             <li data-icon="gear"><a href="/controller/SettingsController/settings">
                         <img src=<%=request.getContextPath()%>/IMG/settings.png alt=" settings"/>
-                    <h2 style="font-size: 40px;color: white">Settings</h2>
-                    <p style="font-size: 20px;color: white">change your details</p></a>  
+                    <h2 style="font-size: 35px;color: white">Settings</h2>
+                    <p style="font-size: 15px;color: white">change your details</p></a>  
             </li>
             <%=request.getSession().getAttribute("adminLink")%>
         </ul>

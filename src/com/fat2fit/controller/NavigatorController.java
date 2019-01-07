@@ -37,18 +37,17 @@ public class NavigatorController {
                 if (userDAO.isManager(username)) {
                     sb.append("     <li><a href=\"/controller/AdminController/home\">\n" +
                             "                        <img src=" + request.getContextPath() + "/IMG/admin.png alt=\" admin\">\n" +
-                            "                    <h2 style=\"font-size: 40px;color: white\">admin</h2>\n" +
-                            "                    <p style=\"font-size: 20px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
+                            "                    <h2 style=\"font-size: 35px;color: white\">admin</h2>\n" +
+                            "                    <p style=\"font-size: 15px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
                             "            </li>");
-
                     session.setAttribute("adminLink", sb.toString());
                     session.setAttribute("messageLink", "");
 
                 } else {
                     sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
                             "                        <img src=" + request.getContextPath() + "/IMG/message.png alt=\"message\">\n" +
-                            "                    <h2 style=\"font-size: 40px;color: white\">Message</h2>\n" +
-                            "                    <p style=\"font-size: 20px;color: white\">these are your messages</p></a>\n" +
+                            "                    <h2 style=\"font-size: 35px;color: white\">Message</h2>\n" +
+                            "                    <p style=\"font-size: 15px;color: white\">these are your messages</p></a>\n" +
                             "                    \n" +
                             "            </li>\n" +
                             "           ");

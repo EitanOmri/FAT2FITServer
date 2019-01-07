@@ -33,8 +33,8 @@
                  </thead>
                      <tbody>
                    <tr>
-                         <td><input type="number" id="sets"  name ="sets" value="<%= session.getAttribute("setsEditOrView")%>"/></td>
-                        <td><input type="number" id="reps" name ="reps" value="<%= session.getAttribute("repsEditOrView")%>"/></td>
+                         <td><input type="number" id="sets"  name ="sets" value="<%= request.getAttribute("setsEditOrView")%>"/></td>
+                        <td><input type="number" id="reps" name ="reps" value="<%= request.getAttribute("repsEditOrView")%>"/></td>
                        </tr>
                   
                  </tbody>

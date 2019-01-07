@@ -53,7 +53,7 @@
                     </tr>     
                 </thead>     
                 <tbody>
-                <%=request.getSession().getAttribute("messageFromAdminTable")%>
+                <%=request.getAttribute("messageFromAdminTable")%>
                 </tbody>
                    
             </table>

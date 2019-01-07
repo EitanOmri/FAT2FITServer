@@ -40,7 +40,7 @@ public class MyDayController {
                     sb.append(categories[i].getName());
                     sb.append("</a></li>");
                 }
-                request.setAttribute("categoriesMenuNames", sb.toString());
+                request.getSession().setAttribute("categoriesMenuNames", sb.toString());
                 dispatcher = request.getServletContext().getRequestDispatcher("/MyDayMenu.jsp");
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
@@ -98,7 +98,7 @@ public class MyDayController {
                         HttpSession session = request.getSession();
                         session.setAttribute("categoryId", id);
                         session.setAttribute("categoryName", categoryDAO.getCategory(id).getName());
-                        request.setAttribute("categoriesForm", sb.toString());
+                        session.setAttribute("categoriesForm", sb.toString());
                         dispatcher = request.getServletContext().getRequestDispatcher("/MyDayExercise.jsp");
                     } else {
                         dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");

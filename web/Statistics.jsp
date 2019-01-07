@@ -33,7 +33,7 @@
                 data: [{
                     type: "column",
                     yValueFormatString: "#,##0#cal ",
-                    dataPoints: <%=request.getSession().getAttribute("dataPointsWeekly")%>
+                    dataPoints: <%=request.getAttribute("dataPointsWeekly")%>
                 }]
             });
 
@@ -49,7 +49,7 @@
                     toolTipContent: "<b>{label}</b>: {y}%",
                     indexLabelFontSize: 16,
                     indexLabel: "{label} - {y}%",
-                    dataPoints: <%=request.getSession().getAttribute("dataPieCategory")%>
+                    dataPoints: <%=request.getAttribute("dataPieCategory")%>
                 }]
             });
             chart1.render();

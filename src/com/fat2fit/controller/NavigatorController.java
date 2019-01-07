@@ -40,8 +40,8 @@ public class NavigatorController {
                             "                    <h2 style=\"font-size: 35px;color: white\">admin</h2>\n" +
                             "                    <p style=\"font-size: 15px;color: white\">manage your FAT2FIT gym</p></a>  \n" +
                             "            </li>");
-                    session.setAttribute("adminLink", sb.toString());
-                    session.setAttribute("messageLink", "");
+                    request.setAttribute("adminLink", sb.toString());
+                    request.setAttribute("messageLink", "");
 
                 } else {
                     sb.append(" <li><a href=\"/controller/MessageController/message\">\n" +
@@ -51,8 +51,8 @@ public class NavigatorController {
                             "                    \n" +
                             "            </li>\n" +
                             "           ");
-                    session.setAttribute("adminLink", "");
-                    session.setAttribute("messageLink", sb.toString());
+                    request.setAttribute("adminLink", "");
+                    request.setAttribute("messageLink", sb.toString());
                 }
                 //calculate the BMI
                 double height = userDAO.getUser(username).getHeight() / 100;
@@ -65,8 +65,8 @@ public class NavigatorController {
                     color = "yellow";
                 else
                     color = "green";
-                session.setAttribute("bmiColor", color);
-                session.setAttribute("bmi", String.format("%.2f", bmi));
+                request.setAttribute("bmiColor", color);
+                request.setAttribute("bmi", String.format("%.2f", bmi));
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }

@@ -37,7 +37,7 @@
                 <label for="category">Category:
                     <input list="browsers" name="category" id="category">
                     <datalist id="browsers">
-                        <%=request.getSession().getAttribute("listOfCategories")%>
+                        <%=request.getAttribute("listOfCategories")%>
                     </datalist>
                     <input type="submit" name="submit" id="submit" value="Add" data-inline="true"/></label>
             </div>

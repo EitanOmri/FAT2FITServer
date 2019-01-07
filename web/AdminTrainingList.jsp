@@ -36,7 +36,7 @@
                        </tr>
                  </thead>
                      <tbody>
-            <%=request.getSession().getAttribute("listOfExercisesToAdd")%>
+            <%=request.getAttribute("listOfExercisesToAdd")%>
                  </tbody>
                    </table>
             <input type="submit" id="submit" value="Add"/>

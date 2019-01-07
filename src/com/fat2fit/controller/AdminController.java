@@ -85,7 +85,7 @@ public class AdminController {
                         sb.append("</a></td>");
                         sb.append("</tr>");
                     }
-                    session.setAttribute("AddAdminHomeTable", sb.toString());
+                    request.setAttribute("AddAdminHomeTable", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AddAdmin.jsp");
                 } else
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -160,7 +160,7 @@ public class AdminController {
                         sb.append(category.getName());
                         sb.append("\">");
                     }
-                    session.setAttribute("listOfCategories", sb.toString());
+                    request.setAttribute("listOfCategories", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminExercise.jsp");
                 }
             }
@@ -260,7 +260,7 @@ public class AdminController {
                         sb.append("</tr>");
 
                     }
-                    session.setAttribute("listOfExercisesToAdd", sb.toString());
+                    request.setAttribute("listOfExercisesToAdd", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminTrainingList.jsp");
                 } else
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
@@ -379,7 +379,7 @@ public class AdminController {
                         sb.append("</th>");
                         sb.append("</tr>");
                     }
-                    session.setAttribute("historyMessageFromAdminTable", sb.toString());
+                    request.setAttribute("historyMessageFromAdminTable", sb.toString());
                     sb = new StringBuffer();
                     for (MessageToAdmin toAdmin : messageToAdmins) {
                         sb.append("<tr>");
@@ -400,7 +400,7 @@ public class AdminController {
                         sb.append("</th>");
                         sb.append("</tr>");
                     }
-                    session.setAttribute("messageToAdminTable", sb.toString());
+                    request.setAttribute("messageToAdminTable", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminMessages.jsp");
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");

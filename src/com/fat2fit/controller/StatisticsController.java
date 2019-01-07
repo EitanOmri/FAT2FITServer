@@ -50,7 +50,7 @@ public class StatisticsController {
                     sb.append("</tr>");
                 }
                 HttpSession session = request.getSession();
-                session.setAttribute("topNTable", sb.toString());
+                request.setAttribute("topNTable", sb.toString());
                 dispatcher = request.getServletContext().getRequestDispatcher("/Top3.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
@@ -93,6 +93,11 @@ public class StatisticsController {
                 for (int i = 0; i < 7; i++) {
                     map = new HashMap<Object, Object>();
                     if (j > 0)
+
+                        while (calories[j].getDate().getYear() < date.getYear() && j > 0) //there are days in array before the last week
+                            j--;
+                        while (calories[j].getDate().getMonth() < date.getMonthValue() && j > 0) //there are days in array before the last week
+                            j--;
                         while (calories[j].getDate().getDate() < date.getDayOfMonth() && j > 0) //there are days in array before the last week
                             j--;
                     if (j >= 0)
@@ -111,7 +116,7 @@ public class StatisticsController {
                 }
                 Gson gsonObj = new Gson();
                 HttpSession session = request.getSession();
-                session.setAttribute("dataPointsWeekly", gsonObj.toJson(list));
+                request.setAttribute("dataPointsWeekly", gsonObj.toJson(list));
 
                 //pie chart
                 list = new ArrayList<Map<Object, Object>>();
@@ -134,7 +139,7 @@ public class StatisticsController {
                     list.add(map);
                     totalPercents += (int) (categories[i].getTotalExercises() / totalExercise);
                 }
-                session.setAttribute("dataPieCategory", gsonObj.toJson(list));
+                request.setAttribute("dataPieCategory", gsonObj.toJson(list));
                 dispatcher = request.getServletContext().getRequestDispatcher("/Statistics.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");

@@ -35,7 +35,7 @@
             </tr>     
             </thead>     
             <tbody>
-<%=request.getSession().getAttribute("myHistoryTable")%>
+<%=request.getAttribute("myHistoryTable")%>
             </tbody>
                
         </table>

@@ -23,7 +23,7 @@
     </div>
     <div data-role="content">
         <ol data-role="listview"  data-inset="true">
-        <%=request.getAttribute("categoriesMenuNames") %>
+        <%=session.getAttribute("categoriesMenuNames") %>
         </ol>
     </div>
     <div data-role="footer" data-position="fixed">

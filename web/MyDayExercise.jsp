@@ -19,7 +19,7 @@
 <div data-role="page" id="myDayExercisePage">
     <div data-role="header" data-position="fixed">
         <a href="/controller/MyDayController/myDayMenu" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
-        <h1><%=request.getSession().getAttribute("categoryName")%></h1>
+        <h1><%=session.getAttribute("categoryName")%></h1>
     </div>
     <div data-role="content">
         <form id="myDayExerciseForm" method="get" action="/controller/HistoryController/addMyDay">
@@ -32,7 +32,7 @@
                        </tr>
                  </thead>
                      <tbody>
-                    <%=request.getAttribute("categoriesForm")%>
+                    <%=session.getAttribute("categoriesForm")%>
                  </tbody>
                    </table>
 

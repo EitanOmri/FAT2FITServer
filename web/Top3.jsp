@@ -14,6 +14,31 @@
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+
+            var chart = new CanvasJS.Chart("chart", {
+                animationEnabled: true,
+                title: {
+                    text: "Top 3 users in the gym"
+                },
+                axisY: {
+                    suffix: "Cal"
+                },
+                axisX: {
+                    title: "Countries"
+                },
+                data: [{
+                    type: "column",
+                    yValueFormatString: "#,##0\"\"",
+                    dataPoints:  <%=request.getAttribute("topNTable")%>
+                }]
+            });
+            chart.render();
+
+        }
+    </script>
 </head>
 <body>
 
@@ -24,22 +49,8 @@
         <h1>Top 3- Weekly</h1>
     </div>
     <div data-role="content">
-        <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke">
-                 <thead>
-               <tr>
-                     <th data-priority="10">Rank</th>
-                   
-                     <th data-priority="3">Username</th>
-                   
-                     <th data-priority="5">Calories</th>
-                   </tr>
-             </thead>
-                 <tbody>
-                 <%=request.getAttribute("topNTable")%>
-
-             </tbody>
-               </table>
-    </div>
+        <div id="chart" style="height: 370px; width: 100%;"></div>
+      </div>
     <div data-role="footer" data-position="fixed">
         <h3>FAT2FIT</h3>
     </div>

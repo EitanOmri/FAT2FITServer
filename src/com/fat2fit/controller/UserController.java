@@ -4,8 +4,6 @@ import com.fat2fit.model.DBException;
 import com.fat2fit.model.HibernateUserDAO;
 import com.fat2fit.model.IUser;
 import com.fat2fit.model.User;
-import com.sun.deploy.net.HttpRequest;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -118,12 +116,11 @@ public class UserController {
     public void logout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
             ServletException, IOException {
         //logout from the server
-        RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
-        session.invalidate(); //remove all atr
-        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
+        session.invalidate(); //remove all attributes
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Logout.jsp");
         dispatcher.forward(request, response);
+
     }
 
     /**

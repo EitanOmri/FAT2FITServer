@@ -19,7 +19,7 @@
         <h1>logout</h1>
     </div>
     <div data-role="content">
-<a href="//10.0.2.2:63343/FAT2FITClient/Login.html" data-ajax="false" data-role="button">
+<a href="//10.0.2.2:63343/FAT2FITClient/Login.html" rel="external" data-ajax="false" data-role="button">
    go to Login page
 </a>
     </div>

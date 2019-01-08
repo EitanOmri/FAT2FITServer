@@ -36,21 +36,18 @@ public class StatisticsController {
                 IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
                 TopNMapping[] topNMappings = exerciseHistoryDAO.getTop3();
                 StringBuffer sb = new StringBuffer();
-                for (int i = 0; i < topNMappings.length; i++) {
-                    sb.append("<tr>");
-                    sb.append("<th>");
-                    sb.append(i + 1);
-                    sb.append("</th>");
-                    sb.append("<th>");
-                    sb.append(topNMappings[i].getUsername());
-                    sb.append("</th>");
-                    sb.append("<th>");
-                    sb.append(topNMappings[i].getTotalCal());
-                    sb.append("</th>");
-                    sb.append("</tr>");
+                Gson gsonObj = new Gson();
+                Map<Object,Object> map = null;
+                List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+
+                for (TopNMapping topNMapping: topNMappings) {
+                    map = new HashMap<Object, Object>();
+                    map.put("label", topNMapping.getUsername());
+                    map.put("y", topNMapping.getTotalCal());
+                    list.add(map);
                 }
                 HttpSession session = request.getSession();
-                request.setAttribute("topNTable", sb.toString());
+                request.setAttribute("topNTable", gsonObj.toJson(list));
                 dispatcher = request.getServletContext().getRequestDispatcher("/Top3.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");

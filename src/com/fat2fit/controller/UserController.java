@@ -118,12 +118,9 @@ public class UserController {
     public void logout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws
             ServletException, IOException {
         //logout from the server
-        RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         session.invalidate(); //remove all atr
-        dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
-        dispatcher.forward(request, response);
+        response.sendRedirect("http://10.0.2.2:63343/FAT2FITClient/Login.html");
     }
 
     /**

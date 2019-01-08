@@ -16,6 +16,12 @@
 
 </head>
 <body>
+<style type="text/css">
+    .ui-input-text
+    {
+        width:10px;
+    }
+</style>
 <div data-role="page" id="myDayExercisePage">
     <div data-role="header" data-position="fixed">
         <a href="/controller/MyDayController/myDayMenu" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
@@ -35,7 +41,6 @@
                     <%=session.getAttribute("categoriesForm")%>
                  </tbody>
                    </table>
-
             <input type="submit" id="submit" value="Add"/>
         </form>
     </div>

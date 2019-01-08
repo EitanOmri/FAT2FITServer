@@ -57,7 +57,7 @@
                     
             </li>
                
-            <li><a href="/controller/StatisticsController/top3" data-rel="dialog">
+            <li><a href="/controller/StatisticsController/top3" data-rel="dialog" data-ajax="false">
                         <img src="<%=request.getContextPath()%>/IMG/top.png" alt="Top 3"/>
                     <h2 style="font-size: 35px;color: white">Top 3</h2>
                     <p style="font-size: 15px;color: white">the three best gymnasts of the week are...</p></a>

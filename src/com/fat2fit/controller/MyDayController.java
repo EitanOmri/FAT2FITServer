@@ -78,9 +78,9 @@ public class MyDayController {
                         StringBuffer sb = new StringBuffer();
                         for (Exercises exercise : exercises) {
                             sb.append("<tr>");
-                            sb.append("<th>");
+                            sb.append("<td>");
                             sb.append(exercise.getName());
-                            sb.append("</th>");
+                            sb.append("</td>");
                             sb.append("<td>");
                             sb.append("<input type=\"number\" name=\"sets");
                             sb.append(exercise.getId());

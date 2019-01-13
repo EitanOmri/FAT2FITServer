@@ -19,6 +19,7 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
 
     @Override
     public void add(TrainingListExercises trainingListExercises) throws DBException {
+        //the basic way to save object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         session.save(trainingListExercises);
@@ -28,6 +29,7 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
 
     @Override
     public void delete(int id) throws DBException {
+        //the basic way to delete object by session
         TrainingListExercises trainingListExercises = getTrainigList(id);
         if (trainingListExercises != null) {
             Session session = factoryInstance.getFactory().openSession();
@@ -41,6 +43,7 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
 
     @Override
     public TrainingListExercises getTrainigList(int id) throws DBException {
+        //the basic way to get object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         TrainingListExercises trainingListExercises = (TrainingListExercises) session.get(TrainingListExercises.class, id);
@@ -50,6 +53,7 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
 
     @Override
     public TrainingListExercises[] getbyTrainigId(int trainingId) throws DBException {
+        //getting array of all training list exercises
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List training = session.createQuery("FROM com.fat2fit.model.TrainingListExercises WHERE IdTraining=:parm").setParameter("parm", trainingId).list();// hql
@@ -57,6 +61,5 @@ public class HibernateTrainingListExercisesDAO implements ITrainingListExercises
         TrainingListExercises[] returnArr = new TrainingListExercises[training.size()];
         returnArr = (TrainingListExercises[]) training.toArray(returnArr);
         return returnArr;
-
     }
 }

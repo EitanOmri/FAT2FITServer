@@ -14,7 +14,7 @@ public interface IUser {
     User getUser(String username) throws DBException;
 
     /**
-     * Get useres user [ ].
+     * Get all useres in array.
      *
      * @return the user [ ]
      * @throws DBException the db exception
@@ -30,7 +30,7 @@ public interface IUser {
     void saveUser(User user) throws DBException;
 
     /**
-     * Test login boolean.
+     * Test login boolean. checking if the username and the password are correct
      *
      * @param username the username
      * @param password the password
@@ -40,7 +40,7 @@ public interface IUser {
     boolean testLogin(String username, String password) throws DBException;
 
     /**
-     * Is user exsits boolean.
+     * Is user exits boolean.
      *
      * @param username the username
      * @return the boolean
@@ -67,7 +67,7 @@ public interface IUser {
     void removeUser(String username) throws DBException;
 
     /**
-     * Is manager boolean.
+     * Is manager boolean. checking if the user is an admin
      *
      * @param username the username
      * @return the boolean
@@ -84,7 +84,7 @@ public interface IUser {
     void addAdmin(String username) throws DBException;
 
     /**
-     * Get useres with out admin user [ ].
+     * Get all useres without admins in array.
      *
      * @return the user [ ]
      * @throws DBException the db exception

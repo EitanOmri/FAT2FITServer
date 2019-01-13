@@ -19,6 +19,7 @@ public class HibernateTrainingListNameDAO implements ITrainingListName {
 
     @Override
     public void add(TrainingListName trainingListName) throws DBException {
+        //the basic way to save object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         session.save(trainingListName);
@@ -28,6 +29,7 @@ public class HibernateTrainingListNameDAO implements ITrainingListName {
 
     @Override
     public TrainingListName getTrainigListName(int id) throws DBException {
+        //the basic way to get object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         TrainingListName trainingListName = (TrainingListName) session.get(TrainingListName.class, id);
@@ -37,6 +39,7 @@ public class HibernateTrainingListNameDAO implements ITrainingListName {
 
     @Override
     public void delete(int id) throws DBException {
+        //the basic way to delete object by session
         if (getTrainigListName(id) != null) {
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
@@ -48,7 +51,7 @@ public class HibernateTrainingListNameDAO implements ITrainingListName {
 
     @Override
     public TrainingListName[] getTrainingListNames() throws DBException {
-
+        //getting array of all training list name
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List trainingListNames = session.createQuery("FROM com.fat2fit.model.TrainingListName").list();// hql

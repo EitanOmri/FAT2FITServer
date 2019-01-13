@@ -41,7 +41,7 @@
                 </label>
             </div>
         </form>
-        <label style="font-size: large">message from users</label>
+        <label><h3 style="color: #173891;">message from users</h3></label>
         <div  id="textToTheAdmin" data-role="fieldcontain">
             <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
                    style="font-size: medium">
@@ -59,7 +59,7 @@
                    
             </table>
         </div>
-        <label style="font-size: large">my messages to the users</label>
+        <label><h3 style="color: #173891;">my messages to the users</h3></label>
         <div  id="historyFromTheAdmin" data-role="fieldcontain">
             <table data-role="table" id="historyFromTheAdminTable" class="ui-responsive table-stroke"
                    style="font-size: medium">

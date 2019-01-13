@@ -17,16 +17,12 @@
 </head>
 <body>
 <div data-role="page" id="Home" style="font-size: medium">
-    <style type="text/css">
-        tab1 {
-            padding-left: 2em;
-        }
-    </style>
-    <div data-role="header" data-position="fixed" data-theme="b">
+    <div data-role="header" data-position="fixed" data-theme="b" style="text-align: center">
         hello <%=session.getAttribute("userName")%>!
-        <tab1> your bmi:<%=request.getAttribute("bmi")%>
+        <br/>
+         your bmi:<%=request.getAttribute("bmi")%>
             <img src="<%=request.getContextPath()%>/IMG/<%=request.getAttribute("bmiColor")%>-light.png"
-                 alt="<%=request.getAttribute("bmiColor")%>" height="25px" width="50px"/></tab1>
+                 alt="<%=request.getAttribute("bmiColor")%>" height="25px" width="50px"/>
     </div>
     <div data-role="content" style="background-color: black">
         <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">

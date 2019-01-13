@@ -18,19 +18,19 @@
 <body>
 <div data-role="page" id="AddAdmin">
     <div data-role="header" data-position="fixed">
-        <a href="/controller/NavigatorController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
+        <a href="/controller/AdminController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
 
         <h1>Add Admin</h1>
     </div>
     <div data-role="content">
         <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
-               style="font-size: xx-large">
+               style="font-size: large">
             <thead>   
             <tr>
-                <th data-priority="10">Username</th>
-                <th data-priority="10">First name</th>         
+                <th data-priority="1">Username</th>
+                <th data-priority="2">First name</th>         
                 <th data-priority="3">Last name</th>  
-                   <th data-priority="5">Make gym admin</th>       
+                   <th data-priority="4">Make gym admin</th>       
             </tr>     
             </thead>     
             <tbody>

@@ -23,23 +23,23 @@
         <h1>Admin</h1>
     </div>
     <div data-role="content" style="background-color: black">
-        <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">
-               
+        <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">   
             <li><a href="/controller/AdminController/manageExerciseHome" data-ajax="false">
-                     <h2 style="font-size: 40px;color: white">Add Exercises</h2>
-                    <p style="font-size: 20px;color: white">create a new exercise</p></a>    
+                     <h2 style="font-size: 30px;color: white">Add Exercises</h2>
+                    </a>    
             </li>
             <li><a href="/controller/AdminController/manageTraininigListHome">
-                      <h2 style="font-size: 40px;color: white">Manage Training List</h2>
-                    <p style="font-size: 20px;color: white">training list for you</p></a>   
+                      <h2 style="font-size: 30px;color: white">Add Training List</h2>
+                    </a>   
             </li>
             <li><a href="/controller/AdminController/addAdminHome">
-                       <h2 style="font-size: 40px;color: white">Add admin</h2>
-                    <p style="font-size: 20px;color: white">build your own workout plan</p></a>
+                       <h2 style="font-size: 30px;color: white">Add admin</h2>
+                    </a>
             </li>
-            <li style="font-size: 50px"><a href="/controller/AdminController/managerMessage">
-                       <h2 style="font-size: 40px;color: white">Manage Messages</h2>
-                    <p style="font-size: 20px;color: white">message</p></a>   
+            <li style="background-color:#a9a8a8;"></li>
+            <li><a href="/controller/AdminController/managerMessage">
+                       <h2 style="font-size: 30px;color: white">Manage Messages</h2>
+                    </a>   
             </li>
 
         </ul>

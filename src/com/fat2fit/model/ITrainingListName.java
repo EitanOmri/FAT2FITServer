@@ -4,8 +4,9 @@ package com.fat2fit.model;
  * The interface Training list name.
  */
 public interface ITrainingListName {
+
     /**
-     * Add.
+     * Add training list name.
      *
      * @param trainingListName the training list name
      * @throws DBException the db exception
@@ -13,7 +14,7 @@ public interface ITrainingListName {
     void add(TrainingListName trainingListName) throws DBException;
 
     /**
-     * Get training list names training list name [ ].
+     * Get training list names in array.
      *
      * @return the training list name [ ]
      * @throws DBException the db exception
@@ -21,7 +22,7 @@ public interface ITrainingListName {
     TrainingListName[] getTrainingListNames() throws DBException;
 
     /**
-     * Delete.
+     * Delete training list name.
      *
      * @param id the id
      * @throws DBException the db exception
@@ -29,7 +30,7 @@ public interface ITrainingListName {
     void delete(int id) throws DBException;
 
     /**
-     * Gets trainig list name.
+     * Gets training list name.
      *
      * @param id the id
      * @return the trainig list name

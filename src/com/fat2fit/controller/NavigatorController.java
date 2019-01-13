@@ -90,6 +90,7 @@ public class NavigatorController {
      * @throws IOException      the io exception
      */
     public void myHistory(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+       //redirect to my history page
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null)
@@ -99,21 +100,8 @@ public class NavigatorController {
         dispatcher.forward(request, response);
     }
 
-    /**
-     * Sign up.
-     *
-     * @param request        the request
-     * @param response       the response
-     * @param strAfterAction the str after action
-     * @throws ServletException the servlet exception
-     * @throws IOException      the io exception
-     */
-    public void signUp(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.sendRedirect("http://10.0.2.2:63343/FAT2FITClient/SignUp.html");
-    }
-
     public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+        //redirect to login page in the client side
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.sendRedirect("http://10.0.2.2:63343/FAT2FITClient/Login.html");
     }

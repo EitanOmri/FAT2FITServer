@@ -159,6 +159,8 @@ public class AdminController {
                         sb.append("<option value=\"");
                         sb.append(category.getName());
                         sb.append("\">");
+                        sb.append(category.getName());
+                        sb.append("</option>");
                     }
                     request.setAttribute("listOfCategories", sb.toString());
                     dispatcher = request.getServletContext().getRequestDispatcher("/AdminExercise.jsp");

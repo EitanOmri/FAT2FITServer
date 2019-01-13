@@ -19,6 +19,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public User[] getUseresWithOutAdmin() throws DBException {
+        //getting array of all users without admins
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List users = session.createQuery("FROM com.fat2fit.model.User where isManager=0").list();// hql
@@ -30,6 +31,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public boolean isManager(String username) throws DBException {
+        //check if the user is admin
         User user = getUser(username);
         if (user == null)
             return false;
@@ -40,10 +42,10 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public void addAdmin(String username) throws DBException {
+        //the basic way to update object by session
         User user = getUser(username);
         if (user != null) {
             user.setIsManager(1);
-
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
             session.update(user);
@@ -54,6 +56,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public User getUser(String username) throws DBException {
+        //the basic way to get object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         User user = (User) session.get(User.class, username);
@@ -63,6 +66,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public void removeUser(String username) throws DBException {
+        //the basic way to delete object by session
         if (isUserExsits(username)) {
             User user = getUser(username);
             Session session = factoryInstance.getFactory().openSession();
@@ -75,6 +79,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public User[] getUseres() throws DBException {
+        //getting array of all users
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List users = session.createQuery("FROM com.fat2fit.model.User").list();// hql
@@ -86,6 +91,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public boolean isUserExsits(String username) throws DBException {
+        //checking if the user exist
         if (getUser(username) != null)
             return true;
         return false;
@@ -93,6 +99,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public void saveUser(User user) throws DBException {
+        //the basic way to save object by session
         if (!isUserExsits(user.getUsername())) {
             Session session = factoryInstance.getFactory().openSession();
             session.beginTransaction();
@@ -104,6 +111,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public boolean testLogin(String username, String password) throws DBException {
+        //checking if the username and password are correct
         User user = getUser(username);
         if (user != null)
             if (password.equals(user.getPassword()))
@@ -113,6 +121,7 @@ public class HibernateUserDAO implements IUser {
 
     @Override
     public void updateUser(String username, double weight, double height) throws DBException {
+        //the basic way to update object by session
         User user = getUser(username);
         if (user != null) {
             user.setHeight(height);

@@ -19,20 +19,20 @@
 <div data-role="page" id="adminTrainingList">
     <div data-role="header" data-position="fixed">
         <a href="/controller/AdminController/home" data-role="button" data-icon="back" class="ui-btn-left">back to my day</a>
-        <h1>Create a new training list</h1>
+        <h1>Create a training list</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
         <form id="myDayExerciseForm" method="get" action="/controller/AdminController/addTrainingList">
             <div data-role="fieldcontain">
-                <label for="trainingListName">Exercise's name:
+                <label for="trainingListName" style="font-size: medium">Training's name:
                     <input type="text" name="trainingListName" id="trainingListName" value=""/></label>
             </div>
-            <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
+            <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: large">
                      <thead>
                    <tr>      
-                         <th data-priority="10">Exercise</th>
-                         <th data-priority="3">Sets</th>       
-                         <th data-priority="5">Reps</th>       
+                         <th data-priority="1">Exercise</th>
+                         <th data-priority="2">Sets</th>       
+                         <th data-priority="3">Reps</th>       
                        </tr>
                  </thead>
                      <tbody>

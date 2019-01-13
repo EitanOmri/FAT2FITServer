@@ -81,9 +81,9 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public ExerciseHistory[] getAllHistoryPerUser(String username) throws DBException {
+        //getting array of all exercises by username
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        //getting list of all exercises by username
         List history = session.createQuery("FROM com.fat2fit.model.ExerciseHistory exerciseHistory WHERE Username=:parm order by exerciseHistory.date desc").setParameter("parm", username).list();// hql
         session.close();
         ExerciseHistory[] returnArr = new ExerciseHistory[history.size()];
@@ -95,7 +95,6 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
     public WeeklyCalMapping[] getStatisticsWeeklyCal(String username) throws DBException {
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
-        //
         List history = session.createQuery(
                 "select new com.fat2fit.model.WeeklyCalMapping(exerciseHistory.date,sum(exerciseHistory.reps*exerciseHistory.sets *exercises.caloriesPerReps)) " +
                         "FROM com.fat2fit.model.ExerciseHistory exerciseHistory, com.fat2fit.model.Exercises exercises " +
@@ -110,6 +109,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
 
     @Override
     public void updateExercise(int id, int reps, int sets) throws DBException {
+        //update reps and sets of exercise
         ExerciseHistory exerciseHistory = getExercise(id);
         if (exerciseHistory != null) {
             exerciseHistory.setReps(reps);

@@ -35,10 +35,9 @@
             </div>
             <div data-role="fieldcontain">
                 <label for="category">Category:
-                    <input list="browsers" name="category" id="category">
-                    <datalist id="browsers">
+                    <select name="category" id="category">
                         <%=request.getAttribute("listOfCategories")%>
-                    </datalist>
+                    </select>
                     <input type="submit" name="submit" id="submit" value="Add" data-inline="true"/></label>
             </div>
         </form>

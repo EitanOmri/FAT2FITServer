@@ -25,12 +25,12 @@ public class SettingsController {
      * @throws IOException      the io exception
      */
     public void settings(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
+       //dispatcher to setting page
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         try {
             if (username != null) {
                 IUser userDAO = new HibernateUserDAO();
-                HttpSession session = request.getSession();
                 request.setAttribute("weightEdit", userDAO.getUser(username).getWeight());
                 request.setAttribute("heightEdit", userDAO.getUser(username).getHeight());
                 dispatcher = request.getServletContext().getRequestDispatcher("/Settings.jsp");

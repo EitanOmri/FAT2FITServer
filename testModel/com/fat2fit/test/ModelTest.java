@@ -1,3 +1,5 @@
+package com.fat2fit.test;
+
 import com.fat2fit.model.*;
 import org.junit.Test;
 
@@ -13,6 +15,9 @@ public class ModelTest {
 
     /**
      * User model test.
+     */
+    /*
+    Important: all test needs to run on an empty data base!
      */
     @Test
     public void userModelTest() {

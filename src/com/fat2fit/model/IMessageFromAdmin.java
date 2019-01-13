@@ -14,7 +14,7 @@ public interface IMessageFromAdmin {
     void saveMessage(MessageFromAdmin messageFromAdmin) throws DBException;
 
     /**
-     * Gets message from admin.
+     * Get message from admin.
      *
      * @param id the id
      * @return the message from admin
@@ -31,7 +31,7 @@ public interface IMessageFromAdmin {
     void deleteMessage(int id) throws DBException;
 
     /**
-     * Get all message from admin message from admin [ ].
+     * Get all message from admin message from admin in array.
      *
      * @return the message from admin [ ]
      * @throws DBException the db exception

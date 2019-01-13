@@ -5,7 +5,8 @@ import org.hibernate.Session;
 import java.util.List;
 
 /**
- * The type Hibernate message to admin dao.
+ * The type Hibernate exercises dao.
+ * this class responsible to makes queries to the message to admin table in the data base.
  */
 public class HibernateMessageToAdminDAO implements IMessageToAdmin {
     private Factory factoryInstance;
@@ -19,6 +20,7 @@ public class HibernateMessageToAdminDAO implements IMessageToAdmin {
 
     @Override
     public void saveMessage(MessageToAdmin messageToAdmin) throws DBException {
+        //the basic way to save object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         session.save(messageToAdmin);
@@ -28,6 +30,7 @@ public class HibernateMessageToAdminDAO implements IMessageToAdmin {
 
     @Override
     public MessageToAdmin getMessageToAdmin(int id) throws DBException {
+        //the basic way to get object by session
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         MessageToAdmin message = (MessageToAdmin) session.get(MessageToAdmin.class, id);
@@ -37,6 +40,7 @@ public class HibernateMessageToAdminDAO implements IMessageToAdmin {
 
     @Override
     public void deleteMessage(int id) throws DBException {
+        //the basic way to delete object by session
         MessageToAdmin message = getMessageToAdmin(id);
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
@@ -47,6 +51,7 @@ public class HibernateMessageToAdminDAO implements IMessageToAdmin {
 
     @Override
     public MessageToAdmin[] getAllMessageToAdmin() throws DBException {
+        //getting array of all message to admin
         Session session = factoryInstance.getFactory().openSession();
         session.beginTransaction();
         List messages = session.createQuery("FROM com.fat2fit.model.MessageToAdmin").list();// hql

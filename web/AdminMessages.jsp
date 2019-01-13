@@ -34,23 +34,23 @@
     <div data-role="content">
         <form id="messageFromAdmin" method="get" action="/controller/MessageController/addMessageFromAdmin">
             <div data-role="fieldcontain">
-                <label>send message to users:
+                <label style="font-size: medium">send message to users:
                     <textarea  rows="15" name="content" style="width: 600px; height: 00px" form="messageFromAdmin"></textarea>
 
                     <input type="submit" name="" id="send" value="send" data-inline="true"/>
                 </label>
             </div>
         </form>
-        <label>message from users</label>
+        <label><h3 style="color: #173891;">message from users</h3></label>
         <div  id="textToTheAdmin" data-role="fieldcontain">
             <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
-                   style="font-size: xx-large">
+                   style="font-size: medium">
                 <thead>   
                 <tr>
-                    <th data-priority="10">Date</th>
-                    <th data-priority="10">Username</th>
-                    <th data-priority="10">Content</th> 
-                    <th data-priority="10">Delete</th>         
+                    <th data-priority="1">Date</th>
+                    <th data-priority="2">Username</th>
+                    <th data-priority="3">Content</th> 
+                    <th data-priority="4"></th>         
                 </tr>     
                 </thead>     
                 <tbody>
@@ -59,14 +59,15 @@
                    
             </table>
         </div>
+        <label><h3 style="color: #173891;">my messages to the users</h3></label>
         <div  id="historyFromTheAdmin" data-role="fieldcontain">
             <table data-role="table" id="historyFromTheAdminTable" class="ui-responsive table-stroke"
-                   style="font-size: xx-large">
+                   style="font-size: medium">
                 <thead>   
                 <tr>
-                    <th data-priority="10">Date</th>
-                    <th data-priority="10">Content</th> 
-                    <th data-priority="10">Delete</th>         
+                    <th data-priority="1">Date</th>
+                    <th data-priority="2">Content</th> 
+                    <th data-priority="3"></th>         
                 </tr>     
                 </thead>     
                 <tbody>

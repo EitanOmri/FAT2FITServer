@@ -5,7 +5,7 @@ package com.fat2fit.model;
  */
 public interface IExercises {
     /**
-     * Gets exercise.
+     * Get exercise.
      *
      * @param id the id
      * @return the exercise
@@ -22,7 +22,7 @@ public interface IExercises {
     void saveExercise(Exercises exercises) throws DBException;
 
     /**
-     * Is exercise exist boolean.
+     * Is exercise exist.
      *
      * @param id the id
      * @return the boolean
@@ -31,7 +31,7 @@ public interface IExercises {
     boolean isExerciseExists(int id) throws DBException;
 
     /**
-     * Get all exercises.
+     * Get all exercises in array.
      *
      * @return the exercises [ ]
      * @throws DBException the db exception

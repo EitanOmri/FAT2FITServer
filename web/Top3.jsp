@@ -27,7 +27,7 @@
                     suffix: "Cal"
                 },
                 axisX: {
-                    title: "Countries"
+                    title: "users"
                 },
                 data: [{
                     type: "column",

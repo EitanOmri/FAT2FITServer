@@ -19,23 +19,17 @@
 <div data-role="page" id="Home" style="font-size: medium">
     <style type="text/css">
         tab1 {
-            padding-left: 8em;
-        }
-        tab2 {
             padding-left: 2em;
         }
-
     </style>
     <div data-role="header" data-position="fixed" data-theme="b">
-        <tab2>hello <%=session.getAttribute("userName")%>!</tab2>
+        hello <%=session.getAttribute("userName")%>!
         <tab1> your bmi:<%=request.getAttribute("bmi")%>
             <img src="<%=request.getContextPath()%>/IMG/<%=request.getAttribute("bmiColor")%>-light.png"
                  alt="<%=request.getAttribute("bmiColor")%>" height="25px" width="50px"/></tab1>
     </div>
     <div data-role="content" style="background-color: black">
-
         <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">
-                
             <li><a href="/controller/StatisticsController/statistics" data-ajax="false">
                         <img src="<%=request.getContextPath()%>/IMG/statistics.png" alt="statistics"/>
                     <h2 style="font-size: 35px;color: white">Statistics</h2>

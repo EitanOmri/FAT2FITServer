@@ -21,12 +21,14 @@ public class RoutingComponent extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String str = request.getRequestURI();
-        PrintWriter out = response.getWriter();
+        //mapping the url
         String[] splited = str.split("/", 5);
         String controllerName = splited[2];
         String actionName = splited[3];
         String strAfterAction = splited.length == 5 ? splited[4] : null;
+
         try {
+            //routing to compatible method
             Class controllerClass = Class.forName("com.fat2fit.controller." + controllerName);
             Object controller = controllerClass.newInstance();
             Method method = controllerClass.getMethod(actionName, HttpServletRequest.class, HttpServletResponse.class, String.class);

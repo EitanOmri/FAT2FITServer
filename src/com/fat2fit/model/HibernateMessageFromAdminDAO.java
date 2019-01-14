@@ -31,7 +31,7 @@ public class HibernateMessageFromAdminDAO implements IMessageFromAdminDAO {
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
-            throw new DBException("add exercise error", e);
+            throw new DBException("add message from admin error", e);
         } finally {
             session.close();
         }

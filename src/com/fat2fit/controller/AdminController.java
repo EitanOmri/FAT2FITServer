@@ -64,7 +64,7 @@ public class AdminController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             else {
                 if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName"))) {
-                    User[] users = hibernateUserDAO.getUseresWithOutAdmin();
+                    User[] users = hibernateUserDAO.getUsersWithOutAdmin();
                     StringBuffer sb = new StringBuffer();
                     for (User user : users) {
                         sb.append("<tr>");

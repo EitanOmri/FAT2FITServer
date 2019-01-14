@@ -89,5 +89,5 @@ public interface IUserDAO {
      * @return the user [ ]
      * @throws DBException the db exception
      */
-    User[] getUseresWithOutAdmin() throws DBException;
+    User[] getUsersWithOutAdmin() throws DBException;
 }

@@ -60,19 +60,19 @@ public class HibernateTrainingListNameDAO implements ITrainingListNameDAO {
         //the basic way to delete object by session
         TrainingListName trainingListName = getTrainingListName(id);
         if (trainingListName != null) {
-                Transaction tx = null;
-                Session session = factoryInstance.getFactory().openSession();
-                try {
-                    tx = session.beginTransaction();
-                    session.delete(trainingListName);
-                    tx.commit();
-                } catch (Exception e) {
-                    if (tx != null) tx.rollback();
-                    throw new DBException("delete training list name error", e);
-                } finally {
-                    session.close();
-                }
+            Transaction tx = null;
+            Session session = factoryInstance.getFactory().openSession();
+            try {
+                tx = session.beginTransaction();
+                session.delete(trainingListName);
+                tx.commit();
+            } catch (Exception e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("delete training list name error", e);
+            } finally {
+                session.close();
             }
+        }
     }
 
     @Override
@@ -83,11 +83,11 @@ public class HibernateTrainingListNameDAO implements ITrainingListNameDAO {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-             trainingListNames = session.createQuery("FROM com.fat2fit.model.TrainingListName").list();// hql
+            trainingListNames = session.createQuery("FROM com.fat2fit.model.TrainingListName").list();// hql
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
-            throw new DBException("get all training list name admin", e);
+            throw new DBException("get all training list name admin error", e);
         } finally {
             TrainingListName[] returnArr = new TrainingListName[trainingListNames.size()];
             returnArr = (TrainingListName[]) trainingListNames.toArray(returnArr);
@@ -95,7 +95,6 @@ public class HibernateTrainingListNameDAO implements ITrainingListNameDAO {
         }
 
     }
-
 
 
 }

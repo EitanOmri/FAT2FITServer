@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface User.
  */
-public interface IUser {
+public interface IUserDAO {
     /**
      * Gets user.
      *
@@ -89,5 +89,5 @@ public interface IUser {
      * @return the user [ ]
      * @throws DBException the db exception
      */
-    User[] getUseresWithOutAdmin() throws DBException;
+    User[] getUsersWithOutAdmin() throws DBException;
 }

@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface Category.
  */
-public interface ICategory {
+public interface ICategoryDAO {
     /**
      * Add category.
      *

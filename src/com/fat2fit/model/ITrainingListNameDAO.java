@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface Training list name.
  */
-public interface ITrainingListName {
+public interface ITrainingListNameDAO {
 
     /**
      * Add training list name.
@@ -36,5 +36,5 @@ public interface ITrainingListName {
      * @return the trainig list name
      * @throws DBException the db exception
      */
-    TrainingListName getTrainigListName(int id) throws DBException;
+    TrainingListName getTrainingListName(int id) throws DBException;
 }

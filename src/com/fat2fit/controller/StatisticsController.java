@@ -33,7 +33,7 @@ public class StatisticsController {
         String username = (String) request.getSession().getAttribute("userName");
         try {
             if (username != null) {
-                IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+                IExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
                 TopNMapping[] topNMappings = exerciseHistoryDAO.getTop3();
                 StringBuffer sb = new StringBuffer();
                 Gson gsonObj = new Gson();
@@ -79,7 +79,7 @@ public class StatisticsController {
         String username = (String) request.getSession().getAttribute("userName");
         try {
             if (username != null) {
-                IExerciseHistory exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+                IExerciseHistoryDAO exerciseHistoryDAO = new HibernateExerciseHistoryDAO();
                 WeeklyCalMapping[] calories = exerciseHistoryDAO.getStatisticsWeeklyCal(username);
                 LocalDate date = LocalDate.now();
                 date = date.minusDays(6);

@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface Message from admin.
  */
-public interface IMessageFromAdmin {
+public interface IMessageFromAdminDAO {
 
     /**
      * Save message.

@@ -1,13 +1,17 @@
 package com.fat2fit.model;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import javax.jws.soap.SOAPBinding;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
  * The type Hibernate user dao.
  */
-public class HibernateUserDAO implements IUser {
+public class HibernateUserDAO implements IUserDAO {
     private Factory factoryInstance;
 
     /**
@@ -18,15 +22,23 @@ public class HibernateUserDAO implements IUser {
     }
 
     @Override
-    public User[] getUseresWithOutAdmin() throws DBException {
+    public User[] getUsersWithOutAdmin() throws DBException {
         //getting array of all users without admins
         Session session = factoryInstance.getFactory().openSession();
-        session.beginTransaction();
-        List users = session.createQuery("FROM com.fat2fit.model.User where isManager=0").list();// hql
-        session.close();
-        User[] returnArr = new User[users.size()];
-        returnArr = (User[]) users.toArray(returnArr);
-        return returnArr;
+        List users = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            users = session.createQuery("FROM com.fat2fit.model.User where isManager=0").list();// hql
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            throw new DBException("get all users without admins error", e);
+        } finally {
+            User[] returnArr = new User[users.size()];
+            returnArr = (User[]) users.toArray(returnArr);
+            return returnArr;
+        }
     }
 
     @Override
@@ -44,13 +56,20 @@ public class HibernateUserDAO implements IUser {
     public void addAdmin(String username) throws DBException {
         //the basic way to update object by session
         User user = getUser(username);
+        Session session = factoryInstance.getFactory().openSession();
         if (user != null) {
             user.setIsManager(1);
-            Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
-            session.update(user);
-            session.getTransaction().commit();
-            session.close();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.update(user);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("add admin error", e);
+            } finally {
+                session.close();
+            }
         }
     }
 
@@ -58,22 +77,38 @@ public class HibernateUserDAO implements IUser {
     public User getUser(String username) throws DBException {
         //the basic way to get object by session
         Session session = factoryInstance.getFactory().openSession();
-        session.beginTransaction();
-        User user = (User) session.get(User.class, username);
-        session.close();
-        return user;
+        Transaction tx = null;
+        User user = null;
+        try {
+            tx = session.beginTransaction();
+            user = (User) session.get(User.class, username);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            throw new DBException("get user error", e);
+        } finally {
+            session.close();
+            return user;
+        }
     }
 
     @Override
     public void removeUser(String username) throws DBException {
         //the basic way to delete object by session
         if (isUserExsits(username)) {
-            User user = getUser(username);
+            Transaction tx = null;
             Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
-            session.delete(user);
-            session.getTransaction().commit();
-            session.close();
+            try {
+                User user = getUser(username);
+                tx = session.beginTransaction();
+                session.delete(user);
+                tx.commit();
+            } catch (Exception e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("delete user error", e);
+            } finally {
+                session.close();
+            }
         }
     }
 
@@ -81,12 +116,20 @@ public class HibernateUserDAO implements IUser {
     public User[] getUseres() throws DBException {
         //getting array of all users
         Session session = factoryInstance.getFactory().openSession();
-        session.beginTransaction();
-        List users = session.createQuery("FROM com.fat2fit.model.User").list();// hql
-        session.close();
-        User[] returnArr = new User[users.size()];
-        returnArr = (User[]) users.toArray(returnArr);
-        return returnArr;
+        List users = null;
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            users = session.createQuery("FROM com.fat2fit.model.User").list();// hql
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            throw new DBException("get all users list name admin error", e);
+        } finally {
+            User[] returnArr = new User[users.size()];
+            returnArr = (User[]) users.toArray(returnArr);
+            return returnArr;
+        }
     }
 
     @Override
@@ -102,10 +145,17 @@ public class HibernateUserDAO implements IUser {
         //the basic way to save object by session
         if (!isUserExsits(user.getUsername())) {
             Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
-            session.save(user);
-            session.getTransaction().commit();
-            session.close();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.save(user);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("add user error", e);
+            } finally {
+                session.close();
+            }
         }
     }
 
@@ -126,12 +176,18 @@ public class HibernateUserDAO implements IUser {
         if (user != null) {
             user.setHeight(height);
             user.setWeight(weight);
-
             Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
-            session.update(user);
-            session.getTransaction().commit();
-            session.close();
+            Transaction tx = null;
+            try {
+                tx = session.beginTransaction();
+                session.update(user);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("update admin error", e);
+            } finally {
+                session.close();
+            }
         }
     }
 }

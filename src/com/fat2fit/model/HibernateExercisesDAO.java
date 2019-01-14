@@ -127,7 +127,4 @@ public class HibernateExercisesDAO implements IExercisesDAO {
             return returnArr;
         }
     }
-
-
-
 }

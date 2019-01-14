@@ -1,5 +1,6 @@
 package com.fat2fit.controller;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,14 +36,24 @@ public class RoutingComponent extends HttpServlet {
             method.invoke(controller, request, response, strAfterAction);
         } catch (InstantiationException e) {
             e.printStackTrace();
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher.forward(request, response);
         }
 
     }

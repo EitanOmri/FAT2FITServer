@@ -8,7 +8,7 @@ import java.util.List;
  * The type Hibernate exercises dao.
  * this class responsible to makes queries to the message to admin table in the data base.
  */
-public class HibernateMessageToAdminDAO implements IMessageToAdmin {
+public class HibernateMessageToAdminDAO implements IMessageToAdminDAO {
     private Factory factoryInstance;
 
     /**

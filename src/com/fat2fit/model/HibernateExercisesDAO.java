@@ -8,7 +8,7 @@ import java.util.List;
  * The type Hibernate exercises dao.
  * this class responsible to makes queries to the exercise table in the data base.
  */
-public class HibernateExercisesDAO implements IExercises {
+public class HibernateExercisesDAO implements IExercisesDAO {
     private Factory factoryInstance;
 
     /**

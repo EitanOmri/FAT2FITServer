@@ -1,6 +1,8 @@
 package com.fat2fit.model;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  * The type Hibernate category dao.
  * this class responsible to makes queries to the category table in the data base.
  */
-public class HibernateCategoryDAO implements ICategory {
+public class HibernateCategoryDAO implements ICategoryDAO {
 
     private Factory factoryInstance;
 
@@ -24,10 +26,18 @@ public class HibernateCategoryDAO implements ICategory {
         //the basic way to save new object by session
         if (getCategory(category.getId()) == null) {
             Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
-            session.save(category);
-            session.getTransaction().commit();
-            session.close();
+            Transaction tx=null;
+            try {
+                tx = session.beginTransaction();
+                session.save(category);
+                tx.commit();
+            } catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("add category error", e);
+            } finally {
+                session.close();
+            }
+
         }
     }
 
@@ -37,10 +47,18 @@ public class HibernateCategoryDAO implements ICategory {
         Category category = getCategory(id);
         if (category != null) {
             Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
+            Transaction tx=null;
+            try {
+                tx = session.beginTransaction();
             session.delete(category);
-            session.getTransaction().commit();
-            session.close();
+                tx.commit();
+            }
+            catch (HibernateException e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("delete category error", e);
+            } finally {
+                session.close();
+            }
         }
     }
 

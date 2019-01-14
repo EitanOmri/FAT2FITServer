@@ -2,7 +2,7 @@ package com.fat2fit.controller;
 
 import com.fat2fit.model.DBException;
 import com.fat2fit.model.HibernateUserDAO;
-import com.fat2fit.model.IUser;
+import com.fat2fit.model.IUserDAO;
 import com.fat2fit.model.User;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class UserController {
             throws ServletException, IOException {
         //adding new user to the DB
         RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
+        IUserDAO hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("UserName");
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
@@ -84,7 +84,7 @@ public class UserController {
             throws ServletException, IOException {
         //login and dispatcher to home page
         RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
+        IUserDAO hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("UserName");
         String password = request.getParameter("password");
         try {
@@ -136,7 +136,7 @@ public class UserController {
             ServletException, IOException {
         //update the user's weight and height
         RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
+        IUserDAO hibernateUserDAO = new HibernateUserDAO();
         try {
             if (request.getParameter("weight") != null && request.getParameter("height") != null) {
                 if (request.getParameter("weight").matches("-?\\d+(\\.\\d+)?")
@@ -164,7 +164,7 @@ public class UserController {
             ServletException, IOException {
         //update the user's weight and height
         RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
+        IUserDAO hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("userName");
         PrintWriter out = response.getWriter();
         response.addHeader("Access-Control-Allow-Origin", "*");
@@ -186,7 +186,7 @@ public class UserController {
             ServletException, IOException {
         //update the user's weight and height
         RequestDispatcher dispatcher = null;
-        IUser hibernateUserDAO = new HibernateUserDAO();
+        IUserDAO hibernateUserDAO = new HibernateUserDAO();
         String userName = request.getParameter("userName");
         String password = request.getParameter("password");
         PrintWriter out = response.getWriter();

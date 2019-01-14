@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The type Hibernate user dao.
  */
-public class HibernateUserDAO implements IUser {
+public class HibernateUserDAO implements IUserDAO {
     private Factory factoryInstance;
 
     /**

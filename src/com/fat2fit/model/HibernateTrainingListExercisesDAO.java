@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The type Hibernate training list exercises dao.
  */
-public class HibernateTrainingListExercisesDAO implements ITrainingListExercises {
+public class HibernateTrainingListExercisesDAO implements ITrainingListExercisesDAO {
     private Factory factoryInstance;
 
     /**

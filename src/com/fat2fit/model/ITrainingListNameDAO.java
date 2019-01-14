@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface Training list name.
  */
-public interface ITrainingListName {
+public interface ITrainingListNameDAO {
 
     /**
      * Add training list name.

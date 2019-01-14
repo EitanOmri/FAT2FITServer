@@ -1,8 +1,8 @@
 package com.fat2fit.model;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * The type Hibernate exercise history dao.
  * this class responsible to makes queries to the exercise history table in the data base.
  */
-public class HibernateExerciseHistoryDAO implements IExerciseHistory {
+public class HibernateExerciseHistoryDAO implements IExerciseHistoryDAO {
     private Factory factoryInstance;
 
     /**
@@ -52,10 +52,17 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistory {
         ExerciseHistory exercises = getExercise(id);
         if (exercises != null) {
             Session session = factoryInstance.getFactory().openSession();
-            session.beginTransaction();
-            session.delete(exercises);
-            session.getTransaction().commit();
-            session.close();
+            Transaction tx=null;
+            try {
+                tx = session.beginTransaction();
+                session.delete(exercises);
+                tx.commit();
+            } catch (Exception e) {
+                if (tx != null) tx.rollback();
+                throw new DBException("delete exercise error", e);
+            } finally {
+                session.close();
+            }
         }
     }
 

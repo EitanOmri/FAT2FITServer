@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface User.
  */
-public interface IUser {
+public interface IUserDAO {
     /**
      * Gets user.
      *

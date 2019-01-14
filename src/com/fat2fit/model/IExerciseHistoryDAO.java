@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface Exercise history.
  */
-public interface IExerciseHistory {
+public interface IExerciseHistoryDAO {
     /**
      * Get top 3 burn calories users in the last week.
      *

@@ -3,7 +3,7 @@ package com.fat2fit.model;
 /**
  * The interface Exercises.
  */
-public interface IExercises {
+public interface IExercisesDAO {
     /**
      * Get exercise.
      *

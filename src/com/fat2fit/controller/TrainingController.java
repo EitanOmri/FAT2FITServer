@@ -25,7 +25,7 @@ public class TrainingController {
     public void workoutMenu(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         //dispatcher to workout menu
         RequestDispatcher dispatcher = null;
-        ITrainingListName listNameDAO = new HibernateTrainingListNameDAO();
+        ITrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
         try {
             if (request.getSession().getAttribute("userName") != null) {
                 TrainingListName[] listNames = listNameDAO.getTrainingListNames();
@@ -66,9 +66,9 @@ public class TrainingController {
     public void workout(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         //dispatcher to specific workout
         RequestDispatcher dispatcher = null;
-        IExercises hibernateExercisesDAO = new HibernateExercisesDAO();
-        ITrainingListName listNameDAO = new HibernateTrainingListNameDAO();
-        ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
+        IExercisesDAO hibernateExercisesDAO = new HibernateExercisesDAO();
+        ITrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
+        ITrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
         try {
             if (request.getParameter("id") != null) {
                 if (request.getParameter("id").matches("-?\\d+(\\.\\d+)?")) {

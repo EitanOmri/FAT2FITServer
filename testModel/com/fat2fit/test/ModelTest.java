@@ -22,7 +22,7 @@ public class ModelTest {
     @Test
     public void userModelTest() {
 
-        IUser userDAO = new HibernateUserDAO();
+        IUserDAO userDAO = new HibernateUserDAO();
         try {
             User omri = new User("omrieitan", "omri", "eitan", "omrieitan@gmail.com", "12345", new Date(1993, 9, 06), 50, 170, 1);
             userDAO.saveUser(omri);
@@ -62,7 +62,7 @@ public class ModelTest {
      */
     @Test
     public void trainingListNameModelTest() {
-        ITrainingListName listNameDAO = new HibernateTrainingListNameDAO();
+        ITrainingListNameDAO listNameDAO = new HibernateTrainingListNameDAO();
         try {
             TrainingListName trainingListName = new TrainingListName(1, "test");
             listNameDAO.add(trainingListName);
@@ -79,7 +79,7 @@ public class ModelTest {
      */
     @Test
     public void trainingListExercisesModelTest() {
-        ITrainingListExercises listExercisesDAO = new HibernateTrainingListExercisesDAO();
+        ITrainingListExercisesDAO listExercisesDAO = new HibernateTrainingListExercisesDAO();
         try {
             TrainingListExercises trainingListExercises1 = new TrainingListExercises(1, 1000, 1000, 5, 5);
             TrainingListExercises trainingListExercises2 = new TrainingListExercises(2, 1000, 1001, 5, 5);
@@ -104,7 +104,7 @@ public class ModelTest {
      */
     @Test
     public void messageFromAdminModelTest() {
-        IMessageFromAdmin messageFromAdminDAO = new HibernateMessageFromAdminDAO();
+        IMessageFromAdminDAO messageFromAdminDAO = new HibernateMessageFromAdminDAO();
         try {
             MessageFromAdmin messageFromAdmin = new MessageFromAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!");
             int countBeforeSave = messageFromAdminDAO.getAllMessageFromAdmin().length;
@@ -122,7 +122,7 @@ public class ModelTest {
      */
     @Test
     public void messageToAdminModelTest() {
-        IMessageToAdmin messageToAdminDAO = new HibernateMessageToAdminDAO();
+        IMessageToAdminDAO messageToAdminDAO = new HibernateMessageToAdminDAO();
         try {
             MessageToAdmin messageToAdmin = new MessageToAdmin(1, new Date(2018, 01, 31), "test-Hello Admin!", "omrieitan");
             int countBeforeSave = messageToAdminDAO.getAllMessageToAdmin().length;
@@ -141,8 +141,8 @@ public class ModelTest {
      */
     @Test
     public void exercisesAndHistoryModelTest() {
-        IExercises exercisesDAO = new HibernateExercisesDAO();
-        IExerciseHistory hibernateExerciseHistoryDAO = new HibernateExerciseHistoryDAO();
+        IExercisesDAO exercisesDAO = new HibernateExercisesDAO();
+        IExerciseHistoryDAO hibernateExerciseHistoryDAO = new HibernateExerciseHistoryDAO();
         ExerciseHistory exerciseHistory1 = new ExerciseHistory("tomer", 1, 4, 5, new Date(2018, 01, 31), 3);
         ExerciseHistory exerciseHistory2 = new ExerciseHistory("tomer", 1, 4, 5, new Date(2018, 01, 31), 3);
         ExerciseHistory exerciseHistory3 = new ExerciseHistory("omri", 1, 5, 5, new Date(2018, 01, 31), 3);
@@ -186,7 +186,7 @@ public class ModelTest {
      */
     @Test
     public void categoryModelTest() {
-        ICategory categoryDAO = new HibernateCategoryDAO();
+        ICategoryDAO categoryDAO = new HibernateCategoryDAO();
         Category category = new Category(1, "testCtegoty");
         try {
             int countBeforeSave = categoryDAO.getCategories().length;
@@ -201,3 +201,4 @@ public class ModelTest {
         }
     }
 }
+

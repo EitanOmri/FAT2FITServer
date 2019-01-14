@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * The type Hibernate training list name dao.
  */
-public class HibernateTrainingListNameDAO implements ITrainingListName {
+public class HibernateTrainingListNameDAO implements ITrainingListNameDAO {
     private Factory factoryInstance;
 
     /**

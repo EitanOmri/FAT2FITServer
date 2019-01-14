@@ -70,7 +70,7 @@ public class HibernateExerciseHistoryDAO implements IExerciseHistoryDAO {
                 tx.commit();
             } catch (Exception e) {
                 if (tx != null) tx.rollback();
-                throw new DBException("delete exercise error", e);
+                throw new DBException("delete exercise history error", e);
             } finally {
                 session.close();
             }

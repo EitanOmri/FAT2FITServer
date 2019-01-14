@@ -92,7 +92,7 @@ public class TrainingController {
                         HttpSession session = request.getSession();
                         session.setAttribute("exerciseList", sb.toString());
                         session.setAttribute("trainingListId", id);
-                        session.setAttribute("trainingListName", listNameDAO.getTrainigListName(id).getName());
+                        session.setAttribute("trainingListName", listNameDAO.getTrainingListName(id).getName());
                         dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListExercise.jsp");
                     } else { //no session
                         dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");

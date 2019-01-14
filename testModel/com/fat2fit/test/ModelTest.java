@@ -66,9 +66,9 @@ public class ModelTest {
         try {
             TrainingListName trainingListName = new TrainingListName(1, "test");
             listNameDAO.add(trainingListName);
-            assertEquals("test", listNameDAO.getTrainigListName(1).getName());
+            assertEquals("test", listNameDAO.getTrainingListName(1).getName());
             listNameDAO.delete(trainingListName.getId());
-            assertNull(listNameDAO.getTrainigListName(1));
+            assertNull(listNameDAO.getTrainingListName(1));
         } catch (DBException e) {
             e.printStackTrace();
         }

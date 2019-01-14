@@ -36,5 +36,5 @@ public interface ITrainingListNameDAO {
      * @return the trainig list name
      * @throws DBException the db exception
      */
-    TrainingListName getTrainigListName(int id) throws DBException;
+    TrainingListName getTrainingListName(int id) throws DBException;
 }

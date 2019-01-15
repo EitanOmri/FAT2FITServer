@@ -37,10 +37,10 @@ public class StatisticsController {
                 TopNMapping[] topNMappings = exerciseHistoryDAO.getTop3();
                 StringBuffer sb = new StringBuffer();
                 Gson gsonObj = new Gson();
-                Map<Object,Object> map = null;
-                List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+                Map<Object, Object> map = null;
+                List<Map<Object, Object>> list = new ArrayList<Map<Object, Object>>();
 
-                for (TopNMapping topNMapping: topNMappings) {
+                for (TopNMapping topNMapping : topNMappings) {
                     map = new HashMap<Object, Object>();
                     map.put("label", topNMapping.getUsername());
                     map.put("y", topNMapping.getTotalCal());
@@ -90,13 +90,12 @@ public class StatisticsController {
                 for (int i = 0; i < 7; i++) {
                     map = new HashMap<Object, Object>();
                     if (j > 0)
-
-                        while (calories[j].getDate().getYear() < date.getYear() && j > 0) //there are days in array before the last week
+                        while (calories[j].getDate().getYear() < date.getYear() - 1900 && j > 0) //there are days in array before the last week
                             j--;
-                        while (calories[j].getDate().getMonth() < date.getMonthValue() && j > 0) //there are days in array before the last week
-                            j--;
-                        while (calories[j].getDate().getDate() < date.getDayOfMonth() && j > 0) //there are days in array before the last week
-                            j--;
+                    while (calories[j].getDate().getMonth() < date.getMonthValue() - 1 && j > 0) //there are days in array before the last week
+                        j--;
+                    while (calories[j].getDate().getDate() < date.getDayOfMonth() && j > 0) //there are days in array before the last week
+                        j--;
                     if (j >= 0)
                         if (calories[j].getDate().getDate() == date.getDayOfMonth()) {
                             map.put("label", today.toString());

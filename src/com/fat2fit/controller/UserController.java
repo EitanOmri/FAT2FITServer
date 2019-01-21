@@ -66,7 +66,7 @@ public class UserController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -99,7 +99,7 @@ public class UserController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -118,7 +118,7 @@ public class UserController {
         //logout from the server
         HttpSession session = request.getSession();
         session.invalidate(); //remove all attributes
-        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/Logout.jsp");
+        RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/logout.jsp");
         dispatcher.forward(request, response);
 
     }
@@ -155,7 +155,7 @@ public class UserController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

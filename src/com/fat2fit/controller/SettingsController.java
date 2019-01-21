@@ -32,14 +32,14 @@ public class SettingsController {
                 IUserDAO userDAO = new HibernateUserDAO();
                 request.setAttribute("weightEdit", userDAO.getUser(username).getWeight());
                 request.setAttribute("heightEdit", userDAO.getUser(username).getHeight());
-                dispatcher = request.getServletContext().getRequestDispatcher("/Settings.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/settings.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

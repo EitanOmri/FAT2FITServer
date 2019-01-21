@@ -36,23 +36,23 @@ public class RoutingComponent extends HttpServlet {
             method.invoke(controller, request, response, strAfterAction);
         } catch (InstantiationException e) {
             e.printStackTrace();
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         } catch (InvocationTargetException e) {
             e.printStackTrace();
-            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
 

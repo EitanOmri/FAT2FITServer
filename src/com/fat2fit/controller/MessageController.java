@@ -45,14 +45,14 @@ public class MessageController {
                 }
                 HttpSession session = request.getSession();
                 request.setAttribute("messageFromAdminTable", sb.toString());
-                dispatcher = request.getServletContext().getRequestDispatcher("/Message.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/message.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -86,7 +86,7 @@ public class MessageController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -127,7 +127,7 @@ public class MessageController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -164,7 +164,7 @@ public class MessageController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -205,7 +205,7 @@ public class MessageController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

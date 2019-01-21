@@ -23,7 +23,8 @@
         <h1>Add exercise</h1>
     </div>
     <div data-role="content">
-        <form name="changeWeight" method="get" action="/controller/AdminController/addExercise">
+        <%--form to add a new exercise--%>
+        <form name="addExercise" method="get" action="/controller/AdminController/addExercise">
             <div data-role="fieldcontain">
                 <label for="exerciseName">Exercise's name:
                     <input type="text" name="exerciseName" id="exerciseName" value=""/></label>
@@ -36,6 +37,7 @@
             <div data-role="fieldcontain">
                 <label for="category">Category:
                     <select name="category" id="category">
+                        <%--get all categories from DB--%>
                         <%=request.getAttribute("listOfCategories")%>
                     </select>
                     <input type="submit" name="submit" id="submit" value="Add" data-inline="true"/></label>

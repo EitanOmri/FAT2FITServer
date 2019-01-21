@@ -32,6 +32,7 @@
     </div>
 
     <div data-role="content">
+        <%--send message to users form--%>
         <form id="messageFromAdmin" method="get" action="/controller/MessageController/addMessageFromAdmin">
             <div data-role="fieldcontain">
                 <label style="font-size: medium">send message to users:
@@ -43,6 +44,7 @@
         </form>
         <label><h3 style="color: #173891;">message from users</h3></label>
         <div  id="textToTheAdmin" data-role="fieldcontain">
+            <%--showing in table all the message to admin from users--%>
             <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
                    style="font-size: medium">
                 <thead>   
@@ -61,6 +63,7 @@
         </div>
         <label><h3 style="color: #173891;">my messages to the users</h3></label>
         <div  id="historyFromTheAdmin" data-role="fieldcontain">
+            <%--showing in table all the message from admin--%>
             <table data-role="table" id="historyFromTheAdminTable" class="ui-responsive table-stroke"
                    style="font-size: medium">
                 <thead>   

@@ -23,6 +23,7 @@
         <h1>Add Admin</h1>
     </div>
     <div data-role="content">
+        <%--showing in table all users without admins, with link to make one of them to be an admin--%>
         <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
                style="font-size: large">
             <thead>   

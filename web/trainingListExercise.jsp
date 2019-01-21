@@ -22,27 +22,30 @@
             to training
             list</a>
 
-        <h1><%=session.getAttribute("trainingListName")%></h1>
+        <h1><%=session.getAttribute("trainingListName")%>
+        </h1>
     </div>
     <div data-role="content">
-        <table data-role="table" id="table-column-toggle"  style="color:black"> 
+        <%--showing all the exercises in the training list and enable to add it--%>
+        <table data-role="table" id="table-column-toggle" style="color:black"> 
             <thead>   
             <tr>
                 <th data-priority="1">Exercise</th>
                 <th data-priority="2">Sets</th>
-                <th data-priority="3">Reps</th>       
-            </tr>     
+                <th data-priority="3">Reps</th>
+                       
+            </tr>
+                 
             </thead>
             <tbody>     
-                    <%=session.getAttribute("exerciseList")%>
+            <%=session.getAttribute("exerciseList")%>
             </tbody>
         </table>
-     <form id="TrainingListExerciseForm" method="get" action="/controller/HistoryController/addTrainingList?id=<%=session.getAttribute("trainingListId")%>">
-         <input type="submit" id="submit" value="Add" data-theme="b"/>
-     </form>
+        <form id="TrainingListExerciseForm" method="get"
+              action="/controller/HistoryController/addTrainingList?id=<%=session.getAttribute("trainingListId")%>">
+            <input type="submit" id="submit" value="Add" data-theme="b"/>
+        </form>
     </div>
-
-
     <div data-role="footer" data-position="fixed">
         <h3>FAT2FIT</h3>
     </div>

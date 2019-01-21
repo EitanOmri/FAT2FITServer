@@ -20,11 +20,13 @@
     <div data-role="header" data-position="fixed" data-theme="b" style="text-align: center">
         hello <%=session.getAttribute("userName")%>!
         <br/>
+        <%--showing the user's BMI and image --%>
          your bmi:<%=request.getAttribute("bmi")%>
             <img src="<%=request.getContextPath()%>/IMG/<%=request.getAttribute("bmiColor")%>-light.png"
                  alt="<%=request.getAttribute("bmiColor")%>" height="25px" width="50px"/>
     </div>
     <div data-role="content" style="background-color: black">
+        <%--this is the menu page with list of action --%>
         <ul data-role="listview" data-inset="true" data-theme="b" style="background-color:#a9a8a8;">
             <li><a href="/controller/StatisticsController/statistics" data-ajax="false">
                         <img src="<%=request.getContextPath()%>/IMG/statistics.png" alt="statistics"/>

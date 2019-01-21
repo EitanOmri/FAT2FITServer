@@ -33,6 +33,7 @@
 
 
     <div data-role="content">
+        <%--write a new message to the admin--%>
         <form id="messageToAdmin" method="get" action="/controller/MessageController/addMessageToAdmin">
             <div data-role="fieldcontain">
                 <label>send message to director of the gym:
@@ -44,6 +45,7 @@
         </form>
         <label>message from director of the gym</label>
         <div  id="textFromTheAdmin" data-role="fieldcontain">
+            <%--showing all messages from the gym--%>
             <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
                    style="font-size: xx-large">
                 <thead>   

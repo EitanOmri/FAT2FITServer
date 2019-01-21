@@ -25,6 +25,7 @@
     </div>
     <div data-role="content">
         <div>
+            <%--pick training list to add from list--%>
             <ol data-role="listview" data-inset="true">
             <%=request.getAttribute("workoutMenuNames")%>
            </ol>

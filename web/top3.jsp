@@ -17,7 +17,7 @@
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript">
         window.onload = function() {
-
+            // function for canvasJs library
             var chart = new CanvasJS.Chart("chart", {
                 theme: "dark1", // "light1", "light2", "dark2"
                 animationEnabled: true,
@@ -50,6 +50,7 @@
         <h1>Top 3- Weekly</h1>
     </div>
     <div data-role="content">
+        <%--showing the chart--%>
         <div id="chart" style="height: 370px; width: 100%;"></div>
       </div>
     <div data-role="footer" data-position="fixed">

@@ -23,6 +23,7 @@
         <h1>My history</h1>
     </div>
     <div data-role="content">
+        <%--display the user history and enable to edit them --%>
         <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
                style="font-size: xx-large">
             <thead>   

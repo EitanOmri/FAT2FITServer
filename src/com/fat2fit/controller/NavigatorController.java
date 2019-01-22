@@ -103,7 +103,7 @@ public class NavigatorController {
     public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         //redirect to login page in the client side
         response.addHeader("Access-Control-Allow-Origin", "*");
-        response.sendRedirect("//10.0.2.2:63343/FAT2FITClient/Login.html");
+        response.sendRedirect("//10.0.2.2:63343/FAT2FITClient/login.html");
     }
 
 

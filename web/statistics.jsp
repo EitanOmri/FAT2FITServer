@@ -15,8 +15,8 @@
     <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script type="text/javascript">
-
-        window.onload = function() {
+        // functions for canvasJs library
+        window.onload = function () {
 
             var chart1 = new CanvasJS.Chart("chartContainer1", {
                 theme: "dark1", // "light1", "light2", "dark2"
@@ -62,12 +62,14 @@
 <body>
 <div data-role="page" id="statistics">
     <div data-role="header" data-position="fixed">
-        <a href="/controller/NavigatorController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
+        <a href="/controller/NavigatorController/home" data-role="button" data-icon="back" class="ui-btn-left">back to
+            home</a>
 
         <h1>My statistics</h1>
     </div>
     <div data-role="content">
         <div data-role="fieldcontain">
+            <%--showing the charts--%>
             <div id="chartContainer1" style="height: 300px; width: 100%;"></div>
             <div id="chartContainer2" style="height: 300px; width: 100%;"></div>
 

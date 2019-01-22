@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: omris
-  Date: 27/12/2018
-  Time: 09:11
+  Date: 23/12/2018
+  Time: 10:54
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -16,25 +16,27 @@
 
 </head>
 <body>
-<div data-role="page" id="AddAdmin">
+<div data-role="page" id="myHistory">
     <div data-role="header" data-position="fixed">
-        <a href="/controller/AdminController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
+        <a href="/controller/NavigatorController/home" data-role="button" data-icon="back" class="ui-btn-left">back to home</a>
 
-        <h1>Add Admin</h1>
+        <h1>My history</h1>
     </div>
     <div data-role="content">
+        <%--display the user history and enable to edit them --%>
         <table data-role="table" id="table-column-toggle" class="ui-responsive table-stroke"
-               style="font-size: large">
+               style="font-size: xx-large">
             <thead>   
             <tr>
-                <th data-priority="1">Username</th>
-                <th data-priority="2">First name</th>         
-                <th data-priority="3">Last name</th>  
-                   <th data-priority="4">Make gym admin</th>       
+                <th data-priority="10">Date</th>
+                <th data-priority="10">Exercise</th>         
+                <th data-priority="3">Sets</th>  
+                <th data-priority="5">Reps</th> 
+                <th data-priority="5">Edit/Delete</th>       
             </tr>     
             </thead>     
             <tbody>
-            <%=request.getAttribute("AddAdminHomeTable")%>
+<%=request.getAttribute("myHistoryTable")%>
             </tbody>
                
         </table>

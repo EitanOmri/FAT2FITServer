@@ -48,14 +48,14 @@ public class StatisticsController {
                 }
                 HttpSession session = request.getSession();
                 request.setAttribute("topNTable", gsonObj.toJson(list));
-                dispatcher = request.getServletContext().getRequestDispatcher("/Top3.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/top3.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -136,14 +136,14 @@ public class StatisticsController {
                     totalPercents += (int) (categories[i].getTotalExercises() / totalExercise);
                 }
                 request.setAttribute("dataPieCategory", gsonObj.toJson(list));
-                dispatcher = request.getServletContext().getRequestDispatcher("/Statistics.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/statistics.jsp");
             } else
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } catch (DBException e) {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

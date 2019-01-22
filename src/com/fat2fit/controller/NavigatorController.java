@@ -27,7 +27,7 @@ public class NavigatorController {
     public void home(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         //dispatcher to home page
         RequestDispatcher dispatcher = null;
-        dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+        dispatcher = request.getServletContext().getRequestDispatcher("/home.jsp");
         IUserDAO userDAO = new HibernateUserDAO();
         HttpSession session = request.getSession();
         StringBuffer sb = new StringBuffer();
@@ -74,7 +74,7 @@ public class NavigatorController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -94,7 +94,7 @@ public class NavigatorController {
         RequestDispatcher dispatcher = null;
         String username = (String) request.getSession().getAttribute("userName");
         if (username != null)
-            dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/myHistory.jsp");
         else
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         dispatcher.forward(request, response);
@@ -103,7 +103,7 @@ public class NavigatorController {
     public void login(HttpServletRequest request, HttpServletResponse response, String strAfterAction) throws ServletException, IOException {
         //redirect to login page in the client side
         response.addHeader("Access-Control-Allow-Origin", "*");
-        response.sendRedirect("//10.0.2.2:63343/FAT2FITClient/Login.html");
+        response.sendRedirect("//10.0.2.2:63343/FAT2FITClient/login.html");
     }
 
 

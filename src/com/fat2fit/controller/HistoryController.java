@@ -56,7 +56,7 @@ public class HistoryController {
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -104,7 +104,7 @@ public class HistoryController {
                 }
                 HttpSession session = request.getSession();
                 request.setAttribute("myHistoryTable", sb.toString());
-                dispatcher = request.getServletContext().getRequestDispatcher("/MyHistory.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/myHistory.jsp");
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
@@ -112,7 +112,7 @@ public class HistoryController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -142,14 +142,14 @@ public class HistoryController {
                     session.setAttribute("idEditOrView", id);
                     request.setAttribute("setsEditOrView", sets);
                     request.setAttribute("repsEditOrView", reps);
-                    dispatcher = request.getServletContext().getRequestDispatcher("/EditHistory.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/editHistory.jsp");
                 }
             }
         } else {
             dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
         }
         if (dispatcher == null)
-            dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+            dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -176,7 +176,7 @@ public class HistoryController {
                 e.printStackTrace();
             } finally {
                 if (dispatcher == null)
-                    dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
                 dispatcher.forward(request, response);
             }
         }
@@ -213,7 +213,7 @@ public class HistoryController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -267,7 +267,7 @@ public class HistoryController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

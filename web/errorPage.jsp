@@ -16,6 +16,7 @@
 
 </head>
 <body>
+<%--default error page include image--%>
 <div data-role="page" id="Home" style="font-size: x-large">
     <div data-role="header" data-position="fixed">
         <h1>Error page</h1>

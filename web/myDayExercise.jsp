@@ -28,6 +28,7 @@
         <h1><%=session.getAttribute("categoryName")%></h1>
     </div>
     <div data-role="content">
+        <%--showing all the exercises from specific category and enable to pick one or more of them to user's history--%>
         <form id="myDayExerciseForm" method="get" action="/controller/HistoryController/addMyDay">
             <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke">
                      <thead>

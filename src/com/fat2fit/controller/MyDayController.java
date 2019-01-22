@@ -41,7 +41,7 @@ public class MyDayController {
                     sb.append("</a></li>");
                 }
                 request.getSession().setAttribute("categoriesMenuNames", sb.toString());
-                dispatcher = request.getServletContext().getRequestDispatcher("/MyDayMenu.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/myDayMenu.jsp");
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
@@ -49,7 +49,7 @@ public class MyDayController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -99,7 +99,7 @@ public class MyDayController {
                         session.setAttribute("categoryId", id);
                         session.setAttribute("categoryName", categoryDAO.getCategory(id).getName());
                         session.setAttribute("categoriesForm", sb.toString());
-                        dispatcher = request.getServletContext().getRequestDispatcher("/MyDayExercise.jsp");
+                        dispatcher = request.getServletContext().getRequestDispatcher("/myDayExercise.jsp");
                     } else {
                         dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                     }
@@ -109,7 +109,7 @@ public class MyDayController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

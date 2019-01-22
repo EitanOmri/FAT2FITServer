@@ -41,7 +41,7 @@ public class TrainingController {
                     sb.append("</a></li>");
                 }
                 request.setAttribute("workoutMenuNames", sb.toString());
-                dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListMenu.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/trainingListMenu.jsp");
             } else {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             }
@@ -49,7 +49,7 @@ public class TrainingController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -93,7 +93,7 @@ public class TrainingController {
                         session.setAttribute("exerciseList", sb.toString());
                         session.setAttribute("trainingListId", id);
                         session.setAttribute("trainingListName", listNameDAO.getTrainingListName(id).getName());
-                        dispatcher = request.getServletContext().getRequestDispatcher("/TrainingListExercise.jsp");
+                        dispatcher = request.getServletContext().getRequestDispatcher("/trainingListExercise.jsp");
                     } else { //no session
                         dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
                     }
@@ -103,7 +103,7 @@ public class TrainingController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

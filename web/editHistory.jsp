@@ -23,6 +23,7 @@
         <h1>Edit</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
+        <%--showing the specific user's exercise history in table and enable to edit it--%>
         <form id="editHistory" method="get" action="/controller/HistoryController/updateAction">
             <table data-role="table" id="table-column-toggle"  class="ui-responsive table-stroke" style="font-size: xx-large">
                      <thead>
@@ -43,6 +44,7 @@
             <input type="submit" id="submitEdit" value="Edit"/>
 
         </form>
+            <%--remove the exercise from the user history--%>
         <form id="delete" method="get" action="/controller/HistoryController/deleteAction">
             <input type="submit" id="submitDelete" value="Delete"/>
         </form>

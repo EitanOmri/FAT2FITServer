@@ -32,15 +32,15 @@ public class AdminController {
                 dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/login");
             else {
                 if (hibernateUserDAO.isManager((String) request.getSession().getAttribute("userName")))
-                    dispatcher = request.getServletContext().getRequestDispatcher("/AdminHome.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/adminHome.jsp");
                 else
-                    dispatcher = request.getServletContext().getRequestDispatcher("/Home.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/home.jsp");
             }
         } catch (DBException e) {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -85,7 +85,7 @@ public class AdminController {
                         sb.append("</tr>");
                     }
                     request.setAttribute("AddAdminHomeTable", sb.toString());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/AddAdmin.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/addAdmin.jsp");
                 } else
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             }
@@ -93,7 +93,7 @@ public class AdminController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -127,7 +127,7 @@ public class AdminController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -162,14 +162,14 @@ public class AdminController {
                         sb.append("</option>");
                     }
                     request.setAttribute("listOfCategories", sb.toString());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/AdminExercise.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/adminExercise.jsp");
                 }
             }
         } catch (DBException e) {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -213,7 +213,7 @@ public class AdminController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -262,7 +262,7 @@ public class AdminController {
 
                     }
                     request.setAttribute("listOfExercisesToAdd", sb.toString());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/AdminTrainingList.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/adminTrainingList.jsp");
                 } else
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
             }
@@ -270,7 +270,7 @@ public class AdminController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -333,7 +333,7 @@ public class AdminController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }
@@ -402,7 +402,7 @@ public class AdminController {
                         sb.append("</tr>");
                     }
                     request.setAttribute("messageToAdminTable", sb.toString());
-                    dispatcher = request.getServletContext().getRequestDispatcher("/AdminMessages.jsp");
+                    dispatcher = request.getServletContext().getRequestDispatcher("/adminMessages.jsp");
                 } else {
                     dispatcher = request.getServletContext().getRequestDispatcher("/controller/NavigatorController/home");
                 }
@@ -411,7 +411,7 @@ public class AdminController {
             e.printStackTrace();
         } finally {
             if (dispatcher == null)
-                dispatcher = request.getServletContext().getRequestDispatcher("/ErrorPage.jsp");
+                dispatcher = request.getServletContext().getRequestDispatcher("/errorPage.jsp");
             dispatcher.forward(request, response);
         }
     }

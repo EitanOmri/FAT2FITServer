@@ -22,6 +22,7 @@
         <h1>Create a training list</h1>
     </div>
     <div data-role="content" style="height: 1000px;">
+        <%--adding a new training list--%>
         <form id="myDayExerciseForm" method="get" action="/controller/AdminController/addTrainingList">
             <div data-role="fieldcontain">
                 <label for="trainingListName" style="font-size: medium">Training's name:
@@ -36,6 +37,7 @@
                        </tr>
                  </thead>
                      <tbody>
+            <%--showing all exercises--%>
             <%=request.getAttribute("listOfExercisesToAdd")%>
                  </tbody>
                    </table>

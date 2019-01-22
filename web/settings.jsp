@@ -21,6 +21,7 @@
         <h1>Settings</h1>
     </div>
     <div data-role="content">
+        <%--edit weight and height--%>
         <form name="changeWeight" method="get" action="/controller/UserController/update">
             <div data-role="fieldcontain">
                 <label for="Weight">change weight (in Kg):
@@ -33,6 +34,7 @@
             </div>
         </form>
         <div data-role="fieldcontain">
+            <%--logout from the server--%>
             <form name="logout" method="post" action="/controller/UserController/logout">
                 <input type="submit" name="submit" id="submitlogout" value="Log Out"/>
             </form>
